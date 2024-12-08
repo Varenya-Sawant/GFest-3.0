@@ -1,0 +1,61 @@
+/* Dashboard.css */
+
+.dashboard-container {
+    padding: 20px;
+    background-color: #f7f9fb;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Center the dashboard */
+    max-width: 1200px; /* Limit max width */
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .stat-card {
+    padding: 20px;
+    background-color: #71bc61;
+    color: white;
+    border-radius: 5px;
+    flex: 1; /* Flexbox to distribute space */
+    margin-right: 10px; /* Space between cards */
+  }
+  
+  .stat-card:last-child {
+    margin-right: 0; /* No margin for last card */
+  }
+  
+  ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+  }
+  
+  li {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px; /* Space between items */
+  }
+  
+  button {
+    margin-left: 10px; /* Space between item and buttons */
+    background-color: #71bc61;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #5fae55; /* Darken on hover */
+  }
+  

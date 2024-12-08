@@ -1,0 +1,43 @@
+/* src/components/Footer.css */
+
+/* src/components/Footer.css */
+
+.footer {
+    background-color: #F13C20; /* Your brand color */
+    color: white; 
+    text-align: center; 
+    padding: 20px 0; 
+    position: relative; 
+    bottom: 0; 
+    width: 100%; 
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+  
+  
+  .footer-title {
+    margin: 0;
+    font-size: 1.5rem; /* Title font size */
+    margin-bottom: 10px; /* Space below title */
+  }
+  
+  .social-media-icons {
+    display: flex;
+    justify-content: center; /* Center the icons */
+    gap: 20px; /* Space between icons */
+    margin-bottom: 10px; /* Space below icons */
+  }
+  
+  .social-media-icons a {
+    color: white; /* Icon color */
+    font-size: 1.5rem; /* Icon size */
+    transition: color 0.3s; /* Transition for hover effect */
+  }
+  
+  .social-media-icons a:hover {
+    color: #5DAF51; /* Coral on hover */
+  }
+  
+  .footer-bottom {
+    margin-top: 10px; /* Space above copyright */
+  }
+  

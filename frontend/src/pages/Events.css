@@ -1,0 +1,80 @@
+/* Main container holding filters and event cards */
+.main-container {
+  display: flex;
+  justify-content: flex-start; /* Align filters and event cards side by side */
+  gap: 20px; /* Add space between filters and event cards */
+  width: 100%; /* Ensure full width usage */
+}
+
+/* Filters section on the left */
+.filters {
+  width: 25%; /* Take up 25% of the container width */
+}
+
+/* Filter card styling */
+.filter-card {
+  background-color: #f7f9fb;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Event cards section */
+.event-cards {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for responsiveness */
+  width: 75%; /* Take up remaining width */
+  gap: 20px; /* Space between event cards */
+}
+
+/* Individual event card styling */
+.dispEvent {
+  width: calc(33.333% - 20px); /* 3 cards per row with gap */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px; /* Space between rows */
+}
+
+.dispEvent img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+.filter-options button {
+  background-color: #f13c20;
+  color: white;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.filter-options button:hover {
+  background-color: #d3321c; /* Darken on hover */
+}
+
+.enroll-button {
+  background-color: #f13c20; /* Accent color */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.enroll-button:hover {
+  background-color: #d3321c; /* Darken on hover */
+}
+

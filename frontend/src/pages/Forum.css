@@ -1,0 +1,151 @@
+.forum-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .create-post-button {
+    background-color: #F13C20; /* Coral */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .create-post-button:hover {
+    background-color: #e65c54; /* Darker coral on hover */
+  }
+  
+  .post-form {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .post-form input,
+  .post-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-form button {
+    background-color: #F13C20; /* Coral */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .post-form button:hover {
+    background-color: #e65c54;
+  }
+  
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .post-card {
+    background-color: #FFF; /* Cream */
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .post-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .post-card img {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  .post-details {
+    background-color: #FFF; /* Cream */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .post-details img {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea:focus {
+    outline: none;
+    border-color: #6A0D91; /* Royal Purple */
+  }
+  
+  button {
+    background-color: #F13C20; /* Coral */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #e65c54;
+  }
+  
+  /* New Styles for Comments */
+  .comment-section {
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  
+  .comment-section h3 {
+    margin-bottom: 10px;
+  }
+  
+  .comment {
+    background-color: #e7f3fe; /* Light Blue Background for Comments */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .comment strong {
+    color: #333; /* Darker text for username */
+  }
+  
+  .comment-form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .comment-form input {
+    flex: 1; /* Take remaining space */
+  }
+  
