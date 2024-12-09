@@ -1,21 +1,18 @@
-// src/pages/Forum.js
-
 import React, { useState } from "react";
-import "./Forum.css"; // Import the CSS file
+import "./Forum.css";
 
 const Forum = () => {
   const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(false); // State to toggle form visibility
+  const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [openPostId, setOpenPostId] = useState(null); // State to track which post is open
-  const [comments, setComments] = useState({}); // State to hold comments for each post
-  
-  // Simulated current user name
-  const currentUser = "John Doe"; // Replace with the actual logged-in user name
+  const [openPostId, setOpenPostId] = useState(null);
+  const [comments, setComments] = useState({});
 
-  // Handle submitting a new post
+  const currentUser = "John Doe";
+
+  // Handle new post submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -23,31 +20,54 @@ const Forum = () => {
       id: posts.length + 1,
       title,
       description,
-      image_url: URL.createObjectURL(imageFile), // Create a URL for the uploaded file
+      image_url: URL.createObjectURL(imageFile),
       fullname: currentUser,
       created_at: new Date(),
     };
 
-    // Add the new post to the list
     setPosts([...posts, newPost]);
-
-    // Reset the form fields
     setTitle("");
     setDescription("");
     setImageFile(null);
-    setShowForm(false); // Hide the form after submission
+    setShowForm(false);
   };
 
-  // Handle commenting on a post
+  // Handle new comment submission
   const handleCommentSubmit = (e, postId) => {
     e.preventDefault();
-    const comment = e.target.comment.value;
-    if (comment) {
-      setComments((prevComments) => ({
-        ...prevComments,
-        [postId]: [...(prevComments[postId] || []), { comment, user: currentUser }],
+    const commentText = e.target.comment.value;
+
+    if (commentText) {
+      const newComment = {
+        id: Date.now(), // unique ID for each comment
+        comment: commentText,
+        user: currentUser,
+        created_at: new Date(),
+        edited_at: null,
+      };
+
+      setComments((prev) => ({
+        ...prev,
+        [postId]: [...(prev[postId] || []), newComment],
       }));
-      e.target.reset(); // Clear the comment input
+
+      e.target.reset();
+    }
+  };
+
+  // Handle comment edit
+  const handleCommentEdit = (postId, commentId) => {
+    const newCommentText = prompt("Edit your comment:");
+
+    if (newCommentText) {
+      setComments((prev) => ({
+        ...prev,
+        [postId]: prev[postId].map((c) =>
+          c.id === commentId
+            ? { ...c, comment: newCommentText, edited_at: new Date() }
+            : c
+        ),
+      }));
     }
   };
 
@@ -78,20 +98,20 @@ const Forum = () => {
           />
           <input
             type="file"
-            accept="image/*" // Accept image files only
-            onChange={(e) => setImageFile(e.target.files[0])} // Store the selected file
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
             required
           />
           <button type="submit">Submit Post</button>
         </form>
       )}
-      
-      {/* Displaying posts as cards */}
+
+      {/* Display posts as cards */}
       <div className="post-list">
         {posts.map((post) => (
-          <div 
-            key={post.id} 
-            className="post-card" 
+          <div
+            key={post.id}
+            className="post-card"
             onClick={() => setOpenPostId(openPostId === post.id ? null : post.id)}
           >
             <h2>{post.title}</h2>
@@ -104,19 +124,33 @@ const Forum = () => {
             {openPostId === post.id && (
               <div>
                 <h3>Comments</h3>
-                <form onSubmit={(e) => handleCommentSubmit(e, post.id)} onClick={(e) => e.stopPropagation()}>
-                  <input 
-                    type="text" 
-                    name="comment" 
-                    placeholder="Add a comment..." 
-                    required 
+                <form
+                  onSubmit={(e) => handleCommentSubmit(e, post.id)}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <input
+                    type="text"
+                    name="comment"
+                    placeholder="Add a comment..."
+                    required
                   />
                   <button type="submit">Comment</button>
                 </form>
+
                 <div>
-                  {comments[post.id]?.map((c, index) => (
-                    <div key={index}>
-                      <strong>{c.user}: </strong>{c.comment}
+                  {comments[post.id]?.map((c) => (
+                    <div key={c.id} className="comment">
+                      <strong>{c.user}:</strong> {c.comment}
+                      <p>
+                        Created: {new Date(c.created_at).toLocaleString()}
+                        {c.edited_at && ` | Edited: ${new Date(c.edited_at).toLocaleString()}`}
+                      </p>
+                      <button
+                        className="edit-button"
+                        onClick={() => handleCommentEdit(post.id, c.id)}
+                      >
+                        Edit
+                      </button>
                     </div>
                   ))}
                 </div>
