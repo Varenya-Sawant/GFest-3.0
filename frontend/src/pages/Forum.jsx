@@ -6,9 +6,14 @@ const Forum = () => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
   const [openPostId, setOpenPostId] = useState(null);
   const [comments, setComments] = useState({});
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentEditText, setCurrentEditText] = useState("");
+  const [currentEditPostId, setCurrentEditPostId] = useState(null);
+  const [currentEditCommentId, setCurrentEditCommentId] = useState(null);
 
   const currentUser = "John Doe";
 
@@ -16,11 +21,16 @@ const Forum = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!title.trim() || !description.trim() || imageFiles.length === 0) {
+      alert("All fields are required!");
+      return;
+    }
+
     const newPost = {
       id: posts.length + 1,
       title,
       description,
-      image_url: URL.createObjectURL(imageFile),
+      image_urls: imageFiles.map((file) => URL.createObjectURL(file)),
       fullname: currentUser,
       created_at: new Date(),
     };
@@ -28,47 +38,60 @@ const Forum = () => {
     setPosts([...posts, newPost]);
     setTitle("");
     setDescription("");
-    setImageFile(null);
+    setImageFiles([]);
     setShowForm(false);
   };
 
   // Handle new comment submission
   const handleCommentSubmit = (e, postId) => {
     e.preventDefault();
-    const commentText = e.target.comment.value;
+    const commentText = e.target.comment.value.trim();
 
-    if (commentText) {
-      const newComment = {
-        id: Date.now(), // unique ID for each comment
-        comment: commentText,
-        user: currentUser,
-        created_at: new Date(),
-        edited_at: null,
-      };
-
-      setComments((prev) => ({
-        ...prev,
-        [postId]: [...(prev[postId] || []), newComment],
-      }));
-
-      e.target.reset();
+    if (!commentText) {
+      alert("Comment cannot be empty!");
+      return;
     }
+
+    const newComment = {
+      id: Date.now(), // unique ID for each comment
+      comment: commentText,
+      user: currentUser,
+      created_at: new Date(),
+      edited_at: null,
+    };
+
+    setComments((prev) => ({
+      ...prev,
+      [postId]: [...(prev[postId] || []), newComment],
+    }));
+
+    e.target.reset();
   };
 
-  // Handle comment edit
-  const handleCommentEdit = (postId, commentId) => {
-    const newCommentText = prompt("Edit your comment:");
+  const openEditModal = (postId, commentId, commentText) => {
+    setCurrentEditPostId(postId);
+    setCurrentEditCommentId(commentId);
+    setCurrentEditText(commentText);
+    setIsModalOpen(true);
+  };
 
-    if (newCommentText) {
-      setComments((prev) => ({
-        ...prev,
-        [postId]: prev[postId].map((c) =>
-          c.id === commentId
-            ? { ...c, comment: newCommentText, edited_at: new Date() }
-            : c
-        ),
-      }));
-    }
+  const closeEditModal = () => {
+    setIsModalOpen(false);
+    setCurrentEditText("");
+    setCurrentEditPostId(null);
+    setCurrentEditCommentId(null);
+  };
+
+  const handleSaveEdit = () => {
+    setComments((prev) => ({
+      ...prev,
+      [currentEditPostId]: prev[currentEditPostId].map((c) =>
+        c.id === currentEditCommentId
+          ? { ...c, comment: currentEditText, edited_at: new Date() }
+          : c
+      ),
+    }));
+    closeEditModal();
   };
 
   return (
@@ -76,7 +99,10 @@ const Forum = () => {
       <h1>Forums</h1>
 
       {/* Create Post Button */}
-      <button className="create-post-button" onClick={() => setShowForm(!showForm)}>
+      <button
+        className="create-post-button"
+        onClick={() => setShowForm(!showForm)}
+      >
         {showForm ? "Cancel" : "Create Post"}
       </button>
 
@@ -99,7 +125,8 @@ const Forum = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
+            onChange={(e) => setImageFiles(Array.from(e.target.files))}
+            multiple
             required
           />
           <button type="submit">Submit Post</button>
@@ -108,57 +135,94 @@ const Forum = () => {
 
       {/* Display posts as cards */}
       <div className="post-list">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className="post-card"
-            onClick={() => setOpenPostId(openPostId === post.id ? null : post.id)}
-          >
-            <h2>{post.title}</h2>
-            <p>{post.description}</p>
-            {post.image_url && <img src={post.image_url} alt="Post" />}
-            <p>Posted by: {post.fullname}</p>
-            <p>{new Date(post.created_at).toLocaleString()}</p>
+        {posts.length === 0 ? (
+          <p>No posts yet. Be the first to create one!</p>
+        ) : (
+          posts.map((post) => (
+            <div
+              key={post.id}
+              className={`post-card ${openPostId === post.id ? "open" : ""}`}
+              onClick={() =>
+                setOpenPostId(openPostId === post.id ? null : post.id)
+              }
+            >
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+              {post.image_urls?.map((url, index) => (
+                <img key={index} src={url} alt={`Post Media ${index + 1}`} />
+              ))}
+              <p>Posted by: {post.fullname}</p>
+              <p>{new Date(post.created_at).toLocaleString()}</p>
 
-            {/* Comments Section */}
-            {openPostId === post.id && (
-              <div>
-                <h3>Comments</h3>
-                <form
-                  onSubmit={(e) => handleCommentSubmit(e, post.id)}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <input
-                    type="text"
-                    name="comment"
-                    placeholder="Add a comment..."
-                    required
-                  />
-                  <button type="submit">Comment</button>
-                </form>
-
+              {/* Comments Section */}
+              {openPostId === post.id && (
                 <div>
-                  {comments[post.id]?.map((c) => (
-                    <div key={c.id} className="comment">
-                      <strong>{c.user}:</strong> {c.comment}
-                      <p>
-                        Created: {new Date(c.created_at).toLocaleString()}
-                        {c.edited_at && ` | Edited: ${new Date(c.edited_at).toLocaleString()}`}
-                      </p>
-                      <button
-                        className="edit-button"
-                        onClick={() => handleCommentEdit(post.id, c.id)}
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  ))}
+                  <h3>Comments</h3>
+                  <form
+                    onSubmit={(e) => handleCommentSubmit(e, post.id)}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <input
+                      type="text"
+                      name="comment"
+                      placeholder="Add a comment..."
+                      required
+                    />
+                    <button type="submit">Comment</button>
+                  </form>
+
+                  <div>
+                    {comments[post.id]?.length === 0 ? (
+                      <p>No comments yet. Be the first to comment!</p>
+                    ) : (
+                      comments[post.id]?.map((c) => (
+                        <div key={c.id} className="comment">
+                          <strong>{c.user}:</strong> {c.comment}
+                          <p>
+                            Created: {new Date(c.created_at).toLocaleString()}
+                            {c.edited_at && (
+                              <span style={{ color: "gray", fontStyle: "italic" }}>
+                                {" "}
+                                | Edited: {new Date(c.edited_at).toLocaleString()}
+                              </span>
+                            )}
+                          </p>
+                          <button
+                            className="edit-button"
+                            onClick={() =>
+                              openEditModal(post.id, c.id, c.comment)
+                            }
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          ))
+        )}
       </div>
+
+      {/* Edit Comment Modal */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={closeEditModal}>
+              &times;
+            </span>
+            <h3>Edit Comment</h3>
+            <textarea
+              value={currentEditText}
+              onChange={(e) => setCurrentEditText(e.target.value)}
+              rows="4"
+            ></textarea>
+            <button onClick={handleSaveEdit}>Save Changes</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
