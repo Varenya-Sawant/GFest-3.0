@@ -13,23 +13,24 @@ const Shop = () => {
 
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, quantity) => {
     const existingProduct = cart.find((item) => item.id === product.id);
     if (existingProduct) {
-      setCart(cart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      ));
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        )
+      );
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, { ...product, quantity }]);
     }
-
-    // Show alert on product addition
-    alert(`"${product.name}" has been successfully added to your cart.`);
-  };
-
-  const handleRemoveFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+    setSelectedProduct(null); // Close the modal
+    setQuantity(1); // Reset the quantity
   };
 
   const calculateTotalPrice = () => {
@@ -43,17 +44,45 @@ const Shop = () => {
       {/* Cart Icon */}
       <div className="cart-icon" onClick={() => setShowCart(!showCart)}>
         🛒 {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+        {showCart && (
+          <div className="cart-dropdown">
+            <h3>Your Cart</h3>
+            {cart.length > 0 ? (
+              <>
+                {cart.map((item) => (
+                  <div key={item.id} className="cart-item">
+                    <h4>{item.name}</h4>
+                    <p>Price: ${item.price}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    <button
+                      className="remove-from-cart-button"
+                      onClick={() => setCart(cart.filter((c) => c.id !== item.id))}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <h4>Total: ${calculateTotalPrice()}</h4>
+              </>
+            ) : (
+              <p>Your cart is empty.</p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Event-Related Products Section */}
       <h2>Event-Related Products</h2>
       <div className="product-list">
-        {products.filter(product => product.category === 'event').map((product) => (
+        {products.filter((product) => product.category === 'event').map((product) => (
           <div key={product.id} className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
             <h3>{product.name}</h3>
             <p className="product-price">${product.price}</p>
-            <button className="add-to-cart-button" onClick={() => handleAddToCart(product)}>
+            <button
+              className="add-to-cart-button"
+              onClick={() => setSelectedProduct(product)}
+            >
               Add to Cart
             </button>
           </div>
@@ -68,35 +97,45 @@ const Shop = () => {
             <img src={product.image} alt={product.name} className="product-image" />
             <h3>{product.name}</h3>
             <p className="product-price">${product.price}</p>
-            <button className="add-to-cart-button" onClick={() => handleAddToCart(product)}>
+            <button
+              className="add-to-cart-button"
+              onClick={() => setSelectedProduct(product)}
+            >
               Add to Cart
             </button>
           </div>
         ))}
       </div>
 
-      {/* Cart Section */}
-      {showCart && (
-        <div className="cart-container">
-          <h2>Your Cart</h2>
-          {cart.length > 0 ? (
-            <>
-              {cart.map((item) => (
-                <div key={item.id} className="cart-item">
-                  <h3>{item.name}</h3>
-                  <p>Price: ${item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
-                  <button className="remove-from-cart-button" onClick={() => handleRemoveFromCart(item.id)}>
-                    Remove
-                  </button>
-                </div>
-              ))}
-              <h3>Total: ${calculateTotalPrice()}</h3>
-              <button className="checkout-button">Checkout</button>
-            </>
-          ) : (
-            <p>Your cart is empty.</p>
-          )}
+      {/* Quantity Selector Modal */}
+      {selectedProduct && (
+        <div className="quantity-modal">
+          <div className="modal-content">
+            <h3>{`Add "${selectedProduct.name}" to Cart`}</h3>
+            <label>
+              Quantity:
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+              />
+            </label>
+            <div className="modal-buttons">
+              <button
+                onClick={() => handleAddToCart(selectedProduct, quantity)}
+                className="confirm-button"
+              >
+                Add
+              </button>
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="cancel-button"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
