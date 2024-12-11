@@ -9,7 +9,6 @@ const Forum = () => {
   const [imageFiles, setImageFiles] = useState([]);
   const [openPostId, setOpenPostId] = useState(null);
   const [comments, setComments] = useState({});
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEditText, setCurrentEditText] = useState("");
   const [currentEditPostId, setCurrentEditPostId] = useState(null);
@@ -42,7 +41,14 @@ const Forum = () => {
     setShowForm(false);
   };
 
-  // Handle new comment submission
+  const handleDeletePost = (postId) => {
+    const filteredPosts = posts.filter((post) => post.id !== postId);
+    setPosts(filteredPosts);
+    delete comments[postId];
+    alert("Post deleted successfully!");
+  };
+
+  // Handle comment submission
   const handleCommentSubmit = (e, postId) => {
     e.preventDefault();
     const commentText = e.target.comment.value.trim();
@@ -53,7 +59,7 @@ const Forum = () => {
     }
 
     const newComment = {
-      id: Date.now(), // unique ID for each comment
+      id: Date.now(),
       comment: commentText,
       user: currentUser,
       created_at: new Date(),
@@ -94,11 +100,18 @@ const Forum = () => {
     closeEditModal();
   };
 
+  const handleDeleteComment = (postId, commentId) => {
+    setComments((prev) => ({
+      ...prev,
+      [postId]: prev[postId].filter((comment) => comment.id !== commentId),
+    }));
+    alert("Comment Deleted!");
+  };
+
   return (
     <div className="forum-container">
       <h1>Forums</h1>
 
-      {/* Create Post Button */}
       <button
         className="create-post-button"
         onClick={() => setShowForm(!showForm)}
@@ -106,34 +119,34 @@ const Forum = () => {
         {showForm ? "Cancel" : "Create Post"}
       </button>
 
-      {/* Post Form */}
-      {showForm && (
-        <form className="post-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFiles(Array.from(e.target.files))}
-            multiple
-            required
-          />
-          <button type="submit">Submit Post</button>
-        </form>
-      )}
+      <div className={`post-form-container ${showForm ? "show" : ""}`}>
+        {showForm && (
+          <form className="post-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFiles(Array.from(e.target.files))}
+              multiple
+              required
+            />
+            <button type="submit">Submit Post</button>
+          </form>
+        )}
+      </div>
 
-      {/* Display posts as cards */}
       <div className="post-list">
         {posts.length === 0 ? (
           <p>No posts yet. Be the first to create one!</p>
@@ -146,6 +159,19 @@ const Forum = () => {
                 setOpenPostId(openPostId === post.id ? null : post.id)
               }
             >
+              {/* Delete Post Button */}
+              {post.fullname === currentUser && (
+                <button
+                  className="delete-post-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePost(post.id);
+                  }}
+                >
+                  Delete Post
+                </button>
+              )}
+
               <h2>{post.title}</h2>
               <p>{post.description}</p>
               {post.image_urls?.map((url, index) => (
@@ -154,7 +180,6 @@ const Forum = () => {
               <p>Posted by: {post.fullname}</p>
               <p>{new Date(post.created_at).toLocaleString()}</p>
 
-              {/* Comments Section */}
               {openPostId === post.id && (
                 <div>
                   <h3>Comments</h3>
@@ -195,6 +220,14 @@ const Forum = () => {
                           >
                             Edit
                           </button>
+                          {c.user === currentUser && (
+                            <button
+                              className="delete-button"
+                              onClick={() => handleDeleteComment(post.id, c.id)}
+                            >
+                              Delete
+                            </button>
+                          )}
                         </div>
                       ))
                     )}
@@ -206,7 +239,6 @@ const Forum = () => {
         )}
       </div>
 
-      {/* Edit Comment Modal */}
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
