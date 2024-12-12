@@ -51,13 +51,18 @@ const FormModal = ({ role, closeModal }) => {
 
           {role === "Artisan" && (
             <>
-              <label>Type of Service:</label>
-              <input type="text" required />
-              <label>Price:</label>
-              <input type="text" required />
-              <label>Description:</label>
-              <textarea required />
-              <button type="submit">Submit</button>
+            <label>
+                <input
+                  type="checkbox"
+                  checked={termsChecked}
+                  onChange={handleTermsChange}
+                />
+                I agree to all the terms and conditions
+              </label>
+              <button type="submit" disabled={!termsChecked}>
+                Submit
+              </button>
+              
             </>
           )}
 
