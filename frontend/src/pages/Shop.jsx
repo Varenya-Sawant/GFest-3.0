@@ -12,29 +12,73 @@ const Shop = () => {
   ]);
 
   const [cart, setCart] = useState([]);
-  const [showCart, setShowCart] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
+  const [activeInlay, setActiveInlay] = useState(null);
+  const [checkoutMessage, setCheckoutMessage] = useState('');
 
-  const handleAddToCart = (product, quantity) => {
-    const existingProduct = cart.find((item) => item.id === product.id);
-    if (existingProduct) {
-      setCart(
-        cart.map((item) =>
+  const addToCart = (product, quantity = 1) => {
+    setCart((prevCart) => {
+      const existingProduct = prevCart.find((item) => item.id === product.id);
+      if (existingProduct) {
+        return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: Math.max(1, item.quantity + quantity) }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity }];
+    });
+  };
+
+  const updateCartQuantity = (productId, quantityChange) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: Math.max(1, item.quantity + quantityChange) }
             : item
         )
-      );
-    } else {
-      setCart([...cart, { ...product, quantity }]);
-    }
-    setSelectedProduct(null); // Close the modal
-    setQuantity(1); // Reset the quantity
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+  };
+
+  const openInlay = (type, product = null) => {
+    if (type === 'add' && product) {
+      setActiveInlay({ type, product: { ...product, quantity: 1 } });
+    } else {
+      setActiveInlay({ type, product });
+    }
+  };
+
+  const closeInlay = () => {
+    setActiveInlay(null);
+  };
+
+  const handleCheckout = () => {
+    setCheckoutMessage('Checkout successful! Here’s the receipt:');
+    setCart([]);  // Optionally reset the cart after checkout
+  };
+
+  const renderProductList = (filter = null) => {
+    return products
+      .filter((product) => !filter || product.category === filter)
+      .map((product) => (
+        <div key={product.id} className="product-card">
+          <img src={product.image} alt={product.name} className="product-image" />
+          <h3>{product.name}</h3>
+          <p className="product-price">${product.price}</p>
+          <button onClick={() => openInlay('add', product)} className="add-to-cart-button">
+            Add to Cart
+          </button>
+        </div>
+      ));
   };
 
   return (
@@ -42,102 +86,122 @@ const Shop = () => {
       <h1>Shop</h1>
 
       {/* Cart Icon */}
-      <div className="cart-icon" onClick={() => setShowCart(!showCart)}>
+      <div className="cart-icon" onClick={() => openInlay('cart')}>
         🛒 {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
-        {showCart && (
-          <div className="cart-dropdown">
-            <h3>Your Cart</h3>
-            {cart.length > 0 ? (
-              <>
-                {cart.map((item) => (
-                  <div key={item.id} className="cart-item">
-                    <h4>{item.name}</h4>
-                    <p>Price: ${item.price}</p>
-                    <p>Quantity: {item.quantity}</p>
-                    <button
-                      className="remove-from-cart-button"
-                      onClick={() => setCart(cart.filter((c) => c.id !== item.id))}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-                <h4>Total: ${calculateTotalPrice()}</h4>
-              </>
-            ) : (
-              <p>Your cart is empty.</p>
-            )}
-          </div>
-        )}
       </div>
 
-      {/* Event-Related Products Section */}
+      {/* Product Sections */}
       <h2>Event-Related Products</h2>
-      <div className="product-list">
-        {products.filter((product) => product.category === 'event').map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} className="product-image" />
-            <h3>{product.name}</h3>
-            <p className="product-price">${product.price}</p>
-            <button
-              className="add-to-cart-button"
-              onClick={() => setSelectedProduct(product)}
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+      <div className="product-list">{renderProductList('event')}</div>
 
-      {/* General Products Section */}
       <h2>All Products</h2>
-      <div className="product-list">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} className="product-image" />
-            <h3>{product.name}</h3>
-            <p className="product-price">${product.price}</p>
-            <button
-              className="add-to-cart-button"
-              onClick={() => setSelectedProduct(product)}
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
+      <div className="product-list">{renderProductList()}</div>
 
-      {/* Quantity Selector Modal */}
-      {selectedProduct && (
-        <div className="quantity-modal">
-          <div className="modal-content">
-            <h3>{`Add "${selectedProduct.name}" to Cart`}</h3>
-            <label>
-              Quantity:
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value))}
-              />
-            </label>
-            <div className="modal-buttons">
-              <button
-                onClick={() => handleAddToCart(selectedProduct, quantity)}
-                className="confirm-button"
-              >
-                Add
-              </button>
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="cancel-button"
-              >
-                Cancel
-              </button>
-            </div>
+      {/* Inlays */}
+      {activeInlay && (
+        <div className="inlay">
+          <div className="inlay-content">
+            {activeInlay.type === 'add' && (
+              <div>
+                <h2>{activeInlay.product.name}</h2>
+                <img
+                  src={activeInlay.product.image}
+                  alt={activeInlay.product.name}
+                  className="product-image"
+                />
+                <p className="product-price">Price: ${activeInlay.product.price}</p>
+                <div className="quantity-controls">
+                  <button
+                    onClick={() =>
+                      setActiveInlay((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              product: {
+                                ...prev.product,
+                                quantity: Math.max(1, prev.product.quantity - 1),
+                              },
+                            }
+                          : prev
+                      )
+                    }
+                  >
+                    -
+                  </button>
+                  <span>{activeInlay.product.quantity}</span>
+                  <button
+                    onClick={() =>
+                      setActiveInlay((prev) =>
+                        prev
+                          ? {
+                              ...prev,
+                              product: {
+                                ...prev.product,
+                                quantity: prev.product.quantity + 1,
+                              },
+                            }
+                          : prev
+                      )
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  onClick={() => {
+                    addToCart(activeInlay.product, activeInlay.product.quantity);
+                    closeInlay();
+                  }}
+                  className="confirm-button"
+                >
+                  Confirm
+                </button>
+                <button onClick={closeInlay} className="close-button">
+                  Cancel
+                </button>
+              </div>
+            )}
+
+            {activeInlay.type === 'cart' && (
+              <div>
+                <h2>Your Cart</h2>
+                {cart.length > 0 ? (
+                  <>
+                    {cart.map((item) => (
+                      <div key={item.id} className="cart-item">
+                        <h3>{item.name}</h3>
+                        <p>Price: ${item.price}</p>
+                        <div className="quantity-controls">
+                          <button onClick={() => updateCartQuantity(item.id, -1)}>-</button>
+                          <span>{item.quantity}</span>
+                          <button onClick={() => updateCartQuantity(item.id, 1)}>+</button>
+                        </div>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="remove-button"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                    <h3>Total: ${calculateTotalPrice()}</h3>
+                    <button onClick={handleCheckout} className="checkout-button">
+                      Checkout
+                    </button>
+                  </>
+                ) : (
+                  <p>Your cart is empty.</p>
+                )}
+                <button onClick={closeInlay} className="close-button">
+                  Close
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      
     </div>
   );
 };
