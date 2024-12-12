@@ -4,6 +4,9 @@ import './Home.css';
 import Carousel from '../components/Carousel';
 import landingImage from '../images/landing.png';
 import founderImage from '../images/founder.jpg';
+import shopImage from '../images/shop.png';
+import eventsImage from '../images/events.png';
+import forumImage from '../images/forum.png';
 
 const Home = () => {
   return (
@@ -32,6 +35,45 @@ const Home = () => {
 
       {/* Carousel Component */}
       <Carousel />
+
+      {/* Cards Section */}
+      <div className="cards">
+        <div className="card">
+          <h2>SHOP</h2>
+          <img src={shopImage} alt="Shop with Goa artisans" />
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium
+            reprehenderit eveniet facere, nemo optio vero.
+          </p>
+          <Link to="/shop">
+            <button>Learn More!</button>
+          </Link>
+        </div>
+
+        <div className="card">
+          <h2>EVENTS</h2>
+          <img src={eventsImage} alt="Goa Events" />
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium
+            reprehenderit eveniet facere, nemo optio vero.
+          </p>
+          <Link to="/events">
+            <button>Learn More!</button>
+          </Link>
+        </div>
+
+        <div className="card">
+          <h2>FORUMS</h2>
+          <img src={forumImage} alt="Community Forums" />
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium
+            reprehenderit eveniet facere, nemo optio vero.
+          </p>
+          <Link to="/forum">
+            <button>Learn More!</button>
+          </Link>
+        </div>
+      </div>
 
       {/* Founder Message Section as a styled card */}
       <div className="founder-card-section">
