@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Use Link for internal navigation
 import './Navbar.css';
+import { ShoppingCart } from "phosphor-react";
 
 const Navbar = () => {
   return (
@@ -14,6 +15,7 @@ const Navbar = () => {
         <Link to="/shop">SHOP</Link>
         <Link to="/forum">FORUM</Link>
         <Link to="/contact">CONTACT</Link>
+        
       </div>
 
       <div className="login-button">
