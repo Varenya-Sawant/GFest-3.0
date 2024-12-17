@@ -13,7 +13,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/services', servicesRouter);
-app.use('/forum', forumRoutes); // Prefix `/forum` here
+
+app.use("/api", forumsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
