@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Forum from './pages/Forum'; 
+import Forum from './pages/forum/Forum'; 
 import Home from './pages/Home'; 
 import { Shop } from "./pages/shop/shop";
 import { Cart } from './pages/cart/cart';
