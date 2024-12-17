@@ -1,7 +1,7 @@
 // src/pages/SellerDashboard.js
 
 import React, { useState } from 'react';
-import './Dashboard.css'; // Import common dashboard CSS
+import './../Dashboard.css'; // Import common dashboard CSS
 
 const SellerDashboard = () => {
   const [products, setProducts] = useState([]); // State to hold products

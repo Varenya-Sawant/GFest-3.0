@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Dashboard.css';
+import './../Dashboard.css';
 
 const HostDashboard = () => {
   const [showModal, setShowModal] = useState(false);

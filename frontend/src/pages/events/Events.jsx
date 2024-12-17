@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Calendar from '../components/Calendar';
+import Calendar from '../../components/Calendar';
 import './Events.css'; // Ensure to import your styles
 
 const Events = () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import './CulturalFestivals.css';
-import saoImage from '../images/saojao.jpg';
-import bondImage from '../images/bonderam.jpg';
-import shigImage from '../images/shigmo.png';
-import carImage from '../images/carnival.jpg';
-import chikImage from '../images/chikalkalo.jpg';
-import makImage from '../images/makhar.jpg';
+import saoImage from '../../images/saojao.jpg';
+import bondImage from '../../images/bonderam.jpg';
+import shigImage from '../../images/shigmo.png';
+import carImage from '../../images/carnival.jpg';
+import chikImage from '../../images/chikalkalo.jpg';
+import makImage from '../../images/makhar.jpg';
 
 
 const CulturalFestivals = () => {

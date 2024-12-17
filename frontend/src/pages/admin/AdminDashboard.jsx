@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Dashboard.css'; // Import the Admin Dashboard styles
+import './../Dashboard.css'; // Import the Admin Dashboard styles
 
 const AdminDashboard = () => {
   // Sample states to hold data

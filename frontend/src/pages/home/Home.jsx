@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import Carousel from '../components/Carousel';
-import landingImage from '../images/landing.png';
-import founderImage from '../images/founder.jpg';
-import shopImage from '../images/shop.png';
-import eventsImage from '../images/events.png';
-import forumImage from '../images/forum.png';
+import Carousel from '../../components/Carousel';
+import landingImage from '../../images/landing.png';
+import founderImage from '../../images/founder.jpg';
+import shopImage from '../../images/shop.png';
+import eventsImage from '../../images/events.png';
+import forumImage from '../../images/forum.png';
 
 const Home = () => {
   return (

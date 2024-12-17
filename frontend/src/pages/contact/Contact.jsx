@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Contact.css"; // Import the CSS for styling
-import FormModal from '../components/FormModal'; // Import the new FormModal component
+import FormModal from '../../components/FormModal'; // Import the new FormModal component
 
 const Contact = () => {
   const [activeRole, setActiveRole] = useState(null);
