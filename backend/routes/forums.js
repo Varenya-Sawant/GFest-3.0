@@ -1,18 +1,21 @@
-const express = require('express');
-const { getAllPosts, createPost } = require('../controllers/forumController');
+const express = require("express");
+const {
+  getAllPosts,
+  createPost,
+  deletePost,
+  addComment,
+  deleteComment,
+  editComment,
+} = require("../controllers/forumController");
 
 const router = express.Router();
 
-// Route to get all forum posts
-router.get('/', (req, res) => {
-  console.log("GET /forum route hit");
-  getAllPosts(req, res);
-});
-
-// Route to create a new forum post
-router.post('/', (req, res) => {
-  console.log("POST /forum route hit");
-  createPost(req, res);
-});
+// Routes
+router.get("/", getAllPosts);
+router.post("/", createPost);
+router.delete("/:id", deletePost);
+router.post("/:id/comments", addComment);
+router.delete("/:postId/comments/:commentId", deleteComment);
+router.put("/:postId/comments/:commentId", editComment);
 
 module.exports = router;
