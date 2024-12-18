@@ -1,33 +1,51 @@
-// src/pages/forum/Post.jsx
 import React, { useState } from "react";
+
+// Backend endpoint URL
+const API_URL = "http://localhost:5000/api";
 
 const Post = ({ onSubmit, closeForm, currentUser }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || !description.trim() || imageFiles.length === 0) {
+    if (!title.trim() || !description.trim()) {
       alert("Please fill all fields!");
       return;
     }
 
-    const newPost = {
-      id: Date.now(),
-      title,
-      description,
-      image_urls: imageFiles.map((file) => URL.createObjectURL(file)),
-      fullname: currentUser,
-      created_at: new Date(),
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("fullname", currentUser);
 
-    onSubmit(newPost);
+    imageFiles.forEach((file, index) => {
+      formData.append(`images[${index}]`, file);
+    });
 
-    setTitle("");
-    setDescription("");
-    setImageFiles([]);
+    try {
+      const response = await fetch(`${API_URL}/posts`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit post");
+      }
+
+      const result = await response.json();
+      onSubmit(result);
+
+      // Reset form fields on success
+      setTitle("");
+      setDescription("");
+      setImageFiles([]);
+      closeForm();
+    } catch (error) {
+      console.error("Error submitting post:", error);
+    }
   };
 
   return (

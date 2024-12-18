@@ -1,36 +1,92 @@
-// src/pages/forum/Forum.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Forum.css";
 import Post from "./Post";
 import Comment from "./Comment";
+
+// Backend endpoint URL
+const API_URL = "http://localhost:5000/api";
 
 const Forum = () => {
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [comments, setComments] = useState({});
   const [openPostId, setOpenPostId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentUser = "John Doe";
 
   const togglePostForm = () => setShowForm((prev) => !prev);
 
-  const handleNewPost = (newPost) => {
-    setPosts((prev) => [...prev, newPost]);
-    setShowForm(false);
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch(`${API_URL}/posts`);
+      const data = await response.json();
+      setPosts(data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   };
 
-  const handleDeletePost = (postId) => {
-    setPosts((prev) => prev.filter((post) => post.id !== postId));
-    setComments((prev) => {
-      const newComments = { ...prev };
-      delete newComments[postId];
-      return newComments;
-    });
-    alert("Post Deleted");
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const handleNewPost = async (newPost) => {
+    try {
+      const response = await fetch(`${API_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPost),
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not create post");
+      }
+
+      const savedPost = await response.json();
+      setPosts((prev) => [...prev, savedPost]);
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error submitting post:", error);
+    }
   };
 
-  const toggleComments = (postId) => {
+  const handleDeletePost = async (postId) => {
+    try {
+      const response = await fetch(`${API_URL}/posts/${postId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not delete post");
+      }
+
+      setPosts((prev) => prev.filter((post) => post.id !== postId));
+      setComments((prev) => {
+        const newComments = { ...prev };
+        delete newComments[postId];
+        return newComments;
+      });
+      alert("Post Deleted");
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
+  const toggleComments = async (postId) => {
+    if (!comments[postId]) {
+      try {
+        const response = await fetch(`${API_URL}/comments/${postId}`);
+        const data = await response.json();
+        setComments((prev) => ({
+          ...prev,
+          [postId]: data,
+        }));
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    }
     setOpenPostId(openPostId === postId ? null : postId);
   };
 

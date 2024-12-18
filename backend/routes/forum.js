@@ -1,30 +1,31 @@
-// routes/forums.js
 const express = require("express");
 const {
-  getAllPosts,
-  createPost,
+  getPosts,
+  addPost,
+  deletePost,
   addComment,
+  editComment,
+  deleteComment,
 } = require("../controllers/forumController");
 
 const router = express.Router();
 
 // Get all posts
-router.get("/posts", getAllPosts);
+router.get("/posts", getPosts);
 
-// Create a new post
-router.post("/posts", createPost);
+// Submit a new post
+router.post("/posts", addPost);
 
-// Add a comment to a post
+// Delete a post
+router.delete("/posts/:id", deletePost);
+
+// Add a comment
 router.post("/posts/:postId/comments", addComment);
 
-module.exports = router;
-const express = require("express");
-const { getPosts, createPost, deletePost } = require("../controllers/forumController");
+// Edit a comment
+router.put("/posts/:postId/comments/:commentId", editComment);
 
-const router = express.Router();
-
-router.get("/", getPosts);
-router.post("/", createPost);
-router.delete("/:id", deletePost);
+// Delete a comment
+router.delete("/posts/:postId/comments/:commentId", deleteComment);
 
 module.exports = router;

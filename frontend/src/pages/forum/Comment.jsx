@@ -1,45 +1,80 @@
-// src/pages/forum/Comment.jsx
 import React, { useState } from "react";
 
+// Frontend comment handler interacting with the backend API
 const Comment = ({ postId, comments, setComments, currentUser }) => {
   const [commentText, setCommentText] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editingComment, setEditingComment] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!commentText.trim()) {
       alert("Comment cannot be empty!");
       return;
     }
 
     if (editMode && editingComment) {
-      // Edit logic
-      setComments((prev) => ({
-        ...prev,
-        [postId]: prev[postId].map((comment) =>
-          comment.id === editingComment.id
-            ? { ...comment, comment: commentText, edited_at: new Date() }
-            : comment
-        ),
-      }));
-      setEditMode(false);
-      setEditingComment(null);
-      setCommentText("");
+      // Edit Logic
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/posts/${postId}/comments/${editingComment.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ comment: commentText }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to edit the comment.");
+        }
+
+        const updatedComment = await response.json();
+        setComments((prev) => ({
+          ...prev,
+          [postId]: prev[postId].map((comment) =>
+            comment.id === editingComment.id
+              ? { ...comment, comment: commentText }
+              : comment
+          ),
+        }));
+
+        setEditMode(false);
+        setEditingComment(null);
+        setCommentText("");
+      } catch (error) {
+        alert(error.message);
+      }
     } else {
-      const newComment = {
-        id: Date.now(),
-        comment: commentText,
-        user: currentUser,
-        created_at: new Date(),
-      };
+      // Create Logic
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/posts/${postId}/comments`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user: currentUser,
+              comment: commentText,
+            }),
+          }
+        );
 
-      setComments((prev) => ({
-        ...prev,
-        [postId]: [...(prev[postId] || []), newComment],
-      }));
+        if (!response.ok) {
+          throw new Error("Failed to submit the comment.");
+        }
 
-      setCommentText("");
+        const newComment = await response.json();
+        setComments((prev) => ({
+          ...prev,
+          [postId]: [...(prev[postId] || []), newComment],
+        }));
+
+        setCommentText("");
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -49,12 +84,27 @@ const Comment = ({ postId, comments, setComments, currentUser }) => {
     setCommentText(comment.comment);
   };
 
-  const handleDeleteClick = (commentId) => {
-    setComments((prev) => ({
-      ...prev,
-      [postId]: prev[postId].filter((comment) => comment.id !== commentId),
-    }));
-    alert("Comment deleted!");
+  const handleDeleteClick = async (commentId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/posts/${postId}/comments/${commentId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the comment.");
+      }
+
+      setComments((prev) => ({
+        ...prev,
+        [postId]: prev[postId].filter((comment) => comment.id !== commentId),
+      }));
+      alert("Comment deleted!");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
