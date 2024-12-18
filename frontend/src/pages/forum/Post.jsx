@@ -1,14 +1,16 @@
-// src/pages/forum/PostForm.jsx
+// src/pages/forum/Post.jsx
 import React, { useState } from "react";
 
-const PostForm = ({ handleNewPost }) => {
+const Post = ({ onSubmit, closeForm, currentUser }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
 
-  const handleSubmit = () => {
-    if (!title.trim() || !description.trim()) {
-      alert("All fields must be filled!");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!title.trim() || !description.trim() || imageFiles.length === 0) {
+      alert("Please fill all fields!");
       return;
     }
 
@@ -16,42 +18,43 @@ const PostForm = ({ handleNewPost }) => {
       id: Date.now(),
       title,
       description,
-      fullname: "John Doe",
-      created_at: new Date().toISOString(),
-      comments: [],
       image_urls: imageFiles.map((file) => URL.createObjectURL(file)),
+      fullname: currentUser,
+      created_at: new Date(),
     };
 
-    handleNewPost(newPost);
+    onSubmit(newPost);
+
     setTitle("");
     setDescription("");
     setImageFiles([]);
   };
 
   return (
-    <div className="post-form">
+    <form className="post-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Post Title"
+        placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea
-        placeholder="Write a description"
+        placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
       <input
         type="file"
         accept="image/*"
-        multiple
         onChange={(e) => setImageFiles(Array.from(e.target.files))}
+        multiple
       />
-      <button className="submit-button" onClick={handleSubmit}>
-        Submit Post
+      <button type="submit">Submit</button>
+      <button type="button" onClick={closeForm}>
+        Cancel
       </button>
-    </div>
+    </form>
   );
 };
 
-export default PostForm;
+export default Post;

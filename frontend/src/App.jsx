@@ -28,7 +28,7 @@ const App = () => {
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/forum" element={<Forum />} />
+              <Route path="/forum" element={<Forum />} />             
               <Route path="/shop" element={<Shop />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/services" element={<Services setBookings={setBookings} />} />

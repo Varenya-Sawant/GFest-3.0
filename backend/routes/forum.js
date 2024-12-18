@@ -18,3 +18,13 @@ router.post("/posts", createPost);
 router.post("/posts/:postId/comments", addComment);
 
 module.exports = router;
+const express = require("express");
+const { getPosts, createPost, deletePost } = require("../controllers/forumController");
+
+const router = express.Router();
+
+router.get("/", getPosts);
+router.post("/", createPost);
+router.delete("/:id", deletePost);
+
+module.exports = router;

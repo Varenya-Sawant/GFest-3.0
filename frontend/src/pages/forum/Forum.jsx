@@ -1,71 +1,87 @@
 // src/pages/forum/Forum.jsx
 import React, { useState } from "react";
-import PostForm from "./PostForm";
-import PostCard from "./PostCard";
 import "./Forum.css";
-
-// Example mock data
-const mockPosts = [
-  {
-    id: 1,
-    title: "Welcome to the forum",
-    description: "Feel free to share your thoughts here!",
-    fullname: "John Doe",
-    created_at: "2024-12-17T12:00:00",
-    comments: [],
-    showComments: false,
-  },
-];
+import Post from "./Post";
+import Comment from "./Comment";
 
 const Forum = () => {
-  const [posts, setPosts] = useState(mockPosts);
-  const [showPostForm, setShowPostForm] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [comments, setComments] = useState({});
+  const [openPostId, setOpenPostId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const currentUser = "John Doe";
+
+  const togglePostForm = () => setShowForm((prev) => !prev);
 
   const handleNewPost = (newPost) => {
-    setPosts([newPost, ...posts]);
-    setShowPostForm(false);
+    setPosts((prev) => [...prev, newPost]);
+    setShowForm(false);
   };
 
-  const deletePost = (postId) => {
-    const updatedPosts = posts.filter((post) => post.id !== postId);
-    setPosts(updatedPosts);
+  const handleDeletePost = (postId) => {
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
+    setComments((prev) => {
+      const newComments = { ...prev };
+      delete newComments[postId];
+      return newComments;
+    });
+    alert("Post Deleted");
   };
 
   const toggleComments = (postId) => {
-    const updatedPosts = posts.map((post) =>
-      post.id === postId
-        ? { ...post, showComments: !post.showComments }
-        : post
-    );
-    setPosts(updatedPosts);
+    setOpenPostId(openPostId === postId ? null : postId);
   };
 
   return (
     <div className="forum-container">
       <h1>Forum</h1>
-      <button
-        className="create-post-button"
-        onClick={() => setShowPostForm(!showPostForm)}
-      >
-        {showPostForm ? "Cancel" : "Create Post"}
+
+      <button className="create-post-button" onClick={togglePostForm}>
+        {showForm ? "Cancel" : "Create Post"}
       </button>
 
-      {showPostForm && <PostForm handleNewPost={handleNewPost} />}
+      {showForm && (
+        <Post
+          onSubmit={handleNewPost}
+          closeForm={togglePostForm}
+          currentUser={currentUser}
+        />
+      )}
 
-      <div className="posts-container">
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <PostCard
-              key={post.id}
-              post={post}
-              onDelete={deletePost}
-              toggleComments={() => toggleComments(post.id)}
-              showComments={post.showComments}
-            />
-          ))
-        ) : (
-          <p>No posts yet. Be the first to post!</p>
-        )}
+      <div className="post-list">
+        {posts.length === 0 && <p>No posts yet, be the first to create one!</p>}
+
+        {posts.map((post) => (
+          <div key={post.id} className="post-card">
+            <h2>{post.title}</h2>
+            <p>{post.description}</p>
+            {post.image_urls?.map((url, index) => (
+              <img key={index} src={url} alt={`image-${index}`} />
+            ))}
+            <button
+              className="toggle-comments-button"
+              onClick={() => toggleComments(post.id)}
+            >
+              {openPostId === post.id ? "Hide Comments" : "View Comments"}
+            </button>
+            {openPostId === post.id && (
+              <Comment
+                postId={post.id}
+                comments={comments[post.id] || []}
+                setComments={setComments}
+                currentUser={currentUser}
+              />
+            )}
+            <button
+              className="delete-post-button"
+              onClick={() => handleDeletePost(post.id)}
+            >
+              Delete Post
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
