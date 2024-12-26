@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@schedule-x/events-service": "^2.12.1",
+    "@schedule-x/react": "^2.12.1",
+    "@schedule-x/theme-default": "^2.12.1",
     "axios": "^1.7.9",
     "node": "^23.4.0",
     "phosphor-react": "^1.4.1",
