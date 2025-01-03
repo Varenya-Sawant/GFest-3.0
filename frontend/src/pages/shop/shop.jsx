@@ -20,7 +20,7 @@ export const Shop = () => {
       <ShopNavbar /> {/* Add the secondary navbar here */}
 
       <div className="shopTitle">
-        <h1>Souvenir Shop</h1>
+        <h1>Shop</h1>
       </div>
 
       {/* Event Related Products Section */}

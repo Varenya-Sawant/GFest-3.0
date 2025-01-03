@@ -1,77 +1,124 @@
 import React, { useState } from "react";
+import Comment from "./Comment";
 
-// Backend endpoint URL
-const API_URL = "http://localhost:5000/api";
-
-const Post = ({ onSubmit, closeForm, currentUser }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageFiles, setImageFiles] = useState([]);
-
-  const handleSubmit = async (e) => {
+const Post = ({
+  post,
+  currentUser,
+  handleDeletePost,
+  comments,
+  setComments,
+  openPostId,
+  setOpenPostId,
+}) => {
+  const handleCommentSubmit = (e, postId) => {
     e.preventDefault();
+    const commentText = e.target.comment.value.trim();
 
-    if (!title.trim() || !description.trim()) {
-      alert("Please fill all fields!");
+    if (!commentText) {
+      alert("Comment cannot be empty!");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("fullname", currentUser);
+    const newComment = {
+      id: Date.now(),
+      comment: commentText,
+      user: currentUser,
+      created_at: new Date(),
+      edited_at: null,
+    };
 
-    imageFiles.forEach((file, index) => {
-      formData.append(`images[${index}]`, file);
-    });
+    setComments((prev) => ({
+      ...prev,
+      [postId]: [...(prev[postId] || []), newComment],
+    }));
 
-    try {
-      const response = await fetch(`${API_URL}/posts`, {
-        method: "POST",
-        body: formData,
-      });
+    e.target.reset();
+  };
 
-      if (!response.ok) {
-        throw new Error("Failed to submit post");
-      }
+  const handleDeleteComment = (commentId, postId) => {
+    setComments((prev) => ({
+      ...prev,
+      [postId]: prev[postId].filter((comment) => comment.id !== commentId),
+    }));
+    alert("Comment Deleted!");
+  };
 
-      const result = await response.json();
-      onSubmit(result);
+  const handleSaveEdit = (postId, commentId, editedComment) => {
+    setComments((prev) => ({
+      ...prev,
+      [postId]: prev[postId].map((comment) =>
+        comment.id === commentId
+          ? { ...comment, comment: editedComment, edited_at: new Date() }
+          : comment
+      ),
+    }));
+  };
 
-      // Reset form fields on success
-      setTitle("");
-      setDescription("");
-      setImageFiles([]);
-      closeForm();
-    } catch (error) {
-      console.error("Error submitting post:", error);
-    }
+  const handleToggleComments = () => {
+    setOpenPostId(openPostId === post.id ? null : post.id);
   };
 
   return (
-    <form className="post-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImageFiles(Array.from(e.target.files))}
-        multiple
-      />
-      <button type="submit">Submit</button>
-      <button type="button" onClick={closeForm}>
-        Cancel
+    <div className={`post-card ${openPostId === post.id ? "open" : ""}`}>
+      {post.fullname === currentUser && (
+        <button
+          className="delete-post-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeletePost(post.id);
+          }}
+        >
+          Delete Post
+        </button>
+      )}
+
+      <h2>{post.title}</h2>
+      <p>{post.description}</p>
+      {post.image_urls?.map((url, index) => (
+        <img key={index} src={url} alt={`Post Media ${index + 1}`} />
+      ))}
+      <p>Posted by: {post.fullname}</p>
+      <p>{new Date(post.created_at).toLocaleString()}</p>
+
+      <button className="toggle-comments-button" onClick={handleToggleComments}>
+        {openPostId === post.id ? "Hide Comments" : "Show Comments"}
       </button>
-    </form>
+
+      {openPostId === post.id && (
+        <div>
+          <h3>Comments</h3>
+          <form
+            onSubmit={(e) => handleCommentSubmit(e, post.id)}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <input
+              type="text"
+              name="comment"
+              placeholder="Add a comment..."
+              required
+            />
+            <button type="submit">Comment</button>
+          </form>
+
+          <div>
+            {comments[post.id]?.length === 0 ? (
+              <p>No comments yet. Be the first to comment!</p>
+            ) : (
+              comments[post.id]?.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  postId={post.id}
+                  currentUser={currentUser}
+                  handleDeleteComment={handleDeleteComment}
+                  handleSaveEdit={handleSaveEdit}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
