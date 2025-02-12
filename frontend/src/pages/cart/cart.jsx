@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
 import { CartItem } from "./cart-item";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import "./cart.css";
 export const Cart = () => {

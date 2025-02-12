@@ -1,6 +1,6 @@
 // src/components/ShopNavbar.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import "./ShopNavbar.css"; // Optional: Use separate styling for the Shop Navbar
 import { ShoppingCart } from "phosphor-react";
 

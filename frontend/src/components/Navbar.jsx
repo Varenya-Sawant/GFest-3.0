@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Use Link for internal navigation
+import { Link } from 'react-router'; // Use Link for internal navigation
 import './Navbar.css';
 import { ShoppingCart } from "phosphor-react";
 
