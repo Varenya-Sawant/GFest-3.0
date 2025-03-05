@@ -19,8 +19,11 @@ const Navbar = () => {
       </div>
 
       <div className="login-button">
-        <Link to="/login-signup">
-          <button className="navbar-button">Login / Sign Up</button>
+        <Link to="/login">
+          <button className="navbar-button">Login</button>
+        </Link>
+        <Link to="/signup">
+          <button className="navbar-button">Sign Up</button>
         </Link>
       </div>
     </nav>
