@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './Home.css';
 import Carousel from '../../components/Carousel';
 import landingImage from '../../images/landing.png';

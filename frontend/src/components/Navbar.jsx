@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Use Link for internal navigation
+import { Link } from 'react-router'; // Use Link for internal navigation
 import './Navbar.css';
 import { ShoppingCart } from "phosphor-react";
 
@@ -19,8 +19,11 @@ const Navbar = () => {
       </div>
 
       <div className="login-button">
-        <Link to="/login-signup">
-          <button className="navbar-button">Login / Sign Up</button>
+        <Link to="/login">
+          <button className="navbar-button">Login</button>
+        </Link>
+        <Link to="/signup">
+          <button className="navbar-button">Sign Up</button>
         </Link>
       </div>
     </nav>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import Navbar from './components/Navbar';
-import Forum from './pages/forum/Forum'; 
+import Forum from './pages/forum/Forum';
 import Home from './pages/Home/Home';
 import { Shop } from "./pages/shop/shop";
 import { Cart } from './pages/cart/cart';
 import { ShopContextProvider } from "./context/shop-context";
-import Services from './pages/services/Services'; 
+import Services from './pages/services/Services';
 import Contact from './pages/contact/Contact';
 import Footer from './components/Footer';
 import Events from './pages/events/Events';
@@ -15,10 +15,11 @@ import HostDashboard from './pages/events/HostDashboard';
 import ArtisanDashboard from './pages/services/ArtisanDashboard';
 import SellerDashboard from './pages/shop/SellerDashboard';
 import CulturalFestivals from './pages/home/CulturalFestivals';
-import LoginSignUp from './pages/login/LoginSignUp';
+import SignUp from './pages/login/SignUp';
+import Login from './pages/login/Login';
 
 const App = () => {
-  const [bookings, setBookings] = useState([]); 
+  const [bookings, setBookings] = useState([]);
 
   return (
     <ShopContextProvider>
@@ -28,7 +29,7 @@ const App = () => {
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/forum" element={<Forum />} />             
+              <Route path="/forum" element={<Forum />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/services" element={<Services setBookings={setBookings} />} />
@@ -39,7 +40,8 @@ const App = () => {
               <Route path="/artisanDash" element={<ArtisanDashboard bookings={bookings} />} />
               <Route path="/hostDash" element={<HostDashboard />} />
               <Route path="/cultural-festivals" element={<CulturalFestivals />} />
-              <Route path="/login-signup" element={<LoginSignUp />} /> 
+              <Route path="/login" element={<Login />} />
+              <Route path="/signUp" element={<SignUp />} />
             </Routes>
           </div>
           <Footer />
