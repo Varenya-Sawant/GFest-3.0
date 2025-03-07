@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -34,6 +31,7 @@ const Login = () => {
     e.preventDefault();
 
     const isValid = validateForm();
+console.log({isValid});
 
     if (isValid) {
       try {
@@ -42,11 +40,10 @@ const Login = () => {
         console.log({ data });
 
         if (response.status === 200) {
-          localStorage.setItem('user_email', data.user.email);
-          localStorage.setItem('user_type', data.user.userTypes);
-
-          navigate('/');
-          window.location.reload();
+          alert('Login successful!');
+          // Here you might want to store the token or redirect
+          // For example: localStorage.setItem('token', data.token);
+          // window.location.href = '/dashboard';
         } else {
           setErrors({ server: data.message || 'Login failed' });
         }

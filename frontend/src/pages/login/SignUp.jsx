@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 
 const SignUp = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -76,21 +74,19 @@ const SignUp = () => {
       try {
         const response = await axios.post('http://localhost:3000/api/register', formData);
         const data = await response.data;
-        console.log({ data });
-
+        console.log({data});
+        
         if (response.status == 201) {
-          alert('Registration successful! Redirecting to login page.');
-
-          navigate('/login');
-          // redirect
+          alert('Registration successful!');
+          // Reset form or redirect
         } else if (response.status == 200) {
           alert("Email already registered")
-        } else {
+        }else{
           setErrors({ server: data.c });
         }
       } catch (error) {
-        console.log({ error });
-
+        console.log({error });
+        
         setErrors({ server: 'Registration failed. Please try again.' });
       }
     }
@@ -121,23 +117,12 @@ const SignUp = () => {
 
       <div>
         <label>Password:</label>
-        {/* <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-       */}
         <input
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
-          autoComplete="new-password"
-          spellCheck="false"
         />
-
-
         {errors.password && <span className="error">{errors.password}</span>}
       </div>
 
