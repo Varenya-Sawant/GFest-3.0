@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken'); // For token generation
 const loginMiddleware = async (req, res, next) => {
   const { email, password } = req.body;
 
-
   try {
     // Basic validation
     if (!email || !password) {
