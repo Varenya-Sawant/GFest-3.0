@@ -16,6 +16,7 @@ app.use(cors());
 // Routes
 app.use('/api/register', require('./routes/register'))
 app.use('/api/login', require('./routes/login'))
+app.use('/api/profile', require('./routes/profile'))
 
 app.use('/services', servicesRouter);
 

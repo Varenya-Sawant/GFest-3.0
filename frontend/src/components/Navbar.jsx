@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router'; // Use Link for internal navigation
 import './Navbar.css';
-import { ShoppingCart } from "phosphor-react";
+
+const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
 
 const Navbar = () => {
   return (
@@ -15,16 +16,29 @@ const Navbar = () => {
         <Link to="/shop">SHOP</Link>
         <Link to="/forum">FORUM</Link>
         <Link to="/contact">CONTACT</Link>
-        
+
       </div>
 
       <div className="login-button">
-        <Link to="/login">
-          <button className="navbar-button">Login</button>
-        </Link>
-        <Link to="/signup">
-          <button className="navbar-button">Sign Up</button>
-        </Link>
+        {
+          isUserLoggedIn()
+            ?
+            <Link to="/profile">
+              <button className="navbar-button">Your Profile</button>
+            </Link>
+            :
+            <>
+              <Link to="/login">
+                <button className="navbar-button">Login</button>
+              </Link>
+
+              <Link to="/signup">
+                <button className="navbar-button">Sign Up</button>
+              </Link>
+            </>
+        }
+
+
       </div>
     </nav>
   );
