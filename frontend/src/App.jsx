@@ -15,8 +15,9 @@ import HostDashboard from './pages/events/HostDashboard';
 import ArtisanDashboard from './pages/services/ArtisanDashboard';
 import SellerDashboard from './pages/shop/SellerDashboard';
 import CulturalFestivals from './pages/home/CulturalFestivals';
-import SignUp from './pages/login/SignUp';
 import Login from './pages/login/Login';
+import SignUp from './pages/login/SignUp';
+import Profile from './pages/profile/Profile';
 
 const App = () => {
   const [bookings, setBookings] = useState([]);
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/cultural-festivals" element={<CulturalFestivals />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signUp" element={<SignUp />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
           <Footer />
