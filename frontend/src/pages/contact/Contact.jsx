@@ -1,47 +1,35 @@
 import React, { useState } from "react";
 import "./Contact.css"; // Import the CSS for styling
 import FormModal from '../../components/FormModal'; // Import the new FormModal component
+import telephoneImage from "../../assets/Telephone.png";
 
 const Contact = () => {
-  const [activeRole, setActiveRole] = useState(null);
-
-  const roles = [
-    { id: 1, name: "Seller", description: "Become a seller and showcase your products." },
-    { id: 2, name: "Host", description: "Host an event directly on submission." },
-    { id: 3, name: "Artisan", description: "Register as an artisan with service details." },
-    { id: 4, name: "Other", description: "Reach out for other inquiries." },
-    { id: 5, name: "Advertise", description: "Advertise your business with us." },
-  ];
-
-  const handleRoleClick = (role) => {
-    setActiveRole(role);
-  };
-
-  const closeModal = () => {
-    setActiveRole(null);
-  };
-
   return (
     <div className="contact-container">
-      <h1>Contact Us</h1>
-      <div className="roles-list">
-        {roles.map((role) => (
-          <div key={role.id} className="role-card">
-            <h3>{role.name}</h3>
-            <p>{role.description}</p>
-            <button
-              className="register-button"
-              onClick={() => handleRoleClick(role.name)}
-            >
-              Register
-            </button>
-          </div>
-        ))}
-      </div>
+      <div className="contact-box">
+        <h2 className="contact-title">CONTACT US</h2>
+        
+        {/* Image Section */}
+        <div className="contact-image-container">
+        <img src={telephoneImage} alt="Telephone" className="contact-image" />
 
-      {activeRole && (
-        <FormModal role={activeRole} closeModal={closeModal} />
-      )}
+
+        <form className="contact-form">
+          <input type="text" placeholder="Full Name*" className="contact-input" />
+          <input type="email" placeholder="Email*" className="contact-input" />
+          <input type="tel" placeholder="Phone*" className="contact-input" />
+          <input type="text" placeholder="Subject*" className="contact-input" />
+          <textarea placeholder="Message*" className="contact-input contact-textarea"></textarea>
+          <button type="submit" className="contact-button">SUBMIT</button>
+        </form>
+        </div>
+
+
+        <div className="contact-info">
+          <p>📍 Don Bosco College, Panjim-Goa      ||         📞 +91 345678903</p>
+          
+        </div>
+      </div>
     </div>
   );
 };
