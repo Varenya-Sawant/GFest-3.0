@@ -123,14 +123,14 @@ h2 {
 }
 
 marquee {
-  color: #e03b1a;
+  color: black;
   font-size: 100px;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
 }
 
 .newColor{
-  color: #71BC61;
+  color:  #e03b1a;
 }
 .founder-section {
   display: flex;
