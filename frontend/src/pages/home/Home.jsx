@@ -4,9 +4,10 @@ import './Home.css';
 import Carousel from '../../components/Carousel';
 import landingImage from '../../images/landing.png';
 import founderImage from '../../images/founder.jpg';
-import shopImage from '../../images/shop.png';
-import eventsImage from '../../images/events.png';
-import forumImage from '../../images/forum.png';
+import shopImage from '../../images/Shop1.png';
+import forumImage from '../../images/Forums1.png';
+import servicesImage from '../../images/Services.png';
+import eventImage from '../../images/Events2.png';
 
 const Home = () => {
   return (
@@ -47,22 +48,22 @@ const Home = () => {
       <Carousel />
 
       {/* Cards Section */}
-      <h3>Ministries</h3>
+      <h1 className='card-h1'>Community</h1>
       <div className="card-section">
       <Link to="/events" className="card">
-        <img src={founderImage} alt="Events" />
+        <img src={eventImage} alt="Events" />
         <h3>Events</h3>
       </Link>
       <Link to="/shop" className="card">
-        <img src={founderImage} alt="Shop" />
+        <img src={shopImage} alt="Shop" />
         <h3>Shop</h3>
       </Link>
       <Link to="/services" className="card">
-        <img src={founderImage} alt="Services" />
+        <img src={servicesImage} alt="Services" />
         <h3>Services</h3>
       </Link>
       <Link to="/forums" className="card">
-        <img src={founderImage} alt="Forums" />
+        <img src={forumImage} alt="Forums" />
         <h3>Forums</h3>
       </Link>
     </div>
@@ -71,7 +72,7 @@ const Home = () => {
       <div className="founder-section">
   <div className="content">
     <p>
-      Hello there folkes! I am Marius Festekar, the founder of GFest! I wish all of yourl a hearty welcome and hope yourl to be a part of our community! Viva Goa
+      Hello there folks! I am Marius Festekar, the founder of G-Fest! I wish all of you'll a hearty welcome and hope for you all to be a part of our community! Viva Goa
     </p>
   </div>
   <div className="image-container">
