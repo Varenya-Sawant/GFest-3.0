@@ -1,44 +1,92 @@
-/* src/components/Footer.css */
-
-/* src/components/Footer.css */
-
 .footer {
-    background-color: #F13C20; /* Your brand color */
-    color: white; 
-    text-align: center; 
-    padding: 20px 0; 
-    position: relative; 
-    bottom: 0; 
-    width: 100%; 
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-  }
+  background-color: #ff5733;
+  color:  white;
+  padding: 40px 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 0 20px;
+ 
+}
+
+.footer-title {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ff0066;
+  padding-bottom: 5px;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
   
-  
-  .footer-title {
-    margin: 0;
-    font-size: 1.5rem; /* Title font size */
-    margin-bottom: 10px; /* Space below title */
-    
-  }
-  
-  .social-media-icons {
-    display: flex;
-    justify-content: center; /* Center the icons */
-    gap: 20px; /* Space between icons */
-    margin-bottom: 10px; /* Space below icons */
-  }
-  
-  .social-media-icons a {
-    color: white; /* Icon color */
-    font-size: 1.5rem; /* Icon size */
-    transition: color 0.3s; /* Transition for hover effect */
-  }
-  
-  .social-media-icons a:hover {
-    color: #5DAF51; /* Coral on hover */
-  }
-  
-  .footer-bottom {
-    margin-top: 10px; /* Space above copyright */
-  }
-  
+}
+
+.footer-list li {
+  margin: 8px 0;
+}
+
+.footer-list a {
+  color: green;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-list a:hover {
+  color: #ff0066;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.social-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.footer-links {
+  background: none;  /* Removes the white box */
+  color: white;  /* Adjust to match your theme */
+  padding: 0;  /* Removes extra padding */
+  display: inline-block; /* Keeps spacing consistent */
+  border: none; /* In case there are unnecessary borders */
+  font-size: 18px;
+}
+
+.footer-contact {
+  text-align: center; /* Centers the entire line */
+  font-size: 1.2rem;  /* Adjusts the text size */
+  color: white;       /* Matches the footer theme */
+  font-weight: bold;  /* Makes text stand out */
+  text-align: left;
+}
+
+.footer-text {
+  margin-left: 10px; /* Adds spacing between the email and the text */
+   
+}
