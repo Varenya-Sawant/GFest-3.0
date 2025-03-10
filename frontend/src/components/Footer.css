@@ -7,12 +7,22 @@
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+ 
   gap: 20px;
-  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center; /* Aligns content vertically */
+  flex-wrap: wrap;
  
 }
+
+.footer-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between; /* Separates contact details and social media */
+  align-items: center;
+}
+
 
 .footer-title {
   color: white;
@@ -20,26 +30,17 @@
   margin-bottom: 10px;
   border-bottom: 2px solid #ff0066;
   padding-bottom: 5px;
+  font-size: 30px;
+  text-align: left;
+
+ 
+ 
 }
 
-.footer-list {
-  list-style: none;
-  padding: 0;
-  
-}
+.footer-media{
+  flex: 1;
+  text-align: right; /* Moves social media to the right */
 
-.footer-list li {
-  margin: 8px 0;
-}
-
-.footer-list a {
-  color: green;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-list a:hover {
-  color: #ff0066;
 }
 
 .footer-social {
@@ -78,15 +79,66 @@
   font-size: 18px;
 }
 
-.footer-contact {
+.footer-text {
   text-align: center; /* Centers the entire line */
-  font-size: 1.2rem;  /* Adjusts the text size */
+  font-size: 15px;  /* Adjusts the text size */
   color: white;       /* Matches the footer theme */
   font-weight: bold;  /* Makes text stand out */
   text-align: left;
 }
 
-.footer-text {
-  margin-left: 10px; /* Adds spacing between the email and the text */
-   
+.footer-contact {
+  flex: 1;
+  text-align: left; /* Keeps contact details aligned to the left */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+  
+
+
+.footer-location,
+.footer-phone {
+  display: flex;
+  align-items: center; /* Ensures icons and text are vertically aligned */
+  gap: 10px; /* Adds spacing between the icon and the text */
+}
+.footer-email-icon{
+  margin-left: 0%;
+  width: 40px; /* Adjust icon size */
+  height: 40px;
+}
+.location-icon,
+.phone-icon {
+  width: 40px; /* Adjust icon size */
+  height: 40px;
+}
+
+.footer-location-text{
+  display: flex;
+  align-items: center; /* Aligns text properly */
+  font-size: 18px; /* Adjust text size */
+  color: white; /* Ensure text is readable */
+  line-height: 1.4; /* Improves readability */
+  margin-left: -50%;
+}
+
+.footer-phone-text {
+  display: flex;
+  align-items: center; /* Aligns text properly */
+  font-size: 18px; /* Adjust text size */
+  color: white; /* Ensure text is readable */
+  line-height: 1.4; /* Improves readability */
+  margin-left: -40%;
+}
+.footer-email-text{
+  display: flex;
+  align-items: center; /* Aligns text properly */
+  font-size: 18px; /* Adjust text size */
+  color: white; /* Ensure text is readable */
+  line-height: 1.4; /* Improves readability */
+  margin-left: 30%;
+  margin-top: -20%;
+  
+
 }

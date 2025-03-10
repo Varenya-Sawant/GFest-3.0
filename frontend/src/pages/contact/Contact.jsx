@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import locationIcon from "../../assets/location.png";
 import phoneIcon from "../../assets/phone.png";
-import emailIcon from "../../assets/email.jpg";
+import emailIcon from "../../assets/email.png";
 import "./Contact.css";
 
 const ContactUs = () => {
@@ -20,7 +20,7 @@ const ContactUs = () => {
     <div className="contact-container">
       {/* Contact Info Section */}
       <div className="contact-info">
-        <h2 className="contact-heading">GET IN TOUCH</h2>
+        <h2 className="contact-heading">Contact Us</h2>
         <div className="contact-details">
           {/* Address Section */}
           <div className="contact-item">

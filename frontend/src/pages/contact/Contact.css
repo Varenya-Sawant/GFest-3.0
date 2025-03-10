@@ -18,7 +18,7 @@
   font-weight: bold;
   margin-bottom: 30px;
   color: #F13C20;
-  margin-left: 4%;
+  margin-left: -65%;
 }
 
 .contact-details {
@@ -39,21 +39,22 @@
 .location-icon{ 
   margin-right: 50%;
   object-fit: contain;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 60px;
 }
 
 .phone-icon{
   margin-right: 40%;
   object-fit: contain;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 60px;
 }
 .email-icon {
   width: 50px;
-  height: 50px;
+  height: 40px;
   object-fit: contain;
   margin-left: 90%;
+  margin-bottom: 13%;
 }
 
 /* Titles */
@@ -63,6 +64,7 @@
 }
 .phone-title {
   margin-right: 40%;
+  margin-top: 10%;
   color:#555;
 
 }
@@ -70,7 +72,7 @@
 .email-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-top: -2%;
   margin-left: 90%;
   color:#555;
 }
@@ -89,6 +91,7 @@
   font-size: 16px;
   margin: 3px 0;
   margin-left: 90%;
+  margin-top: 10%;
   color:#555;
 }
 

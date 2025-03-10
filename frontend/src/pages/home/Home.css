@@ -163,6 +163,7 @@ marquee {
   color: #333;
   line-height: 1.6;
   margin-bottom: 10px; /* Reduce space below text */
+  margin-left: 22.2%;
 }
 
 
@@ -176,6 +177,7 @@ marquee {
   max-width: 80%;
   height: auto;
   border-radius: 10px;
+  margin-left: 33.3%;
 }
 
 
@@ -203,6 +205,7 @@ marquee {
   position: relative;
   background: #000;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-decoration:none ;
 }
 
 .card img {
@@ -221,6 +224,7 @@ marquee {
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 5px;
+ 
 }
 
 /* Hover effect */
@@ -237,4 +241,11 @@ marquee {
   .card {
     height: 200px;
   }
+}
+
+.card-h1{
+  font-size: 50px;
+  margin-left: 39%;
+  margin-top: 5%;
+  font-family: Arial, sans-serif;
 }
