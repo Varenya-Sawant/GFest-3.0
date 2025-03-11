@@ -1,11 +1,9 @@
 /* src/components/ShopNavbar.css */
 .shop-navbar {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   padding: 10px 20px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-  gap: 15px;
+
 }
 
 .shop-navbar a {
@@ -19,5 +17,5 @@
 
 .shop-navbar a:hover {
   color: white; /* Text color changes on hover */
-  background-color: #007bff; /* Blue background on hover */
+  background-color : #FF6F61; /* Blue background on hover */
 }

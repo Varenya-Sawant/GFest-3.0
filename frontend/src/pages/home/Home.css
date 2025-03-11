@@ -58,61 +58,6 @@ h2 {
   background-color: #e03b1a;
 }
 
-.cards {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 0;
-}
-
-.card {
-  flex: 1;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  text-align: center;
-  max-width: 25%;
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 15px;
-}
-
-.card h2 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.card p {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 15px;
-}
-
-.card button {
-  background-color: #71BC61;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.card button a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.card button:hover {
-  background-color: #e03b1a;
-}
-
 .culture-section {
   text-align: center;
   margin: 40px 0; /* Add some space above and below */
@@ -154,64 +99,10 @@ h2 {
 }
 
 /* Main section wrapper */
-.founder-card-section {
-  padding: 40px 0;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-}
-
-/* Card-like container */
-.founder-card {
-  display: flex;
-  align-items: center; /* Vertically center the card's contents */
-  max-width: 1200px;
-  margin: auto;
-  background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  gap: 20px;
-}
-
-/* Founder Info Section */
-.founder-info {
-  flex: 1;
-  display: flex; /* Use flexbox */
-  align-items: center; /* Center vertically */
-  justify-content: center;
-  flex-direction: column; /* Stack image and name vertically */
-}
-
-.founder-image {
-  width: 200px; /* Set fixed dimensions */
-  height: 200px; 
-  object-fit: cover; /* Ensures the image fits properly */
-  border: 2px solid #71BC61; /* Optional border */
-}
-
-.founder-name {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-/* Message Content Section */
-.founder-message-content {
-  flex: 2;
-  padding: 10px 15px;
-  line-height: 1.8;
-  color: #555;
-}
-
-.founder-message-content h2 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #333;
-}
 
 .cta-large {
-  padding: 12px 30px; /* Space inside the button */
-  font-size: 18px; /* Make it easy to read */
+  padding: 12px 25px; /* Space inside the button */
+  font-size: 1.2rem; /* Make it easy to read */
   color: #fff; /* White text */
   background-color: #71BC61; /* Base red button color */
   border: none; /* Remove default border */
@@ -221,5 +112,140 @@ h2 {
 }
 
 .cta-large:hover {
-  background-color: #f56345; /* Slightly lighter red on hover */
+  background-color: #e03b1a; /* Slightly lighter red on hover */
+}
+
+.marquee-container {
+  width: 100%;
+  color: white;
+  font-weight: bold;
+ 
+}
+
+marquee {
+  color: black;
+  font-size: 100px;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.newColor{
+  color:  #e03b1a;
+}
+.founder-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px; /* Reduced gap */
+  margin-bottom: 30px;
+  
+ 
+}
+
+.content {
+  flex: 0.9; /* Reduce space taken */
+  max-width: 45%; /* Reduce max width */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.content h2 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px; /* Reduce space below text */
+  margin-left: 22.2%;
+}
+
+
+.image-container {
+  flex: 0.9; /* Make it take less space */
+  display: flex;
+  justify-content: center;
+}
+
+.image-container img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 33.3%;
+}
+
+
+.card-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 40px 10%;
+}
+
+.card {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-decoration:none ;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers full card */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.card h3 {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
+ 
+}
+
+/* Hover effect */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(255, 204, 0, 0.7);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .card-section {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    height: 200px;
+  }
+}
+
+.card-h1{
+  font-size: 50px;
+  margin-left: 39%;
+  margin-top: 5%;
+  font-family: Arial, sans-serif;
 }
