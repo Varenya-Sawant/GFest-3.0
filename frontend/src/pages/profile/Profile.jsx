@@ -14,7 +14,15 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await axios.post('http://localhost:3000/api/profile', { email: localStorage.getItem('user_email') });
+      const email = localStorage.getItem('user_email');
+
+      if (!email) {
+        navigate('/login');
+        window.location.reload();
+        return;
+      };
+
+      const response = await axios.post('http://localhost:3000/api/profile', { email });
       setUserData(response.data.user)
 
     })()

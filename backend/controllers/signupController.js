@@ -54,13 +54,29 @@ const userRegistrationMiddleware = async (req, res, next) => {
 
     // Insert user types into the user_types table
     const userTypeEntries = Object.entries(userTypes);
+    console.log({
+      userTypeEntries
+    });
+
     for (const [key, value] of userTypeEntries) {
       if (value === true) {
         await connection.query(
           "INSERT INTO user_types (user_email, user_type) VALUES (?, ?)",
           [email, key]
         );
-      }
+
+        if (key == 'ARTISIAN') {// no triple equal
+          await connection.query(
+            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email) VALUES (?)`,
+            [email]
+          );
+        } else {
+          await connection.query(
+            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email, ${key.toLowerCase()}_status) VALUES (?, ?)`,
+            [email, 'PENDING']
+          )
+        };
+      };
     }
 
     // Respond with success

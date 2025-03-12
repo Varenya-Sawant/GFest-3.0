@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
+const path = require('path');
 
 // Middleware
 app.use(express.json());
@@ -14,9 +15,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 // Routes
-app.use('/api/register', require('./routes/register'))
-app.use('/api/login', require('./routes/login'))
-app.use('/api/profile', require('./routes/profile'))
+app.use('/api/register', require('./routes/register'));
+app.use('/api/login', require('./routes/login'));
+app.use('/api/profile', require('./routes/profile'));
+app.use('/api/events', require('./routes/events'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/services', servicesRouter);
 
