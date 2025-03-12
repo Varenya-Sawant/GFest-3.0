@@ -9,7 +9,7 @@ import { ShopContextProvider } from "./context/shop-context";
 import Services from './pages/services/Services';
 import Contact from './pages/contact/Contact';
 import Footer from './components/Footer';
-import Events from './pages/events/Events';
+// import Events from './pages/events/Events';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import HostDashboard from './pages/events/HostDashboard';
 import ArtisanDashboard from './pages/services/ArtisanDashboard';
@@ -18,6 +18,8 @@ import CulturalFestivals from './pages/home/CulturalFestivals';
 import Login from './pages/login/Login';
 import SignUp from './pages/login/SignUp';
 import Profile from './pages/profile/Profile';
+import EventListing from './pages/events/EventListing__.jsx';
+import EventCreationForm from './pages/events/EventCreationForm__.jsx';
 
 const App = () => {
   const [bookings, setBookings] = useState([]);
@@ -35,7 +37,7 @@ const App = () => {
               <Route path="/cart" element={<Cart />} />
               <Route path="/services" element={<Services setBookings={setBookings} />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/events" element={<Events />} />
+              {/* <Route path="/events" element={<Events />} /> */}
               <Route path="/adminDash" element={<AdminDashboard />} />
               <Route path="/sellerDash" element={<SellerDashboard />} />
               <Route path="/artisanDash" element={<ArtisanDashboard bookings={bookings} />} />
@@ -44,6 +46,8 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path='/events' element={<EventListing />} />
+              <Route path='/events/create' element={<EventCreationForm />} />
             </Routes>
           </div>
           <Footer />
@@ -54,3 +58,20 @@ const App = () => {
 };
 
 export default App;
+
+/*import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import EventListing from './EventListing';
+import EventDetails from './EventDetails';
+
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<EventListing />} />
+      <Route path="/events/:id" element={<EventDetails />} />
+    </Routes>
+  </Router>
+);
+
+export default App;
+*/

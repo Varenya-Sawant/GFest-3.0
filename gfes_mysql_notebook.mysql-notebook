@@ -1,0 +1,2014 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook",
+    "content": "\\about\nUSE g_fest\nSELECT * FROM users; SELECT * FROM hosts; SELECT * FROM events;\nINSERT INTO hosts VALUES ('suyog21@gmail.com', 'PENDING', NULL)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSELECT * FROM users; SELECT * FROM hosts; SELECT * FROM events;\nSELECT * from events;\nSELECT * from user_types;\n\n",
+    "options": {
+        "tabSize": 4,
+        "insertSpaces": true,
+        "indentSize": 4,
+        "defaultEOL": "CRLF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 41,
+                    "column": 1
+                },
+                "position": {
+                    "lineNumber": 41,
+                    "column": 1
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 39,
+                "column": 1
+            },
+            "firstPositionDeltaTop": 137
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 1,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "content": "Welcome to the MySQL Shell - DB Notebook.\n\nPress Ctrl+Enter to execute the code block.\n\nExecute \\sql to switch to SQL, \\js to JavaScript and \\ts to TypeScript mode.\nExecute \\help or \\? for help;",
+                            "language": "ansi"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 6
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 2,
+                "end": 2,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "270ba0d7-355d-4b5f-841f-1525cd5966ea",
+                            "content": "OK, 0 records retrieved in 2.492ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 10
+                        },
+                        "contentStart": 0,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 3,
+                "end": 3,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "0b026fa3-f6b1-4ad5-8bbe-341703db6a72",
+                        "5929f752-bdf8-4d07-acce-af6de5be98d7",
+                        "6b7abbe6-fc11-4c63-a92d-2a97105baa6c"
+                    ]
+                },
+                "currentHeight": 143.59375,
+                "currentSet": 3,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 20
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 20,
+                            "length": 21
+                        },
+                        "contentStart": 21,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 41,
+                            "length": 22
+                        },
+                        "contentStart": 42,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "1",
+                    "resultId": "0b026fa3-f6b1-4ad5-8bbe-341703db6a72",
+                    "rows": [
+                        {
+                            "0": "aaaaa@123gmail.com",
+                            "1": "1111111111",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "9876543210",
+                            "4": "2025-03-12 05:14:27"
+                        },
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "eh",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "0123456789",
+                            "4": "2025-03-11 15:54:38"
+                        },
+                        {
+                            "0": "hacker@gmail.com",
+                            "1": "test",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "9876543210",
+                            "4": "2025-03-12 04:43:34"
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "Suyog",
+                            "2": "32ff08d6382465ad9abec8caec6f7013e01a5f20ce2df86a839990d7e21bab84e5b0bf007328db01945b9061d9879d13fd6a5e337eae1312eeaf8b353f0f59a2",
+                            "3": "9876543210",
+                            "4": "2025-03-10 12:12:37"
+                        },
+                        {
+                            "0": "varenyasawant23@gmail.com",
+                            "1": "varenyasawant23@gmail.com",
+                            "2": "b4a3f82485e5c40b0fc3cda260074b7cd36b53d4d8c47bc4ed02831a502cbfdce76744d5fc85f74084e479d706fc15a6c41b8469111732e89416a0fc08400e3b",
+                            "3": "9876543210",
+                            "4": "2025-03-06 12:16:50"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "user_email",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_password",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_phone_number",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "createdAt",
+                            "field": "4",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": "CURRENT_TIMESTAMP"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 5 records retrieved in 1.69ms"
+                    },
+                    "totalRowCount": 5,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM users",
+                    "updatable": true,
+                    "fullTableName": "users"
+                },
+                {
+                    "tabId": "1",
+                    "resultId": "5929f752-bdf8-4d07-acce-af6de5be98d7",
+                    "rows": [
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "PENDING",
+                            "2": null
+                        },
+                        {
+                            "0": "hacker@gmail.com",
+                            "1": "PENDING",
+                            "2": null
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "PENDING",
+                            "2": null
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "host_email",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_status",
+                            "field": "1",
+                            "dataType": {
+                                "type": 43,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_company_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 3 records retrieved in 1.59ms"
+                    },
+                    "totalRowCount": 3,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": " SELECT * FROM hosts",
+                    "updatable": true,
+                    "fullTableName": "hosts"
+                },
+                {
+                    "tabId": "1",
+                    "resultId": "6b7abbe6-fc11-4c63-a92d-2a97105baa6c",
+                    "rows": [
+                        {
+                            "0": 2,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 3,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 4,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 5,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 6,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 7,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 8,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 9,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 10,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 11,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 12,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 13,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 20,
+                            "1": "nextjs",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "paniji",
+                            "4": 15.522,
+                            "5": 73.961,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 21,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 22,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 23,
+                            "1": "wewq",
+                            "2": "race race race race",
+                            "3": "BBVX",
+                            "4": 15.4663,
+                            "5": 73.8397,
+                            "6": "2025-03-20 04:52:00",
+                            "7": "2025-03-22 04:52:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 24,
+                            "1": "bro bro",
+                            "2": "party all night",
+                            "3": "farm ",
+                            "4": 15.5235,
+                            "5": 73.9631,
+                            "6": "2025-03-20 10:00:00",
+                            "7": "2025-03-21 10:00:00",
+                            "8": "hacker@gmail.com"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "event_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
+                        },
+                        {
+                            "title": "event_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_description",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_address",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_latitude",
+                            "field": "4",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_longitude",
+                            "field": "5",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_start_timestamp",
+                            "field": "6",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_end_timestamp",
+                            "field": "7",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_email",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 17 records retrieved in 2.404ms"
+                    },
+                    "totalRowCount": 17,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 2,
+                    "sql": " SELECT * FROM events",
+                    "updatable": true,
+                    "fullTableName": "events"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 4,
+                "end": 4,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "6c98052f-38d0-464e-bd1a-27cac2d40424",
+                            "content": "OK, 1 row affected in 7.904ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 63
+                        },
+                        "contentStart": 0,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 5,
+                "end": 33,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 28
+                        },
+                        "contentStart": -1,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 34,
+                "end": 34,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 35,
+                "end": 35,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 36,
+                "end": 36,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 37,
+                "end": 37,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "70a8617b-bede-449c-f78a-20e3967443ab",
+                        "f7a9ea87-f730-488d-b47f-785ccd8ae90d",
+                        "7e745753-558b-4408-e830-064021594b20"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 3,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 20
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 20,
+                            "length": 21
+                        },
+                        "contentStart": 21,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 41,
+                            "length": 22
+                        },
+                        "contentStart": 42,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "1",
+                    "resultId": "70a8617b-bede-449c-f78a-20e3967443ab",
+                    "rows": [
+                        {
+                            "0": "aaaaa@123gmail.com",
+                            "1": "1111111111",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "9876543210",
+                            "4": "2025-03-12 05:14:27"
+                        },
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "eh",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "0123456789",
+                            "4": "2025-03-11 15:54:38"
+                        },
+                        {
+                            "0": "hacker@gmail.com",
+                            "1": "test",
+                            "2": "f9dd439110ee6481d3d60d5d1e901b3e9517c67d50cba6352af7d365367bf588db856aa555ccfe23689f77df0adf82ad73caab1c9efa8e8c73c815402c9979b8",
+                            "3": "9876543210",
+                            "4": "2025-03-12 04:43:34"
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "Suyog",
+                            "2": "32ff08d6382465ad9abec8caec6f7013e01a5f20ce2df86a839990d7e21bab84e5b0bf007328db01945b9061d9879d13fd6a5e337eae1312eeaf8b353f0f59a2",
+                            "3": "9876543210",
+                            "4": "2025-03-10 12:12:37"
+                        },
+                        {
+                            "0": "varenyasawant23@gmail.com",
+                            "1": "varenyasawant23@gmail.com",
+                            "2": "b4a3f82485e5c40b0fc3cda260074b7cd36b53d4d8c47bc4ed02831a502cbfdce76744d5fc85f74084e479d706fc15a6c41b8469111732e89416a0fc08400e3b",
+                            "3": "9876543210",
+                            "4": "2025-03-06 12:16:50"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "user_email",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_password",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_phone_number",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "createdAt",
+                            "field": "4",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": "CURRENT_TIMESTAMP"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 5 records retrieved in 2.384ms"
+                    },
+                    "totalRowCount": 5,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM users",
+                    "updatable": true,
+                    "fullTableName": "users"
+                },
+                {
+                    "tabId": "1",
+                    "resultId": "f7a9ea87-f730-488d-b47f-785ccd8ae90d",
+                    "rows": [
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "PENDING",
+                            "2": null
+                        },
+                        {
+                            "0": "hacker@gmail.com",
+                            "1": "PENDING",
+                            "2": null
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "PENDING",
+                            "2": null
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "host_email",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_status",
+                            "field": "1",
+                            "dataType": {
+                                "type": 43,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_company_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 3 records retrieved in 1.848ms"
+                    },
+                    "totalRowCount": 3,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 1,
+                    "sql": " SELECT * FROM hosts",
+                    "updatable": true,
+                    "fullTableName": "hosts"
+                },
+                {
+                    "tabId": "1",
+                    "resultId": "7e745753-558b-4408-e830-064021594b20",
+                    "rows": [
+                        {
+                            "0": 2,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 3,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 4,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 5,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 6,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 7,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 8,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 9,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 10,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 11,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 12,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 13,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 20,
+                            "1": "nextjs",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "paniji",
+                            "4": 15.522,
+                            "5": 73.961,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 21,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 22,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 23,
+                            "1": "wewq",
+                            "2": "race race race race",
+                            "3": "BBVX",
+                            "4": 15.4663,
+                            "5": 73.8397,
+                            "6": "2025-03-20 04:52:00",
+                            "7": "2025-03-22 04:52:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 24,
+                            "1": "bro bro",
+                            "2": "party all night",
+                            "3": "farm ",
+                            "4": 15.5235,
+                            "5": 73.9631,
+                            "6": "2025-03-20 10:00:00",
+                            "7": "2025-03-21 10:00:00",
+                            "8": "hacker@gmail.com"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "event_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
+                        },
+                        {
+                            "title": "event_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_description",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_address",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_latitude",
+                            "field": "4",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_longitude",
+                            "field": "5",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_start_timestamp",
+                            "field": "6",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_end_timestamp",
+                            "field": "7",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_email",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 17 records retrieved in 2.446ms"
+                    },
+                    "totalRowCount": 17,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 2,
+                    "sql": " SELECT * FROM events",
+                    "updatable": true,
+                    "fullTableName": "events"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 38,
+                "end": 38,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "951e0553-633b-42f8-b217-5ed147d8d573"
+                    ]
+                },
+                "currentHeight": 352,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 21
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "1",
+                    "resultId": "951e0553-633b-42f8-b217-5ed147d8d573",
+                    "rows": [
+                        {
+                            "0": 2,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 3,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 4,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 5,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 6,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 7,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 8,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 9,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 10,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 11,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 12,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 13,
+                            "1": "sadas",
+                            "2": "asda",
+                            "3": "dfsdfsd",
+                            "4": 51.505,
+                            "5": -0.100921,
+                            "6": "2025-03-11 15:56:00",
+                            "7": "2025-03-27 15:56:00",
+                            "8": "ethicalhacker@email.com"
+                        },
+                        {
+                            "0": 20,
+                            "1": "nextjs",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "paniji",
+                            "4": 15.522,
+                            "5": 73.961,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 21,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 22,
+                            "1": "aassddff",
+                            "2": "asdfgqwerzcxtv gbdhcc  jcdibj  kjcabi lksi svn lh s s fe e ec",
+                            "3": "not on earth",
+                            "4": 15.5397,
+                            "5": 73.7614,
+                            "6": "2025-03-12 09:44:00",
+                            "7": "2025-03-27 10:44:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 23,
+                            "1": "wewq",
+                            "2": "race race race race",
+                            "3": "BBVX",
+                            "4": 15.4663,
+                            "5": 73.8397,
+                            "6": "2025-03-20 04:52:00",
+                            "7": "2025-03-22 04:52:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 24,
+                            "1": "bro bro",
+                            "2": "party all night",
+                            "3": "farm ",
+                            "4": 15.5235,
+                            "5": 73.9631,
+                            "6": "2025-03-20 10:00:00",
+                            "7": "2025-03-21 10:00:00",
+                            "8": "hacker@gmail.com"
+                        },
+                        {
+                            "0": 28,
+                            "1": "computer selling",
+                            "2": "2nd hand computer for sale",
+                            "3": "amona goa",
+                            "4": 15.3687,
+                            "5": 73.9567,
+                            "6": "2025-03-12 10:40:00",
+                            "7": "2025-03-13 12:38:00",
+                            "8": "suyog21@gmail.com"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "event_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
+                        },
+                        {
+                            "title": "event_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_description",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_address",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_latitude",
+                            "field": "4",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_location_longitude",
+                            "field": "5",
+                            "dataType": {
+                                "type": 7,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 53,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FLOAT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_start_timestamp",
+                            "field": "6",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "event_end_timestamp",
+                            "field": "7",
+                            "dataType": {
+                                "type": 26,
+                                "dateTimePrecision": 8,
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "host_email",
+                            "field": "8",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 18 records retrieved in 2.007ms"
+                    },
+                    "totalRowCount": 18,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * from events",
+                    "updatable": true,
+                    "fullTableName": "events"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 39,
+                "end": 40,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "1e610766-7ce4-4a95-e0c4-958ea8a8fb10"
+                    ]
+                },
+                "currentHeight": 233.59375,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 25
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 25,
+                            "length": 1
+                        },
+                        "contentStart": 24,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "1",
+                    "resultId": "1e610766-7ce4-4a95-e0c4-958ea8a8fb10",
+                    "rows": [
+                        {
+                            "0": "aaaaa@123gmail.com",
+                            "1": "ARTISIAN"
+                        },
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "ARTISIAN"
+                        },
+                        {
+                            "0": "ethicalhacker@email.com",
+                            "1": "HOST"
+                        },
+                        {
+                            "0": "hacker@gmail.com",
+                            "1": "HOST"
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "HOST"
+                        },
+                        {
+                            "0": "suyog21@gmail.com",
+                            "1": "SELLER"
+                        },
+                        {
+                            "0": "varenyasawant23@gmail.com",
+                            "1": "COMMON_USER"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "user_email",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "user_type",
+                            "field": "1",
+                            "dataType": {
+                                "type": 43,
+                                "needsQuotes": true
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": false,
+                            "default": "COMMON_USER"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 7 records retrieved in 2.665ms"
+                    },
+                    "totalRowCount": 7,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * from user_types",
+                    "updatable": true,
+                    "fullTableName": "user_types"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 41,
+                "end": 41,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}

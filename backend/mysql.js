@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise'); // Using promise-based MySQL
 const connection =  mysql.createPool({
   host: '127.0.0.1', // Adjust as needed
   user: 'root',
-  password: '',
+  password: 'Varenya23^',
   database: 'g_fest'
 });
 
