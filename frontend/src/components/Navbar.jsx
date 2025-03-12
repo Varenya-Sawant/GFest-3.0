@@ -3,6 +3,7 @@ import { Link } from 'react-router'; // Use Link for internal navigation
 import './Navbar.css';
 
 const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
+const isHost = () => localStorage.getItem('user_type').split(',');
 
 const Navbar = () => {
   return (
@@ -23,9 +24,19 @@ const Navbar = () => {
         {
           isUserLoggedIn()
             ?
-            <Link to="/profile">
-              <button className="navbar-button">Your Profile</button>
-            </Link>
+            isHost().includes('HOST')
+              ? <>
+                <Link to="/events/create">
+                  <button className="navbar-button">Create Event</button>
+                </Link>
+
+                <Link to="/profile">
+                  <button className="navbar-button">Your Profile</button>
+                </Link>
+              </>
+              : <Link to="/profile">
+                <button className="navbar-button">Your Profile</button>
+              </Link>
             :
             <>
               <Link to="/login">

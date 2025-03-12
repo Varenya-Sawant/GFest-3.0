@@ -1,9 +1,7 @@
 .carousel-container {
     position: relative;
-    width: 70%;
+    width: 100%;
     overflow: hidden;
-    margin-left: 200px;
-    margin-top: 200px;
   }
   
   .carousel {

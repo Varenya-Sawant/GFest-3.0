@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import './Carousel.css'; // Assuming you have CSS for the carousel
-import img3 from '../images/img3.jpg'; // Import the image from the src/images folder
-import img2 from '../images/img2.jpg';
+import img1 from '../images/img1.jpg'; // Import the image from the src/images folder
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
-    { src: img3, alt: 'Goa Festival Image 3' }, // Use the imported image
-    { src: img2, alt: 'Goa Festival Image 2' }, // Replace with other images later
+    { src: img1, alt: 'Goa Festival Image 1' }, // Use the imported image
+    { src: img1, alt: 'Goa Festival Image 2' }, // Replace with other images later
   ];
 
   const nextSlide = () => {
