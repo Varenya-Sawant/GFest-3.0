@@ -1,49 +1,74 @@
 import React, { useState } from "react";
-import "./Contact.css"; // Import the CSS for styling
-import FormModal from '../../components/FormModal'; // Import the new FormModal component
+import locationIcon from "../../assets/location.png";
+import phoneIcon from "../../assets/phone.png";
+import emailIcon from "../../assets/email.png";
+import "./Contact.css";
+import founderImage from '../../images/goad.jpg';
 
-const Contact = () => {
-  const [activeRole, setActiveRole] = useState(null);
+const ContactUs = () => {
+  const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", message: "" });
 
-  const roles = [
-    { id: 1, name: "Seller", description: "Become a seller and showcase your products." },
-    { id: 2, name: "Host", description: "Host an event directly on submission." },
-    { id: 3, name: "Artisan", description: "Register as an artisan with service details." },
-    { id: 4, name: "Other", description: "Reach out for other inquiries." },
-    { id: 5, name: "Advertise", description: "Advertise your business with us." },
-  ];
-
-  const handleRoleClick = (role) => {
-    setActiveRole(role);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const closeModal = () => {
-    setActiveRole(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
   };
 
   return (
     <div className="contact-container">
-      <h1>Contact Us</h1>
-      <div className="roles-list">
-        {roles.map((role) => (
-          <div key={role.id} className="role-card">
-            <h3>{role.name}</h3>
-            <p>{role.description}</p>
-            <button
-              className="register-button"
-              onClick={() => handleRoleClick(role.name)}
-            >
-              Register
-            </button>
+      <h1 className='card-h1'>Contact Us</h1>
+      <div className="goa-dialogue">
+  <div className="image">
+    <img src={founderImage} alt="Founder of GFest" />
+  </div>
+  <div className="mssg">
+    <h2>Beyond the Beaches: The True Spirit of Goa</h2>
+    <p>
+      Goa is more than just a tourist hotspot—it's a rich cultural hub filled with history, traditions, and vibrant communities. 
+      From its deep-rooted heritage to its thriving art and music scene, Goa represents a way of life that blends modernity 
+      with timeless charm. It's about the people, the passion, and the stories that shape its identity beyond the golden sands.
+    </p>
+  </div>
+</div>
+      {/* Contact Info Section */}
+      <div className="contact-info">
+      
+        <div className="contact-details">
+          {/* Address Section */}
+          <div className="contact-item">
+            <img src={locationIcon} alt="Location" className="location-icon" />
+            <h3 className="location-title">ADDRESS</h3>
+            <p className="location-text"><strong>G-Fest Corporations</strong></p>
+            <p className="location-text">123 Green Avenue, Orange City, 56789</p>
           </div>
-        ))}
+
+          {/* Phone Section */}
+          <div className="contact-item">
+            <img src={phoneIcon} alt="Phone" className="phone-icon" />
+            <h3 className="phone-title">PHONE</h3>
+            <p className="phone-text"><strong>Customer Support</strong></p>
+            <p className="phone-text">+1 234 567 890</p>
+            <p className="phone-text">+1 987 654 321</p>
+          </div>
+
+          {/* Email Section */}
+          <div className="contact-item">
+            <img src={emailIcon} alt="Email" className="email-icon" />
+            <h3 className="email-title">EMAIL</h3>
+            <p className="email-text"><strong>General Inquiries</strong></p>
+            <p className="email-text">info@company.com</p>
+          </div>
+        </div>
       </div>
 
-      {activeRole && (
-        <FormModal role={activeRole} closeModal={closeModal} />
-      )}
+      {/* Form Section */}
+      
+
     </div>
   );
 };
 
-export default Contact;
+export default ContactUs;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'; // Use Link for internal navigation
 import './Navbar.css';
+import logoImage from '../images/logo.png';
 
 const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
 const isHost = () => localStorage.getItem('user_type').split(',');
@@ -8,7 +9,11 @@ const isHost = () => localStorage.getItem('user_type').split(',');
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="logo">Gfest</div>
+      <div className="logo">
+      <Link to="/" className="logo">
+        <img src={logoImage} alt="Events" />
+        </Link>
+      </div>
 
       <div className="nav-links">
         <Link to="/">HOME</Link>
