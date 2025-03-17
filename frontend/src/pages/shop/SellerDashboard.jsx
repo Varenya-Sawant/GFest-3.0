@@ -1,93 +1,201 @@
-// src/pages/SellerDashboard.js
-
-import React, { useState } from 'react';
-import './../Dashboard.css'; // Import common dashboard CSS
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './SellerDashboard.css';
 
 const SellerDashboard = () => {
-  const [products, setProducts] = useState([]); // State to hold products
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', image: null }); // State for new product
-  const [editingProductId, setEditingProductId] = useState(null); // State to track the product being edited
+  const [formData, setFormData] = useState({
+    product_name: '',
+    product_description: '',
+    product_price: '',
+    product_stock: '',
+    product_isAvailable: true,
+    product_category_name: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState('');
 
-  // Handle product submission
-  const handleAddProduct = (e) => {
-    e.preventDefault();
+  const [images, setImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
-    const productWithImage = {
-      id: products.length + 1,
-      name: newProduct.name,
-      price: newProduct.price,
-      image: URL.createObjectURL(newProduct.image), // Create a URL for the uploaded image
-    };
 
-    // If editing, update the existing product; otherwise, add a new product
-    if (editingProductId) {
-      setProducts(products.map(product => 
-        product.id === editingProductId ? productWithImage : product
-      ));
-      setEditingProductId(null); // Reset editing state
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+
+    if (type === 'checkbox') {
+      setFormData((prev) => ({ ...prev, [name]: checked }));
+      // } else if (type === 'file') {
+      //   setFormData((prev) => ({ ...prev, product_media_link: files[0] }));
     } else {
-      // Add new product to the list
-      setProducts([...products, productWithImage]);
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+  };
+
+  // Handle image upload
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(files);
+    const previews = files.map((file) => URL.createObjectURL(file));
+    setImagePreviews(previews);
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+    if (!formData.product_name.trim()) newErrors.product_name = 'Product name is required';
+    if (!formData.product_description.trim()) newErrors.product_description = 'Description is required';
+    if (!formData.product_price || isNaN(formData.product_price) || formData.product_price <= 0)
+      newErrors.product_price = 'Valid price is required';
+    if (!formData.product_stock || isNaN(formData.product_stock) || formData.product_stock <= 0)
+      newErrors.product_stock = 'Valid stock quantity is required';
+    if (!formData.product_category_name.trim()) newErrors.product_category_name = 'Category name is required';
+    // if (!formData.product_media_link) newErrors.product_media_link = 'Image is required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const data = new FormData();
+    data.append('product_name', formData.product_name);
+    data.append('product_description', formData.product_description);
+    data.append('product_price', formData.product_price);
+    data.append('product_stock', formData.product_stock);
+    data.append('product_isAvailable', formData.product_isAvailable);
+    data.append('product_category_name', formData.product_category_name);
+    data.append('seller_email', localStorage.getItem('user_email'));
+    // data.append('product_media_link', formData.product_media_link);
+
+    images.forEach((image, index) => {
+      console.log({ image, imagePreviews });
+
+      data.append('product_image_link', image);
+
+      data.append('product_image_link_details', JSON.stringify({
+        uri: imagePreviews[index],
+        type: image.type,
+        name: image.name
+      }));
+    });
+
+    for (let [key, value] of data.entries()) {
+      console.log(`${key}:`, value);
     }
+    console.log({ formData });
 
-    // Reset form fields
-    setNewProduct({ name: '', price: '', image: null });
-  };
+    try {
 
-  // Handle product edit
-  const handleEditProduct = (product) => {
-    setNewProduct({ name: product.name, price: product.price, image: null });
-    setEditingProductId(product.id); // Set the editing product ID
-  };
+      const response = await axios.post(
+        `http://localhost:3000/api/seller/products`,
+        data,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
 
-  // Handle product deletion
-  const handleDeleteProduct = (productId) => {
-    setProducts(products.filter(product => product.id !== productId));
+      setSuccess('Product added successfully!');
+      setFormData({
+        product_name: '',
+        product_description: '',
+        product_price: '',
+        product_stock: '',
+        product_isAvailable: true,
+        product_category_name: '',
+      });
+      setErrors({});
+    } catch (error) {
+      console.error('Error adding product:', error);
+      setErrors({ server: error.response?.data?.message || 'Failed to add product' });
+    }
   };
 
   return (
-    <div className="dashboard-container">
-      <h1>Seller Dashboard</h1>
-      <h2>Manage Products</h2>
+    <div className="seller-dashboard">
+      <h2>Seller Dashboard - Add Product</h2>
+      {success && <p className="success">{success}</p>}
+      {errors.server && <p className="error">{errors.server}</p>}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div>
+          <label>Product Name:</label>
+          <input
+            type="text"
+            name="product_name"
+            value={formData.product_name}
+            onChange={handleChange}
+          />
+          {errors.product_name && <span className="error">{errors.product_name}</span>}
+        </div>
+        <div>
+          <label>Description:</label>
+          <input
+            type="text"
+            name="product_description"
+            value={formData.product_description}
+            onChange={handleChange}
+          />
+          {errors.product_description && <span className="error">{errors.product_description}</span>}
+        </div>
+        <div>
+          <label>Price:</label>
+          <input
+            type="number"
+            name="product_price"
+            value={formData.product_price}
+            onChange={handleChange}
+            step="1"
+          />
+          {errors.product_price && <span className="error">{errors.product_price}</span>}
+        </div>
+        <div>
+          <label>Stock:</label>
+          <input
+            type="number"
+            name="product_stock"
+            value={formData.product_stock}
+            onChange={handleChange}
+            step="1"
+          />
+          {errors.product_stock && <span className="error">{errors.product_stock}</span>}
+        </div>
+        <div>
+          <label>Available:</label>
+          <input
+            type="checkbox"
+            name="product_isAvailable"
+            checked={formData.product_isAvailable}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Category Name:</label>
+          <input
+            type="text"
+            name="product_category_name"
+            value={formData.product_category_name}
+            onChange={handleChange}
+            placeholder="Enter category name"
+          />
+          {errors.product_category_name && <span className="error">{errors.product_category_name}</span>}
+        </div>
+        <div>
+          <label>Product Image:</label>
+          <input
+            type="file"
+            name="product_media_link"
+            accept="image/jpeg,image/png,image/jpg"
+            // value={formData.product_media_link}
+            onChange={handleImageChange}
+          />
 
-      {/* Add/Edit Product Form */}
-      <form className="add-product-form" onSubmit={handleAddProduct}>
-        <input
-          type="text"
-          placeholder="Product Name"
-          value={newProduct.name}
-          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Price"
-          value={newProduct.price}
-          onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setNewProduct({ ...newProduct, image: e.target.files[0] })}
-        />
-        <button type="submit">{editingProductId ? 'Update Product' : 'Add Product'}</button>
+          <div className="image-previews">
+            {imagePreviews.map((preview, index) => (
+              <img key={index} src={preview} alt="Preview" style={{ width: '100px', margin: '5px' }} />
+            ))}
+          </div>
+
+          {errors.product_media_link && <span className="error">{errors.product_media_link}</span>}
+        </div>
+        <button type="submit">Add Product</button>
       </form>
-
-      {/* Display Products */}
-      <ul className="product-list">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <li key={product.id}>
-              {product.name} - ${product.price}
-              <button onClick={() => handleEditProduct(product)}>Edit</button>
-              <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-            </li>
-          ))
-        ) : (
-          <p>No products available.</p>
-        )}
-      </ul>
     </div>
   );
 };

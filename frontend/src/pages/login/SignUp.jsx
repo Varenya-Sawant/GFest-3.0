@@ -13,7 +13,11 @@ const SignUp = () => {
       HOST: false,
       ARTISIAN: false,
       SELLER: false
-    }
+    },
+    companyName: '',
+    companyAddress: '',
+    artisanServiceDescription: '',
+    artisanProfession: ''
   });
   const [errors, setErrors] = useState({});
 
@@ -76,21 +80,16 @@ const SignUp = () => {
       try {
         const response = await axios.post('http://localhost:3000/api/register', formData);
         const data = await response.data;
-        // console.log({ data });
 
-        if (response.status == 201) {
+        if (response.status === 201) {
           alert('Registration successful! Redirecting to login page.');
-
           navigate('/login');
-          // redirect
-        } else if (response.status == 200) {
-          alert("Email already registered")
+        } else if (response.status === 200) {
+          alert("Email already registered");
         } else {
-          setErrors({ server: data.c });
+          setErrors({ server: data.message });
         }
       } catch (error) {
-       // console.error({ error });
-
         setErrors({ server: 'Registration failed. Please try again.' });
       }
     }
@@ -121,13 +120,6 @@ const SignUp = () => {
 
       <div>
         <label>Password:</label>
-        {/* <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-       */}
         <input
           type="password"
           name="password"
@@ -136,8 +128,6 @@ const SignUp = () => {
           autoComplete="new-password"
           spellCheck="false"
         />
-
-
         {errors.password && <span className="error">{errors.password}</span>}
       </div>
 
@@ -167,8 +157,93 @@ const SignUp = () => {
             </label>
           ))}
         </div>
-        {errors.userTypes && <span className="error">{errors.userTypes}</span>}
       </div>
+
+      {formData.userTypes.ARTISIAN && (
+        <>
+          <div>
+            <label>Artisan Service Description:</label>
+            <textarea
+              name="artisanServiceDescription"
+              value={formData.artisanServiceDescription}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label>Artisian Profession:</label>
+
+            <input
+              type="text"
+              name="artisanProfession"
+              value={formData.artisanProfession}
+              onChange={handleChange}
+            />
+          </div>
+        </>
+      )}
+
+
+      {
+        formData.userTypes.HOST && formData.userTypes.SELLER ?
+          (
+            <>
+              <div>
+                <label>Company Name:</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <label>Seller Company Address:</label>
+                <input
+                  type="text"
+                  name="companyAddress"
+                  value={formData.companyAddress}
+                  onChange={handleChange}
+                />
+              </div>
+            </>
+          )
+          : formData.userTypes.HOST ? (
+            <div>
+              <label>Host Company Name:</label>
+              <input
+                type="text"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
+              />
+            </div>
+          ) : formData.userTypes.SELLER
+          && (
+            <>
+              <div>
+                <label>Seller Company Name:</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <label>Company Address:</label>
+                <input
+                  type="text"
+                  name="companyAddress"
+                  value={formData.companyAddress}
+                  onChange={handleChange}
+                />
+              </div>
+            </>
+          )
+      }
 
       {errors.server && <span className="error">{errors.server}</span>}
       <button type="submit">Register</button>

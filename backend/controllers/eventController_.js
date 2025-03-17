@@ -98,14 +98,14 @@ const createEvent = async (req, res) => {
 
   const mediaObj = JSON.parse(req.body.mediaDetails);
 
-  const eventData = await connection.query(
+  const [result] = await connection.query(
     "INSERT INTO events (event_name, event_description, event_location_address, event_location_latitude, event_location_longitude, event_start_timestamp, event_end_timestamp, host_email) VALUES (?, ?, ?, ?,?, ?, ?, ?)",
     [eventName, eventDescription, eventLocationAddress, latitude, longitude, eventStartTimestamp, eventEndTimestamp, hostEmail]
   );
 
   await connection.query(
     "INSERT INTO event_image_name (event_id, event_image_name) VALUES (?, ?)",
-    [eventData[0].insertId, mediaObj.name]
+    [result.insertId, mediaObj.name]
   );
 
   res.json({ message: 'CreateEvent' });

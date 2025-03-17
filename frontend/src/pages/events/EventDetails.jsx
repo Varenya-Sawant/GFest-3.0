@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const EventDetails = () => {

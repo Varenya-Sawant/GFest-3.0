@@ -46,6 +46,7 @@
     color: #FFF; /* White text */
     padding: 10px 20px;
     border-radius: 5px;
+    margin-left: 20px;
     text-decoration: none; /* Remove underline */
     transition: background-color 0.3s ease; /* Smooth transition */
     cursor: pointer;

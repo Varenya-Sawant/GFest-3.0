@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router'; // Use Link for internal navigation
+import { Link } from 'react-router'; // Corrected import from 'react-router-dom'
 import './Navbar.css';
 
 const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
-const isHost = () => localStorage.getItem('user_type').split(',');
+const getUserTypes = () => localStorage.getItem('user_type')?.split(',') || [];
+const isHost = () => getUserTypes().includes('HOST');
+const isSeller = () => getUserTypes().includes('SELLER');
+const isHostAndSeller = () => isHost() && isSeller();
 
 const Navbar = () => {
   return (
@@ -17,39 +20,45 @@ const Navbar = () => {
         <Link to="/shop">SHOP</Link>
         <Link to="/forum">FORUM</Link>
         <Link to="/contact">CONTACT</Link>
-
       </div>
 
       <div className="login-button">
-        {
-          isUserLoggedIn()
-            ?
-            isHost().includes('HOST')
-              ? <>
+        {isUserLoggedIn() ? (
+          <>
+            {isHostAndSeller() && (
+              <>
                 <Link to="/events/create">
                   <button className="navbar-button">Create Event</button>
                 </Link>
-
-                <Link to="/profile">
-                  <button className="navbar-button">Your Profile</button>
+                <Link to="/seller/products">
+                  <button className="navbar-button">Add Products</button>
                 </Link>
               </>
-              : <Link to="/profile">
-                <button className="navbar-button">Your Profile</button>
+            )}
+            {isHost() && !isSeller() && (
+              <Link to="/events/create">
+                <button className="navbar-button">Create Event</button>
               </Link>
-            :
-            <>
-              <Link to="/login">
-                <button className="navbar-button">Login</button>
+            )}
+            {isSeller() && !isHost() && (
+              <Link to="/seller/products">
+                <button className="navbar-button">Add Products</button>
               </Link>
-
-              <Link to="/signup">
-                <button className="navbar-button">Sign Up</button>
-              </Link>
-            </>
-        }
-
-
+            )}
+            <Link to="/profile">
+              <button className="navbar-button">Your Profile</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <button className="navbar-button">Login</button>
+            </Link>
+            <Link to="/signup">
+              <button className="navbar-button">Sign Up</button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

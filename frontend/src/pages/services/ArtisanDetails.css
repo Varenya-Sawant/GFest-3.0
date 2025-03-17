@@ -1,0 +1,83 @@
+/* General styles */
+.artisan-listing {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .artisan-listing h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .artisan-listing .error {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .artisan-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .artisan-card {
+    flex: 1 1 calc(33.333% - 40px);
+    max-width: calc(33.333% - 40px);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s;
+  }
+  
+  .artisan-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .artisan-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .artisan-card p {
+    font-size: 1em;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .artisan-card {
+      flex: 1 1 calc(50% - 20px);
+      max-width: calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .artisan-card {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  
+    .artisan-listing h2 {
+      font-size: 1.5em;
+    }
+  
+    .artisan-card h3 {
+      font-size: 1.2em;
+    }
+  
+    .artisan-card p {
+      font-size: 0.9em;
+    }
+  }

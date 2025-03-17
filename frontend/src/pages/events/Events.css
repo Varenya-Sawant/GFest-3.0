@@ -1,4 +1,4 @@
-.container-events {
+/* .container-events {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -7,12 +7,12 @@
 }
 
 .events-page {
-  text-align: left; /* Align text to the left */
+  text-align: left;
   padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align the content to the left */
+  align-items: flex-start; 
 }
 
 .calendar-wrapper {
@@ -21,11 +21,11 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  border: 1px solid #ccc; /* Optional: Add border to visually separate calendar */
+  border: 1px solid #ccc; 
 }
 
 .eventH1 {
   text-align: left;
-  margin-bottom: 20px; /* Optional: Add space below the title */
+  margin-bottom: 20px; 
   margin-left: 120px;
-}
+} */
