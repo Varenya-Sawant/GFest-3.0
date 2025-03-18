@@ -1,31 +1,26 @@
-const express = require("express");
+const express = require('express');
+const router = express.Router();
+const authMiddleware = require('../middleware/auth');
+const postUpload = require('../middlewares/postMulter'); // Middleware for image upload (similar to productMulter)
+
 const {
-  getPosts,
-  addPost,
+  getAllPosts,
+  createPost,
+  getPostById,
+  // updatePost,
   deletePost,
   addComment,
-  editComment,
+  updateComment,
   deleteComment,
-} = require("../controllers/forumController");
+} = require('../controllers/forumController');
 
-const router = express.Router();
-
-// Get all posts
-router.get("/posts", getPosts);
-
-// Submit a new post
-router.post("/posts", addPost);
-
-// Delete a post
-router.delete("/posts/:id", deletePost);
-
-// Add a comment
-router.post("/posts/:postId/comments", addComment);
-
-// Edit a comment
-router.put("/posts/:postId/comments/:commentId", editComment);
-
-// Delete a comment
-router.delete("/posts/:postId/comments/:commentId", deleteComment);
+router.get('/posts', getAllPosts); // Get all posts with pagination
+router.post('/posts',/* authMiddleware('COMMON_USER'), */ postUpload.single('post_image_name'), createPost); // Create a post
+router.get('/posts/:id', getPostById); // Get post details by ID
+router.post('/posts/:id', /* authMiddleware('COMMON_USER'), */postUpload.single('post_image_name'), createPost); // Update a post
+router.delete('/posts/:id', /* authMiddleware('COMMON_USER'), */ deletePost); // Delete a post
+router.post('/comments', /* authMiddleware('COMMON_USER'), */ addComment); // Add a comment
+router.put('/comments', /* authMiddleware('COMMON_USER'), */ updateComment); // Update a comment
+router.delete('/comments', /* authMiddleware('COMMON_USER'), */ deleteComment); // Delete a comment
 
 module.exports = router;

@@ -22,6 +22,8 @@ import Profile from './pages/profile/Profile';
 import EventListing from './pages/events/EventListing';
 import EventCreationForm from './pages/events/EventCreationForm';
 import ProductDetails from './pages/shop/ProductDetails'; // Import the new component
+import CreatePost from './pages/forum/CreatePost';
+import PostDetails from './pages/forum/PostDetails';
 
 const App = () => {
   const [bookings, setBookings] = useState([]);
@@ -34,7 +36,12 @@ const App = () => {
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/forum" element={<Forum />} />
+              {/* <Route path="/forum" element={<Forum />} /> */}
+              <Route path ="/forum" element={<Forum />} />
+              <Route path ="/forum/create" element={<CreatePost/>} />
+              <Route path ="/forum/edit/:id" element={<CreatePost/>} />
+              <Route path ="/forum/posts/:id" element={<PostDetails/>} />
+              
               <Route path="/shop" element={<Shop />} /> 
               <Route path="/products/:id" element={<ProductDetails />} /> 
               <Route path="/cart" element={<Cart />} />
