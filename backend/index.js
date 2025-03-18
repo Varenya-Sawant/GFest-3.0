@@ -1,5 +1,3 @@
-const forumRoutes = require("./routes/forum");
-
 const PORT = 3000;
 
 const express = require('express');
@@ -26,7 +24,7 @@ app.use('/api/artisans', require('./routes/artisan'));
 app.use('/services', require('./routes/services')); // Corrected to require('./routes/services')
 app.use('/api/products', require('./routes/product')); // Corrected to match productRoutes import
 app.use('/api/shop/', require('./routes/shop')); // Changed to /api/shop to avoid conflict with /api/shop/products
-app.use('/api', forumRoutes);
+app.use('/api/forum', require("./routes/forum"));
 
 // Keep error-handling middleware last
 app.use((req, res, next) => {
