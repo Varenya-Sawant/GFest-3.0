@@ -19,9 +19,9 @@ const authMiddleware = require('../middleware/auth');
 const productUpload = require('../middlewares/productMulter.js'); // Middleware for image upload
 
 // Product Routes (public)
+router.get('/products/categories', getCategories); // Get all categories for filters
 router.get('/products', getAllProducts); // Get all products with filters
 router.get('/products/:id', getProductById); // Get product details by ID
-router.get('/products/categories', getCategories); // Get all categories for filters
 
 // Add product route (authenticated, for SELLER only)
 router.post(

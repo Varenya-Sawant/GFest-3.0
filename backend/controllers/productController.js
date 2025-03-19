@@ -89,20 +89,6 @@ const addProduct = async (req, res) => {
     const product_id = result.insertId;
     console.log('Product inserted with ID:', product_id);
 
-    // Handle image upload
-    // if (product_media_link_details) {
-    // console.log('Handling image upload...');
-    // const uploadDir = path.join(__dirname, '../uploads/product');
-    // if (!fs.existsSync(uploadDir)) {
-    // console.log('Creating upload directory:', uploadDir);
-    // await fs.mkdir(uploadDir, { recursive: true });
-    // }
-
-    // const fileName = `${product_id}_${Date.now()}_${product_media_link.name}`;
-    // const filePath = path.join(uploadDir, fileName);
-    // await product_media_link.mv(filePath);
-    // console.log('Image saved to:', filePath);
-
     const [imageResult] = await connection.query(
       'INSERT INTO product_image_name (product_id, product_media_link) VALUES (?, ?)',
       [product_id, product_image_link_details.name]
@@ -126,69 +112,57 @@ const addProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    /* let query = `
-      SELECT p.product_id, p.product_name, p.product_description, p.product_price, p.product_stock, p.product_isAvailable, p.seller_email, p.createdAt,
-             pc.product_category_name,
-             GROUP_CONCAT(pin.product_media_link) AS image_links
-      FROM products p
-      LEFT JOIN product_categories pc ON p.product_category_id = pc.product_category_id
-      LEFT JOIN product_image_name pin ON p.product_id = pin.product_id
-      WHERE p.product_isAvailable = 1
-    `; */
+    // Get the filters from the request query params
+    const { category, minPrice, maxPrice, isAvailable } = req.query;
 
-
+    // Start building the SQL query
     let query = `
-    SELECT 
-    p.product_id,
-    p.product_name,
-    p.product_description,
-    p.product_price,
-    p.product_stock,
-    p.product_isAvailable,
-    p.product_category_id,
-    pc.product_category_name,  -- Added category name from product_categories table
-    p.seller_email,
-    p.createdAt,
-    pin.product_media_link
-FROM 
-    products p
-JOIN 
-    product_image_name pin ON p.product_id = pin.product_id
-JOIN
-    product_categories pc ON p.product_category_id = pc.product_category_id;  -- Join with product_categories table
+      SELECT 
+        p.product_id,
+        p.product_name,
+        p.product_description,
+        p.product_price,
+        p.product_stock,
+        p.product_isAvailable,
+        p.product_category_id,
+        pc.product_category_name, 
+        p.seller_email,
+        p.createdAt,
+        pin.product_media_link
+      FROM 
+        products p
+      JOIN 
+        product_image_name pin ON p.product_id = pin.product_id
+      JOIN
+        product_categories pc ON p.product_category_id = pc.product_category_id
+      WHERE 1=1
+    `;
 
-    `
+    // Apply filters based on the provided query parameters
+    if (category) {
+      query += ` AND pc.product_category_name = ?`;
+    }
+    if (minPrice) {
+      query += ` AND p.product_price >= ?`;
+    }
+    if (maxPrice) {
+      query += ` AND p.product_price <= ?`;
+    }
+    if (isAvailable !== undefined) {
+      query += ` AND p.product_isAvailable = ?`;
+    }
 
-    /*  const conditions = [];
-     const params = [];
- 
-     // Add filter conditions
-     if (req.query.category) {
-       conditions.push('pc.product_category_name = ?');
-       params.push(req.query.category);
-     }
-     if (req.query.minPrice) {
-       conditions.push('p.product_price >= ?');
-       params.push(parseFloat(req.query.minPrice));
-     }
-     if (req.query.maxPrice) {
-       conditions.push('p.product_price <= ?');
-       params.push(parseFloat(req.query.maxPrice));
-     }
-     if (req.query.isAvailable) {
-       conditions.push('p.product_isAvailable = ?');
-       params.push(parseInt(req.query.isAvailable));
-     }
- 
-     if (conditions.length > 0) {
-       query += ' AND ' + conditions.join(' AND ');
-     }
- 
-     query += ' GROUP BY p.product_id'; */
+    // Prepare the values to be used in the query
+    const values = [];
+    if (category) values.push(category);
+    if (minPrice) values.push(minPrice);
+    if (maxPrice) values.push(maxPrice);
+    if (isAvailable !== undefined) values.push(isAvailable);
 
-    const [products] = await connection.query(query, /* params */);
+    // Execute the query
+    const [products] = await connection.query(query, values);
 
-
+    // Format the product images link
     const formattedProducts = products.map((product) => ({
       ...product,
       image_link: `http://localhost:3000/uploads/product/${product.product_media_link}`,
@@ -234,10 +208,14 @@ const getProductById = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
+  console.log('Fetching categories...');
+  
   try {
     const [categories] = await connection.query(
       'SELECT product_category_id, product_category_name FROM product_categories'
     );
+    console.log({ categories });
+
     res.status(200).json(categories);
   } catch (error) {
     console.error('Error fetching categories:', error);

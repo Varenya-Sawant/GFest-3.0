@@ -16,13 +16,6 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    console.log({ products });
-
-
-  }, [products])
-
-
-  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const queryParams = new URLSearchParams();
@@ -33,8 +26,7 @@ const Shop = () => {
 
 
         const response = await axios.get(
-          // `http://localhost:3000/api/shop/products?${queryParams.toString()}`
-          `http://localhost:3000/api/shop/products`
+          `http://localhost:3000/api/shop/products?${queryParams.toString()}`
         );
         setProducts(response.data);
         setLoading(false);
@@ -48,10 +40,11 @@ const Shop = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/shop/products/categories');
+
         setCategories(response.data);
       } catch (err) {
         console.error('Error fetching categories:', err);
-      }
+      };
     };
 
     fetchProducts();
@@ -131,10 +124,7 @@ const Shop = () => {
         <p>No products match your filters.</p>
       ) : (
         <div className="product-grid">
-          {products.map((product) => {
-            console.log({ product });
-            
-            return (
+          {products.map((product) => (
             <div key={product.product_id} className="product-card">
               <h3>{product.product_name}</h3>
               {product.image_link ? (
@@ -154,7 +144,7 @@ const Shop = () => {
                 <button className="view-details-button">View Details</button>
               </Link>
             </div>
-          )})}
+          ))}
         </div>
       )}
     </div>

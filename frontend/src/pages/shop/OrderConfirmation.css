@@ -1,37 +1,221 @@
+/* General Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+/* Container Styling */
 .order-confirmation-container {
-    padding: 20px;
-    text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading */
+.order-confirmation-container h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  animation: slideInFromTop 0.8s ease-out;
+}
+
+/* Paragraphs */
+.order-confirmation-container p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+/* Order Details Box */
+.order-details {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
+  animation: slideInFromBottom 0.8s ease-out;
+}
+
+/* Order Details Text */
+.order-details p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+.order-details strong {
+  color: #2980b9;
+}
+
+/* Items List */
+.order-details h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 20px 0 10px;
+}
+
+.order-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.order-details li {
+  background: #ecf0f1;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-details li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Total Amount */
+.order-details h3:last-of-type {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Button Styling */
+.back-to-shop-button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+  animation: bounceIn 1s ease-out;
+}
+
+.back-to-shop-button:hover {
+  background: linear-gradient(135deg, #2980b9, #1f618d);
+  transform: scale(1.05);
+}
+
+.back-to-shop-button:active {
+  transform: scale(0.95);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .order-details {
-    border: 1px solid #ddd;
-    border-radius: 8px;
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-confirmation-container {
     padding: 15px;
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: left;
   }
-  
-  .order-details ul {
-    list-style-type: none;
-    padding: 0;
+
+  .order-confirmation-container h2 {
+    font-size: 2rem;
   }
-  
+
+  .order-details {
+    padding: 15px;
+  }
+
+  .order-details h3 {
+    font-size: 1.3rem;
+  }
+
   .order-details li {
-    margin-bottom: 10px;
+    font-size: 0.9rem;
+    padding: 12px;
   }
-  
+
   .back-to-shop-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
     padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+    font-size: 1rem;
   }
-  
-  .back-to-shop-button:hover {
-    background-color: #0056b3;
+}
+
+@media (max-width: 480px) {
+  .order-confirmation-container h2 {
+    font-size: 1.8rem;
   }
+
+  .order-confirmation-container p {
+    font-size: 1rem;
+  }
+
+  .order-details {
+    padding: 10px;
+  }
+
+  .order-details p {
+    font-size: 0.95rem;
+  }
+
+  .order-details li {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .order-details h3 {
+    font-size: 1.2rem;
+  }
+
+  .back-to-shop-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

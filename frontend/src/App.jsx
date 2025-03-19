@@ -21,6 +21,7 @@ import SignUp from './pages/login/SignUp';
 import Profile from './pages/profile/Profile';
 import EventListing from './pages/events/EventListing';
 import EventCreationForm from './pages/events/EventCreationForm';
+import EventDetails from './pages/events/EventDetails';
 import ProductDetails from './pages/shop/ProductDetails'; // Import the new component
 import CreatePost from './pages/forum/CreatePost';
 import PostDetails from './pages/forum/PostDetails';
@@ -59,6 +60,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/events" element={<EventListing />} />
               <Route path="/events/create" element={<EventCreationForm />} />
+              <Route path="/events/:id" element={<EventDetails />} />
             </Routes>
           </div>
           <Footer />

@@ -21,9 +21,10 @@ app.use('/api/login', require('./routes/login'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/artisans', require('./routes/artisan'));
-app.use('/services', require('./routes/services')); // Corrected to require('./routes/services')
-app.use('/api/products', require('./routes/product')); // Corrected to match productRoutes import
-app.use('/api/shop/', require('./routes/shop')); // Changed to /api/shop to avoid conflict with /api/shop/products
+app.use('/services', require('./routes/services'));
+app.use('/api/products', require('./routes/product'));
+app.use('/api/shop/', require('./routes/shop'));
+app.use('/api/seller/products', require('./routes/product'));
 app.use('/api/forum', require("./routes/forum"));
 
 // Keep error-handling middleware last

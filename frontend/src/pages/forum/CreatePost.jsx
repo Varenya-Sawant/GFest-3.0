@@ -119,7 +119,7 @@ const CreatePost = () => {
         </label>
         <label>
           Image:
-          <input type="file" onChange={handleImageChange} />
+          <input type="file" onChange={handleImageChange} required />
 
           <div className="image-previews">
             {imagePreviews.map((preview, index) => (
