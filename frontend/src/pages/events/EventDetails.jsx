@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router';
 import './EventDetails.css';
 
 const EventDetails = () => {
-  const { id } = useParams(); // Get event ID from URL params
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [event, setEvent] = useState(null);
@@ -12,10 +12,8 @@ const EventDetails = () => {
   const [error, setError] = useState('');
   const [registrationMessage, setRegistrationMessage] = useState('');
 
-  const userEmail = localStorage.getItem('user_email'); // Check if user is logged in
-  // const token = localStorage.getItem('token'); // Authorization token
+  const userEmail = localStorage.getItem('user_email');
 
-  // Fetch event details
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
@@ -30,60 +28,71 @@ const EventDetails = () => {
     fetchEventDetails();
   }, [id]);
 
-  // Handle event registration
   const handleRegister = async () => {
-    if (!userEmail /* || !token */) {
+    if (!userEmail) {
       navigate('/login');
       return;
-    };
+    }
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/events/register',
-        { eventId: id, userEmail },
-        // { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await axios.post('http://localhost:3000/api/events/register', {
+        eventId: id,
+        userEmail,
+      });
       setRegistrationMessage(response.data.message);
     } catch (err) {
       setRegistrationMessage(err.response?.data?.message || 'Failed to register for the event');
-    };
+    }
   };
 
-  // Show loading or error state
-  if (loading) return <div className="loading">Loading event...</div>;
-  if (error) return <div className="error">{error}</div>;
-  if (!event) return <div className="error">Event not found.</div>;
+  if (loading) return <div className="event-loading">Loading event...</div>;
+  if (error) return <div className="event-error">{error}</div>;
+  if (!event) return <div className="event-error">Event not found.</div>;
 
   return (
     <div className="event-details-container">
-      <h2 className="event-name">{event.event_name}</h2>
+      <h2 className="event-title">{event.event_name}</h2>
 
-      {/* Main event image */}
       {event.event_image_name && (
-        <div className="event-main-image">
+        <div className="event-image-wrapper">
           <img
             src={event.event_image_name}
             alt={event.event_name}
-            className="event-main-image-style"
+            className="event-main-image"
           />
         </div>
       )}
 
-      <div className="event-details">
-        <p><strong>Start:</strong> {new Date(event.event_start_timestamp).toLocaleString()}</p>
-        <p><strong>End:</strong> {new Date(event.event_end_timestamp).toLocaleString()}</p>
-        <p><strong>Location:</strong> {event.event_location_address}</p>
-        <p><strong>Latitude:</strong> {event.event_location_latitude}</p>
-        <p><strong>Longitude:</strong> {event.event_location_longitude}</p>
-        <p><strong>Description:</strong> {event.event_description}</p>
-        <p><strong>Hosted by:</strong> {event.host_email}</p>
+      <div className="event-details-card">
+        <p className="event-detail">
+          <span>Start:</span> {new Date(event.event_start_timestamp).toLocaleString()}
+        </p>
+        <p className="event-detail">
+          <span>End:</span> {new Date(event.event_end_timestamp).toLocaleString()}
+        </p>
+        <p className="event-detail">
+          <span>Location:</span> {event.event_location_address}
+        </p>
+        <p className="event-detail">
+          <span>Latitude:</span> {event.event_location_latitude}
+        </p>
+        <p className="event-detail">
+          <span>Longitude:</span> {event.event_location_longitude}
+        </p>
+        <p className="event-detail event-description">
+          <span>Description:</span> {event.event_description}
+        </p>
+        <p className="event-detail">
+          <span>Hosted by:</span> {event.host_email}
+        </p>
       </div>
 
-      {/* Registration section */}
       {userEmail && (
         <div className="register-section">
           {registrationMessage ? (
-            <p className="registration-message">{registrationMessage}</p>
+            <p className={`registration-message ${registrationMessage.includes('Failed') ? 'error' : 'success'}`}>
+              {registrationMessage}
+            </p>
           ) : (
             <button onClick={handleRegister} className="register-button">
               Register for Event

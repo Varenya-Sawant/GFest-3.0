@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import './ArtisanDetails.css';
 
 const ArtisanDetails = () => {
   const { email } = useParams();
@@ -11,8 +12,6 @@ const ArtisanDetails = () => {
     const fetchArtisan = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/artisans/${email}`);
-        console.log({ data: response });
-
         setArtisan(response.data);
       } catch (err) {
         setError('Failed to fetch artisan details');
@@ -21,19 +20,29 @@ const ArtisanDetails = () => {
     fetchArtisan();
   }, [email]);
 
-  if (!artisan) return <p>Loading...</p>;
-  console.log({ artisan });
+  if (!artisan) return <div className="artisan-loading">Loading...</div>;
 
   return (
-    <div className="artisan-details">
-      <h2>{artisan.name}</h2>
-      <p><strong>Professions:</strong> {artisan.professions.join(', ')}</p>
-      <p><strong>Description:</strong> {artisan.serviceDescription || 'No description available'}</p>
-      <p><strong>Email:</strong> {artisan.email}</p>
-      {artisan.phoneNumber && (
-        <p><strong>Phone:</strong> {artisan.phoneNumber}</p>
-      )}
-      {error && <p className="error">{error}</p>}
+    <div className="artisan-details-container">
+      <h2 className="artisan-title">{artisan.name}</h2>
+
+      <div className="artisan-details-card">
+        <p className="artisan-detail">
+          <span>Professions:</span> {artisan.professions.join(', ')}
+        </p>
+        <p className="artisan-detail artisan-description">
+          <span>Description:</span> {artisan.serviceDescription || 'No description available'}
+        </p>
+        <p className="artisan-detail">
+          <span>Email:</span> {artisan.email}
+        </p>
+        {artisan.phoneNumber && (
+          <p className="artisan-detail">
+            <span>Phone:</span> {artisan.phoneNumber}
+          </p>
+        )}
+        {error && <p className="artisan-error">{error}</p>}
+      </div>
     </div>
   );
 };

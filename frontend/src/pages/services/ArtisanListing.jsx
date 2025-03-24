@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
-import './ArtisanListing.css'; // Optional CSS file
+import './ArtisanListing.css';
 
 const ArtisanListing = () => {
   const [artisans, setArtisans] = useState([]);
@@ -20,17 +20,29 @@ const ArtisanListing = () => {
   }, []);
 
   return (
-    <div className="artisan-listing">
-      <h2>Our Artisans</h2>
-      {error && <p className="error">{error}</p>}
-      <div className="artisan-grid">
-        {artisans.map((artisan) => (
-          <Link to={`/services/${artisan.email}`} key={artisan.email} className="artisan-card">
-            <h3>{artisan.name}</h3>
-            <p><strong>Professions:</strong> {artisan.professions.join(', ')}</p>
-          </Link>
-        ))}
-      </div>
+    <div className="artisan-listing-container">
+      <h2 className="artisan-listing-title">Our Artisans</h2>
+      {error && <p className="artisan-error">{error}</p>}
+      {artisans.length === 0 && !error ? (
+        <p className="artisan-loading">Loading artisans...</p>
+      ) : (
+        <div className="artisan-grid">
+          {artisans.map((artisan) => (
+            <Link
+              to={`/services/${artisan.email}`}
+              key={artisan.email}
+              className="artisan-card-link"
+            >
+              <div className="artisan-card">
+                <h3 className="artisan-name">{artisan.name}</h3>
+                <p className="artisan-professions">
+                  <span>Professions:</span> {artisan.professions.join(', ')}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

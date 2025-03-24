@@ -68,8 +68,8 @@ const Shop = () => {
     });
   };
 
-  if (loading) return <div>Loading products...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className='custom-shop-loading'>Loading products...</div>;
+  if (error) return <div className='custom-shop-error'>{error}</div>;
 
   return (
     <div className="shop-container">

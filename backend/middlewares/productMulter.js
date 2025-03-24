@@ -18,8 +18,8 @@ const productUpload = multer({
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error("Only images and videos are allowed"));
-    }
+      cb(new Error("Only images are allowed"));
+    };
   },
   // limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
 });

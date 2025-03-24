@@ -26,6 +26,7 @@ app.use('/api/products', require('./routes/product'));
 app.use('/api/shop/', require('./routes/shop'));
 app.use('/api/seller/products', require('./routes/product'));
 app.use('/api/forum', require("./routes/forum"));
+app.use('/api/admin', require('./routes/admin'));
 
 // Keep error-handling middleware last
 app.use((req, res, next) => {

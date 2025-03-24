@@ -7,8 +7,8 @@
 
 body {
   font-family: 'IBM Plex Sans', sans-serif; /* Matches previous theme */
-  /*background: linear-gradient(135deg, #1e1e2f, #2a2a4a);*//* Cosmic gradient*/
-  color: #e2e8f0;
+  background: #F2F2F2; /* Light Gray background */
+  color: #2E2E2E; /* Charcoal for primary text */
   min-height: 100vh;
 }
 
@@ -17,33 +17,20 @@ body {
   max-width: 1000px;
   margin: 40px auto;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.05); /* Glassmorphism */
+  background: rgba(242, 242, 242, 0.9); /* Light Gray glassmorphism */
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(140, 140, 140, 0.3); /* Medium Gray border */
   animation: fadeInUp 1s ease-out;
   position: relative;
   overflow: hidden;
 }
 
-/* Cosmic Background Effect */
-/* .post-details-container::before {
-  content: '';
-  position: absolute;
-  top: -150px;
-  left: -150px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent);
-  animation: cosmicPulse 12s infinite ease-in-out;
-  z-index: -1;
-} */
-
 /* Heading */
 .post-details-container h2 {
   font-size: 2.5rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Vibrant Red-Orange for heading */
   text-align: center;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -59,7 +46,7 @@ body {
   left: 50%;
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, #7c3aed, #4c1d95);
+  background: linear-gradient(90deg, #f13c20, #c21e0f); /* Red-Orange gradient */
   transform: translateX(-50%);
   border-radius: 2px;
 }
@@ -67,17 +54,17 @@ body {
 /* Post Metadata and Content */
 .post-details-container > p {
   font-size: 1.1rem;
-  color: #94a3b8;
+  color: #8C8C8C; /* Medium Gray for metadata */
   text-align: center;
   margin-bottom: 20px;
 }
 
 .post-content {
   font-size: 1.2rem;
-  color: #d1d5db;
+  color: #2E2E2E; /* Charcoal for content */
   line-height: 1.6;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(242, 242, 242, 0.7); /* Lighter glass effect */
   border-radius: 15px;
   margin-bottom: 20px;
 }
@@ -93,8 +80,9 @@ body {
   max-width: 100%;
   height: auto;
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s ease;
+  border: 2px solid #FFD700; /* Gold border for premium feel */
 }
 
 .post-image:hover {
@@ -122,11 +110,11 @@ body {
 }
 
 .post-actions button:first-child {
-  background: linear-gradient(135deg, #10b981, #047857); /* Green for Edit */
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Edit (CTA) */
 }
 
 .post-actions button:last-child {
-  background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red for Delete */
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Medium Gray for Delete */
 }
 
 .post-actions button::before {
@@ -148,15 +136,15 @@ body {
 }
 
 .post-actions button:first-child:hover {
-  background: linear-gradient(135deg, #047857, #065f46);
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
 }
 
 .post-actions button:last-child:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
 }
 
 .post-actions button:active {
@@ -166,7 +154,7 @@ body {
 /* Comments Section */
 .post-details-container h3 {
   font-size: 1.8rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for heading */
   margin: 30px 0 20px;
   text-align: center;
 }
@@ -177,57 +165,47 @@ body {
 }
 
 .comment {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(242, 242, 242, 0.8); /* Light Gray glassmorphism */
   backdrop-filter: blur(12px);
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  animation: fadeInUp 0.6s ease-out;
-}
-/* Comment Section */
-.comment {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(140, 140, 140, 0.3); /* Medium Gray border */
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   animation: fadeInUp 0.6s ease-out;
 }
 
 .comment:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 12px 40px rgba(241, 60, 32, 0.2); /* Red-Orange shadow */
 }
 
 .comment p {
   white-space: pre-wrap;
   font-size: 1rem;
-  color: #d1d5db;
+  color: #2E2E2E; /* Charcoal for comment text */
   margin-bottom: 10px;
 }
 
 .comment p strong {
-  color: #a5b4fc;
+  color: #FFD700; /* Gold for emphasis (e.g., author name) */
 }
 
+/* Comment Textarea */
 .comment textarea {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  border: 2px solid #8C8C8C; /* Medium Gray border */
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  /* color: #e2e8f0; */
+  background: rgba(242, 242, 242, 0.5);
+  color: #2E2E2E; /* Charcoal for text */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .comment textarea:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+  border-color: #f13c20; /* Red-Orange on focus */
+  box-shadow: 0 0 10px rgba(241, 60, 32, 0.3);
   outline: none;
 }
 
@@ -251,11 +229,11 @@ body {
 }
 
 .comment div button:first-child {
-  background: linear-gradient(135deg, #7c3aed, #4c1d95); /* Purple for Save */
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Save */
 }
 
 .comment div button:last-child {
-  background: linear-gradient(135deg, #64748b, #475569); /* Gray for Cancel */
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Gray for Cancel */
 }
 
 .comment div button::before {
@@ -277,15 +255,15 @@ body {
 }
 
 .comment div button:first-child:hover {
-  background: linear-gradient(135deg, #6d28d9, #3b0764);
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
 }
 
 .comment div button:last-child:hover {
-  background: linear-gradient(135deg, #475569, #334155);
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(100, 116, 139, 0.5);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
 }
 
 .comment div button:active {
@@ -312,11 +290,11 @@ body {
 }
 
 .comment-actions button:first-child {
-  background: linear-gradient(135deg, #10b981, #047857); /* Green for Edit */
+  background: linear-gradient(135deg, #FFD700, #E6C200); /* Gold for Edit */
 }
 
 .comment-actions button:last-child {
-  background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red for Delete */
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Gray for Delete */
 }
 
 .comment-actions button::before {
@@ -338,108 +316,15 @@ body {
 }
 
 .comment-actions button:first-child:hover {
-  background: linear-gradient(135deg, #047857, #065f46);
+  background: linear-gradient(135deg, #E6C200, #CCAB00);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
 .comment-actions button:last-child:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
-}
-
-.comment-actions button:active {
-  transform: scale(0.95);
-}
-
-.comment:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
-}
-
-.comment p {
-  white-space: pre-wrap;
-  font-size: 1rem;
-  color: #d1d5db;
-  margin-bottom: 10px;
-}
-
-.comment p strong {
-  color: #a5b4fc;
-}
-
-.comment textarea {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  /* color: #e2e8f0; */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.comment textarea:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
-  outline: none;
-}
-
-.comment-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.comment-actions button {
-  padding: 8px 15px;
-  font-size: 0.9rem;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.comment-actions button:first-child {
-  background: linear-gradient(135deg, #10b981, #047857); /* Green for Edit */
-}
-
-.comment-actions button:last-child {
-  background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red for Delete */
-}
-
-.comment-actions button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.6s ease, height 0.6s ease;
-}
-
-.comment-actions button:hover::before {
-  width: 200px;
-  height: 200px;
-}
-
-.comment-actions button:first-child:hover {
-  background: linear-gradient(135deg, #047857, #065f46);
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-}
-
-.comment-actions button:last-child:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
 }
 
 .comment-actions button:active {
@@ -453,7 +338,7 @@ body {
 
 .add-comment h4 {
   font-size: 1.5rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for heading */
   margin-bottom: 15px;
   text-align: center;
 }
@@ -467,17 +352,17 @@ body {
 .add-comment textarea {
   padding: 15px;
   font-size: 1rem;
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  border: 2px solid #8C8C8C; /* Medium Gray border */
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  /* color: #e2e8f0; */
+  background: rgba(242, 242, 242, 0.5);
+  color: #2E2E2E; /* Charcoal for text */
   min-height: 100px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .add-comment textarea:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+  border-color: #f13c20; /* Red-Orange on focus */
+  box-shadow: 0 0 10px rgba(241, 60, 32, 0.3);
   outline: none;
 }
 
@@ -485,7 +370,7 @@ body {
   padding: 12px 25px;
   font-size: 1.1rem;
   color: #fff;
-  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Submit */
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -513,9 +398,9 @@ body {
 }
 
 .add-comment button:hover {
-  background: linear-gradient(135deg, #6d28d9, #3b0764);
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
 }
 
 .add-comment button:active {
@@ -525,17 +410,16 @@ body {
 /* Loading and Error States */
 .post-details-container > div {
   font-size: 1.2rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for loading */
   text-align: center;
   padding: 40px;
-  /* animation: pulse 1.5s infinite ease-in-out; */
 }
 
 .post-details-container > div.error {
-  color: #f87171;
-  background: rgba(255, 255, 255, 0.05);
+  color: #f13c20; /* Red-Orange for error (consistent with theme) */
+  background: rgba(242, 242, 242, 0.7);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: shake 0.5s ease-in-out;
 }
 
@@ -548,12 +432,6 @@ body {
 @keyframes slideInFromLeft {
   from { opacity: 0; transform: translateX(-50px); }
   to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes cosmicPulse {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-  50% { transform: scale(1.2) translate(50px, 50px); opacity: 0.4; }
-  100% { transform: scale(1) translate(0, 0); opacity: 0.2; }
 }
 
 @keyframes pulse {
@@ -638,7 +516,7 @@ body {
 
 /* Accessibility */
 :focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #f13c20; /* Red-Orange outline */
   outline-offset: 2px;
 }
 

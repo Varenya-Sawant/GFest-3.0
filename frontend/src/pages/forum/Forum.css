@@ -7,8 +7,8 @@
 
 body {
   font-family: 'IBM Plex Sans', sans-serif; /* Futuristic, clean font */
-  /* background: linear-gradient(135deg, #1e1e2f, #2a2a4a); Deep, cosmic gradient */
-  color: #e2e8f0;
+  background: #F2F2F2; /* Light Gray as base background */
+  color: #2E2E2E; /* Charcoal for primary text contrast */
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -22,19 +22,6 @@ body {
   animation: fadeIn 1s ease-out;
 }
 
-/* Cosmic Background Effect */
-.forum-container::before {
-  content: '';
-  position: absolute;
-  top: -150px;
-  left: -150px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent);
-  animation: cosmicPulse 12s infinite ease-in-out;
-  z-index: -1;
-}
-
 /* Header */
 .forum-header {
   display: flex;
@@ -43,17 +30,17 @@ body {
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.05); /* Glassmorphism */
+  background: rgba(242, 242, 242, 0.2); /* Light Gray glassmorphism */
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(46, 46, 46, 0.15); /* Charcoal shadow */
+  border: 1px solid rgba(242, 242, 242, 0.3);
 }
 
 .forum-header h1 {
   font-size: 2.5rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for heading */
   text-transform: uppercase;
   letter-spacing: 2px;
   animation: slideInFromLeft 0.8s ease-out;
@@ -63,8 +50,8 @@ body {
 .create-post-button {
   padding: 12px 25px;
   font-size: 1.1rem;
-  color: #fff;
-  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  color: #FFFFFF; /* White text for contrast */
+  background: linear-gradient(135deg, #f13c20, #C62F18); /* Red-Orange to darker shade */
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -80,7 +67,7 @@ body {
   left: 50%;
   width: 0;
   height: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 215, 0, 0.2); /* Gold ripple effect */
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: width 0.6s ease, height 0.6s ease;
@@ -93,8 +80,8 @@ body {
 
 .create-post-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
-  background: linear-gradient(135deg, #6d28d9, #3b0764);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5); /* Red-Orange shadow */
+  background: linear-gradient(135deg, #e02e14, #A62614); /* Darker Red-Orange gradient */
 }
 
 .create-post-button:active {
@@ -110,12 +97,12 @@ body {
 
 /* Post Card */
 .post-card {
-  background: rgba(255, 255, 255, 0.1); /* Glassmorphism */
+  background: rgba(242, 242, 242, 0.2); /* Light Gray glassmorphism */
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(46, 46, 46, 0.15); /* Charcoal shadow */
+  border: 1px solid rgba(242, 242, 242, 0.3);
   transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
   animation: cardFadeIn 0.6s ease-out forwards;
   position: relative;
@@ -124,8 +111,8 @@ body {
 
 .post-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
-  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(241, 60, 32, 0.2); /* Red-Orange shadow */
+  background: rgba(242, 242, 242, 0.25);
 }
 
 .post-card::after {
@@ -135,7 +122,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.1), transparent);
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent); /* Gold radial effect */
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -151,7 +138,7 @@ body {
 
 .post-card h3 {
   font-size: 1.6rem;
-  color: #c4b5fd;
+  color: #f13c20; /* Red-Orange for title */
   margin-bottom: 15px;
   display: flex;
   align-items: center;
@@ -160,7 +147,7 @@ body {
 
 .post-card img {
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(46, 46, 46, 0.1); /* Charcoal shadow */
   transition: transform 0.3s ease;
 }
 
@@ -170,22 +157,22 @@ body {
 
 .post-meta {
   font-size: 0.9rem;
-  color: #94a3b8;
+  color: #8C8C8C; /* Medium Gray for metadata */
   margin-bottom: 10px;
 }
 
 .post-author {
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for author */
   font-weight: 600;
 }
 
 .post-date {
-  color: #cbd5e1;
+  color: #8C8C8C; /* Medium Gray for date */
 }
 
 .post-preview {
   font-size: 1rem;
-  color: #d1d5db;
+  color: #2E2E2E; /* Charcoal for readability */
   line-height: 1.5;
 }
 
@@ -193,22 +180,22 @@ body {
 .no-posts {
   text-align: center;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(242, 242, 242, 0.2); /* Light Gray glassmorphism */
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(46, 46, 46, 0.15); /* Charcoal shadow */
   animation: fadeIn 0.8s ease-out;
 }
 
 .no-posts p {
   font-size: 1.2rem;
-  color: #94a3b8;
+  color: #8C8C8C; /* Medium Gray for text */
   margin-bottom: 20px;
 }
 
 /* Loading and Error States */
 .forum-loading {
   font-size: 1.2rem;
-  color: #a5b4fc;
+  color: #f13c20; /* Red-Orange for loading */
   text-align: center;
   padding: 40px;
   animation: pulse 1.5s infinite ease-in-out;
@@ -216,49 +203,14 @@ body {
 
 .forum-error {
   font-size: 1.2rem;
-  color: #f87171;
+  color: #f13c20; /* Red-Orange for error (adjusted from red) */
   text-align: center;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(242, 242, 242, 0.2); /* Light Gray glassmorphism */
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(46, 46, 46, 0.15); /* Charcoal shadow */
   animation: shake 0.5s ease-in-out;
 }
-
-/* Pagination (Uncomment if needed) */
-/* .pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 40px;
-}
-
-.pagination-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #fff;
-  background: linear-gradient(135deg, #7c3aed, #4c1d95);
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.pagination-button:disabled {
-  background: #64748b;
-  cursor: not-allowed;
-}
-
-.pagination-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #6d28d9, #3b0764);
-  transform: scale(1.05);
-}
-
-.pagination-info {
-  font-size: 1.1rem;
-  color: #cbd5e1;
-} */
 
 /* Animations */
 @keyframes fadeIn {
@@ -274,12 +226,6 @@ body {
 @keyframes cardFadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cosmicPulse {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-  50% { transform: scale(1.2) translate(50px, 50px); opacity: 0.4; }
-  100% { transform: scale(1) translate(0, 0); opacity: 0.2; }
 }
 
 @keyframes pulse {
@@ -369,7 +315,7 @@ body {
 
 /* Accessibility */
 :focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #f13c20; /* Red-Orange outline */
   outline-offset: 2px;
 }
 

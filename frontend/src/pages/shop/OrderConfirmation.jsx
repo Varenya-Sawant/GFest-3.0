@@ -5,7 +5,6 @@ import './OrderConfirmation.css'; // Create this CSS file for styling
 const OrderConfirmation = () => {
   const location = useLocation();
   const bill = location.state?.bill; // Access bill from navigation state
-  console.log({ bill });
 
   if (!bill) {
     return (
@@ -30,8 +29,6 @@ const OrderConfirmation = () => {
         <h3>Items:</h3>
         <ul>
           {bill.items.map((item, index) => {
-            console.log({ item });
-
             return (
               <li key={index}>
                 Product ID: {item.product_id}

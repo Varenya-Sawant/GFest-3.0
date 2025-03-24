@@ -1,94 +1,267 @@
-/* General container styling */
-.event-listing {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  background-color: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: #F7F7F7;
+  color: #1F2525;
+  min-height: 100vh;
+}
+
+/* Container Styling */
+.event-listing-container {
   max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(230, 236, 239, 0.9), rgba(230, 236, 239, 0.7));
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 37, 37, 0.2);
+  border: 1px solid rgba(241, 60, 32, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s ease-out;
 }
 
-h2 {
+/* Dynamic Background Pulse */
+.event-listing-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(241, 60, 32, 0.1), transparent);
+  transform: translate(-50%, -50%);
+  animation: pulseGlow 10s infinite ease-in-out;
+  z-index: -1;
+}
+ 
+/* Title Styling with Neon Glow */
+ .event-listing-title {
+  font-size: 2.5rem;
+  color: #f13c20;
   text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
+  margin-bottom: 40px;
+  /* text-transform: uppercase; */
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(241, 60, 32, 0.5), 0 0 20px rgba(241, 60, 32, 0.3);
+  animation: neonFlicker 1.5s infinite alternate;
+} 
 
-/* Error message styling */
-.error {
-  color: red;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* Event grid container styling */
+/* Event Grid */
 .event-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
 }
 
-/* Individual event card styling */
+/* Event Card Link */
+.event-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Event Card with Optimized Hover */
 .event-card {
-  min-height: 100%;
-  background-color: white;
-  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(230, 236, 239, 0.95), rgba(230, 236, 239, 0.85));
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(31, 37, 37, 0.2), -5px -5px 15px rgba(255, 255, 255, 0.5);
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden; /* To prevent the image from overflowing */
+  transition: transform 0.5s ease-out, box-shadow 0.5s ease-out, border 0.5s ease-out;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow, border; /* Optimize performance */
 }
 
-/* Event card hover effect */
 .event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px) scale(1.02); /* Reduced lift for speed */
+  box-shadow: 0 8px 20px rgba(241, 60, 32, 0.4), 0 0 15px rgba(255, 193, 7, 0.3); /* Smaller blur radii */
+  border: 2px solid #f13c20;
 }
 
-/* Event image styling */
+/* Holographic Sheen Optimized */
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 193, 7, 0.2), transparent);
+  transition: left 0.5s ease-out; /* Faster sheen */
+}
+
+.event-card:hover::before {
+  left: 100%;
+}
+
+/* Event Image */
 .event-image {
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  height: 200px !important;
-  border-radius: 8px;
+  width: 100%;
+  height: 180px;
   object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(31, 37, 37, 0.2);
+  transition: transform 0.5s ease-out;
+  will-change: transform;
+}
+
+.event-card:hover .event-image {
+  transform: scale(1.05);
+}
+
+/* Event Map Wrapper */
+.event-map-wrapper {
   margin-bottom: 15px;
 }
 
-/* Event card heading */
-.event-card h3 {
-  font-size: 1.6rem;
-  color: #333;
-  margin-bottom: 10px;
+.event-map {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(31, 37, 37, 0.2);
+  border: 1px solid rgba(241, 60, 32, 0.3);
 }
 
-/* Event timestamps and location styling */
-.event-card p {
+/* Event Content */
+.event-content {
+  padding: 10px;
+}
+
+/* Event Title */
+.event-title {
+  font-size: 1.5rem;
+  color: #f13c20;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(241, 60, 32, 0.3);
+}
+
+/* Event Time, Address, Description */
+.event-time,
+.event-address,
+.event-description {
   font-size: 1rem;
-  color: #666;
-  margin-bottom: 10px;
+  color: #1F2525;
+  margin-bottom: 8px;
 }
 
-/* Description preview styling */
-.event-card p:nth-child(5) {
-  font-style: italic;
-  color: #555;
+.event-time span,
+.event-address span {
+  color: #7A7A7A;
+  font-weight: 600;
+  margin-right: 5px;
 }
 
-/* Map container styling */
-.event-card .leaflet-container {
-  border-radius: 8px;
-  margin-bottom: 15px;
+.event-description {
+  color: #7A7A7A;
+  line-height: 1.4;
 }
 
-/* Styling for the "No events" message */
+/* Loading, Error, and No Events */
+.event-loading,
+.event-error,
 .no-events {
   text-align: center;
-  color: #888;
   font-size: 1.2rem;
-  font-weight: bold;
+  color: #7A7A7A;
+  padding: 20px;
+}
+
+.event-error {
+  color: #f13c20;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.2; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+}
+
+@keyframes neonFlicker {
+  0%, 100% { text-shadow: 0 0 10px rgba(241, 60, 32, 0.5), 0 0 20px rgba(241, 60, 32, 0.3); }
+  50% { text-shadow: 0 0 15px rgba(241, 60, 32, 0.7), 0 0 25px rgba(241, 60, 32, 0.5); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .event-listing-container {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+
+  .event-listing-title {
+    font-size: 2rem;
+  }
+
+  .event-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .event-card {
+    padding: 15px;
+  }
+
+  .event-image {
+    height: 150px;
+  }
+
+  .event-map {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-listing-title {
+    font-size: 1.8rem;
+  }
+
+  .event-title {
+    font-size: 1.3rem;
+  }
+
+  .event-time,
+  .event-address,
+  .event-description {
+    font-size: 0.9rem;
+  }
+
+  .event-image {
+    height: 120px;
+  }
+
+  .event-map {
+    height: 150px;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E6ECEF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f13c20;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e02e14;
 }

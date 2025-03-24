@@ -72,7 +72,6 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ formData });
 
     const isValid = await validateForm();
 

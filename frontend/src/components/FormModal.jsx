@@ -10,8 +10,6 @@ const FormModal = ({ role, closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic based on role
-    console.log(`${role} form submitted`);
   };
 
   return (

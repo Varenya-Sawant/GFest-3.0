@@ -62,7 +62,6 @@ const userRegistrationMiddleware = async (req, res, next) => {
             `INSERT INTO PROFESSIONS (profession_name) VALUES (?)`,
             [artisanProfession]
           );
-          console.log({ professsion });
 
           await connection.query(
             `INSERT INTO ARTISIAN_HAS_PROFESSIONS (artisian_email, profession_id) VALUES (?, ?)`,
@@ -72,14 +71,14 @@ const userRegistrationMiddleware = async (req, res, next) => {
 
         if (key === 'HOST') {
           await connection.query(
-            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email, ${key.toLowerCase()}_status, ${key.toLowerCase()}_company_name) VALUES (?, 'APPROVED', ?)`,
+            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email, ${key.toLowerCase()}_status, ${key.toLowerCase()}_company_name) VALUES (?, 'PENDING', ?)`,
             [email, companyName]
           );
         }
 
         if (key === 'SELLER') {
           await connection.query(
-            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email, ${key.toLowerCase()}_status, ${key.toLowerCase()}_company_name, ${key.toLowerCase()}_company_address) VALUES (?, 'APPROVED', ?, ?)`,
+            `INSERT INTO ${key.toLowerCase()}s (${key.toLowerCase()}_email, ${key.toLowerCase()}_status, ${key.toLowerCase()}_company_name, ${key.toLowerCase()}_company_address) VALUES (?, 'PENDING', ?, ?)`,
             [email, companyName, companyAddress]
           );
         } else {

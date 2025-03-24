@@ -11,7 +11,7 @@ import ArtisanListing from './pages/services/ArtisanListing';
 import ArtisanDetails from './pages/services/ArtisanDetails';
 import Contact from './pages/contact/Contact';
 import Footer from './components/Footer';
-// import AdminDashboard from './pages/admin/AdminDashboard';
+ import AdminDashboard from './pages/admin/AdminDashboard';
 // import HostDashboard from './pages/events/HostDashboard';
 // import ArtisanDashboard from './pages/services/ArtisanDashboard';
  import SellerDashboard from './pages/shop/SellerDashboard';
@@ -50,7 +50,7 @@ const App = () => {
               <Route path="/services" element={<ArtisanListing />} />
               <Route path="/services/:email" element={<ArtisanDetails />} />
               <Route path="/contact" element={<Contact />} />
-              {/* <Route path="/adminDash" element={<AdminDashboard />} /> */}
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/seller/products" element={<SellerDashboard />} />
               {/* <Route path="/artisanDash" element={<ArtisanDashboard bookings={bookings} />} /> */}
               {/* <Route path="/hostDash" element={<HostDashboard />} /> */}

@@ -8,13 +8,13 @@ const sendEmail = async (event, userEmail) => {
             secure: false,
             auth: {
                 // Your email password or app-specific password
-                user: '',
-                pass: ''
+                user: 'helekarsohmm@gmail.com',
+                pass: 'gyde tieu tknp cqzd'
             }
         });
 
         await transposter.sendMail({
-            from: '',
+            from: 'helekarsohmm@gmail.com',
             to: userEmail,
             subject: `Registration Confirmation for ${event.event_name}`,
             text: `Dear User,

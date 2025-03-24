@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './EventCreationForm.css';
 
-// Leaflet marker icon issue
+// Leaflet marker icon fix
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -25,7 +25,7 @@ const EventCreationForm = () => {
   });
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [position, setPosition] = useState([15.5010, 73.8294]); // Default map position (Goa) 15.5010° N, 73.8294° E
+  const [position, setPosition] = useState([15.5010, 73.8294]); // Default map position (Goa)
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -103,11 +103,10 @@ const EventCreationForm = () => {
     if (!formData.eventEndTimestamp) newErrors.eventEndTimestamp = 'End date is required';
     if (formData.eventStartTimestamp >= formData.eventEndTimestamp) newErrors.eventEndTimestamp = 'End date must be after start date';
 
-    // Validate address and wait for result
     const isAddressValid = await validateAddress();
     if (!isAddressValid || !formData.latitude || !formData.longitude) {
       newErrors.location = 'Please provide a valid location';
-    };
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -123,8 +122,8 @@ const EventCreationForm = () => {
       for (const key in formData) {
         if (formData.hasOwnProperty(key)) {
           data.append(key, formData[key]);
-        };
-      };
+        }
+      }
       images.forEach((image, index) => {
         data.append('media', image);
         data.append('mediaDetails', JSON.stringify({
@@ -135,17 +134,21 @@ const EventCreationForm = () => {
       });
       data.append('hostEmail', localStorage.getItem('user_email'));
 
-      await axios.post('http://localhost:3000/api/events/create', data, {
+      const response = await axios.post('http://localhost:3000/api/events/create', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       setSuccessMessage('Event created successfully!');
       setErrors({});
     } catch (error) {
-      setErrors({ server: error.message || 'Failed to create event' });
+      if (error.response && error.response.status === 403) {
+        setErrors({ server: 'Unauthorized or host not approved' });
+      } else {
+        setErrors({ server: error.response?.data?.message || 'Failed to create event' });
+      }
       setSuccessMessage('');
-      console.error('Error:', error);
-    };
+      console.error('Error:', error.response?.data || error.message);
+    }
   };
 
   return (
@@ -162,15 +165,6 @@ const EventCreationForm = () => {
           />
           {errors.eventName && <span className="error">{errors.eventName}</span>}
         </div>
-
-        {/* <div>
-          <label>Event Description:</label>
-          <textarea
-            name="eventDescription"
-            value={formData.eventDescription}
-            onChange={handleChange}
-          />
-        </div> */}
 
         <div>
           <label>Event Description:</label>

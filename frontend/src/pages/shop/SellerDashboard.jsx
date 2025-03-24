@@ -8,7 +8,7 @@ const SellerDashboard = () => {
     product_description: '',
     product_price: '',
     product_stock: '',
-    product_isAvailable: true,
+    // product_isAvailable: true,
     product_category_name: ''
   });
   const [errors, setErrors] = useState({});
@@ -33,13 +33,26 @@ const SellerDashboard = () => {
   // Handle image upload
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    setImages(files);
-    const previews = files.map((file) => URL.createObjectURL(file));
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    // Filter out invalid files
+    const validFiles = files.filter((file) => validImageTypes.includes(file.type));
+
+    // If there are invalid files, show an error
+    if (files.length !== validFiles.length) {
+      alert('Please select only image files (jpeg, jpg, png).');
+    }
+
+    // Update the state with valid files and generate image previews
+    setImages(validFiles);
+    const previews = validFiles.map((file) => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
 
+
   const validateForm = () => {
     let newErrors = {};
+
     if (!formData.product_name.trim()) newErrors.product_name = 'Product name is required';
     if (!formData.product_description.trim()) newErrors.product_description = 'Description is required';
     if (!formData.product_price || isNaN(formData.product_price) || formData.product_price <= 0)
@@ -47,7 +60,6 @@ const SellerDashboard = () => {
     if (!formData.product_stock || isNaN(formData.product_stock) || formData.product_stock <= 0)
       newErrors.product_stock = 'Valid stock quantity is required';
     if (!formData.product_category_name.trim()) newErrors.product_category_name = 'Category name is required';
-    // if (!formData.product_media_link) newErrors.product_media_link = 'Image is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -57,19 +69,18 @@ const SellerDashboard = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    const product_isAvailable = formData.product_stock > 0;
+
     const data = new FormData();
     data.append('product_name', formData.product_name);
     data.append('product_description', formData.product_description);
     data.append('product_price', formData.product_price);
     data.append('product_stock', formData.product_stock);
-    data.append('product_isAvailable', formData.product_isAvailable);
+    data.append('product_isAvailable', product_isAvailable);
     data.append('product_category_name', formData.product_category_name);
     data.append('seller_email', localStorage.getItem('user_email'));
-    // data.append('product_media_link', formData.product_media_link);
 
     images.forEach((image, index) => {
-      console.log({ image, imagePreviews });
-
       data.append('product_image_link', image);
 
       data.append('product_image_link_details', JSON.stringify({
@@ -78,11 +89,6 @@ const SellerDashboard = () => {
         name: image.name
       }));
     });
-
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-    console.log({ formData });
 
     try {
 
@@ -155,15 +161,6 @@ const SellerDashboard = () => {
             step="1"
           />
           {errors.product_stock && <span className="error">{errors.product_stock}</span>}
-        </div>
-        <div>
-          <label>Available:</label>
-          <input
-            type="checkbox"
-            name="product_isAvailable"
-            checked={formData.product_isAvailable}
-            onChange={handleChange}
-          />
         </div>
         <div>
           <label>Category Name:</label>

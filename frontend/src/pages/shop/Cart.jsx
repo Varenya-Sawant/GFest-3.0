@@ -9,30 +9,24 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
-
-  useEffect(() => {
-    console.log({ cartItems });
-
-
-  }, [cartItems])
-
+  const email = localStorage.getItem('user_email');
 
   useEffect(() => {
     const fetchCart = async () => {
-      if (!localStorage.getItem('user_email')) {
+      if (!email) {
         setError('Please log in to view your cart.');
         setLoading(false);
         navigate('/login');
         return;
-      }
+      };
 
       try {
         const response = await axios.get('http://localhost:3000/api/shop/cart', {
-          email: localStorage.getItem('user_email'),
+          params: { email },
         }, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         });
         setCartItems(response.data);
         setLoading(false);
@@ -74,7 +68,7 @@ const Cart = () => {
     try {
       const response = await axios.post(
         'http://localhost:3000/api/shop/cart/remove',
-        { cart_item_id: cartItemId, email: localStorage.getItem('user_email') },
+        { cart_item_id: cartItemId, email: email },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -100,7 +94,7 @@ const Cart = () => {
     try {
       const response = await axios.post(
         'http://localhost:3000/api/shop/cart/checkout',
-        { delivery_address: deliveryAddress, email: localStorage.getItem('user_email') },
+        { delivery_address: deliveryAddress, email: email },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

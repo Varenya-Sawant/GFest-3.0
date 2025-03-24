@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router'; // Corrected import from 'react-router-dom'
+import { Link } from 'react-router'; // Corrected to 'react-router-dom'
 import './Navbar.css';
 
 const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
 const getUserTypes = () => localStorage.getItem('user_type')?.split(',') || [];
 const isHost = () => getUserTypes().includes('HOST');
 const isSeller = () => getUserTypes().includes('SELLER');
+const isAdmin = () => getUserTypes().includes('ADMIN'); // Added admin check
 const isHostAndSeller = () => isHost() && isSeller();
 
 const Navbar = () => {
@@ -25,6 +26,11 @@ const Navbar = () => {
       <div className="login-button">
         {isUserLoggedIn() ? (
           <>
+            {isAdmin() && (
+              <Link to="/admin">
+                <button className="navbar-button">Admin Dashboard</button>
+              </Link>
+            )}
             {isHostAndSeller() && (
               <>
                 <Link to="/events/create">
@@ -35,12 +41,12 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-            {isHost() && !isSeller() && (
+            {isHost() && !isSeller() && !isAdmin() && (
               <Link to="/events/create">
                 <button className="navbar-button">Create Event</button>
               </Link>
             )}
-            {isSeller() && !isHost() && (
+            {isSeller() && !isHost() && !isAdmin() && (
               <Link to="/seller/products">
                 <button className="navbar-button">Add Products</button>
               </Link>

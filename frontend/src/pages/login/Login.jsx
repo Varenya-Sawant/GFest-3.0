@@ -39,7 +39,6 @@ const Login = () => {
       try {
         const response = await axios.post('http://localhost:3000/api/login', formData);
         const data = await response.data;
-        console.log({ data });
 
         if (response.status === 200) {
           localStorage.setItem('user_email', data.user.email);
@@ -51,7 +50,7 @@ const Login = () => {
           setErrors({ server: data.message || 'Login failed' });
         }
       } catch (error) {
-        console.log({ error });
+        console.error({ error });
         setErrors({ server: error.response?.data?.message || 'Login failed. Please try again.' });
       }
     }

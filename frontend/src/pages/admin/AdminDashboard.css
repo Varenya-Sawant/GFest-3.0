@@ -1,0 +1,325 @@
+/* General Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Light gradient */
+    color: #1e293b;
+    min-height: 100vh;
+  }
+  
+  /* Dashboard Container */
+  .admin-dashboard {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 20px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: slideInFromLeft 0.8s ease-out;
+  }
+  
+  .sidebar h3 {
+    font-size: 1.8rem;
+    color: #f13c20; /* Orange for heading */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-item {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    color: #1e293b;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  
+  .sidebar-item.active {
+    background: linear-gradient(135deg, #f13c20, #c21e0f); /* Orange gradient */
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5); /* Orange shadow */
+  }
+  
+  .sidebar-item:hover:not(.active) {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-item:active {
+    transform: scale(0.95);
+  }
+  
+  /* Dashboard Content */
+  .dashboard-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dashboard-content::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(241, 60, 32, 0.15), transparent); /* Orange pulse */
+    /* animation: cosmicPulse 12s infinite ease-in-out; */
+    z-index: -1;
+  }
+  
+  .dashboard-content h2 {
+    font-size: 2rem;
+    color: #f13c20; /* Orange for heading */
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* User List */
+  .user-list {
+    display: grid;
+    gap: 20px;
+  }
+  
+  /* User Card */
+  .user-card {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(241, 60, 32, 0.2); /* Orange shadow */
+  }
+  
+  .user-card h3 {
+    font-size: 1.5rem;
+    color: #f13c20; /* Orange for name */
+    margin-bottom: 10px;
+  }
+  
+  .user-card p {
+    font-size: 1rem;
+    color: #475569;
+    margin: 8px 0;
+  }
+  
+  /* User Actions */
+  .user-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .approve-button,
+  .reject-button {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .approve-button {
+    background: linear-gradient(135deg, #10b981, #047857); /* Green for Approve */
+  }
+  
+  .reject-button {
+    background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red for Reject */
+  }
+  
+  .approve-button::before,
+  .reject-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+  
+  .approve-button:hover::before,
+  .reject-button:hover::before {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .approve-button:hover {
+    background: linear-gradient(135deg, #047857, #065f46);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  }
+  
+  .reject-button:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  }
+  
+  .approve-button:active,
+  .reject-button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Loading and Error States */
+  .dashboard-content > div {
+    font-size: 1.2rem;
+    color: #f13c20; /* Orange for loading */
+    text-align: center;
+    padding: 20px;
+    /* animation: pulse 1.5s infinite ease-in-out; */
+  }
+  
+  .error {
+    color: #ef4444; /* Red for error */
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  .dashboard-content > p {
+    font-size: 1.2rem;
+    color: #64748b;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  @keyframes cosmicPulse {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
+    50% { transform: scale(1.2) translate(50px, 50px); opacity: 0.4; }
+    100% { transform: scale(1) translate(0, 0); opacity: 0.2; }
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .admin-dashboard {
+      flex-direction: column;
+      margin: 20px 10px;
+    }
+  
+    .sidebar {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .sidebar-item {
+      padding: 10px;
+      font-size: 1rem;
+    }
+  
+    .dashboard-content {
+      padding: 20px;
+    }
+  
+    .dashboard-content h2 {
+      font-size: 1.8rem;
+    }
+  
+    .user-card h3 {
+      font-size: 1.3rem;
+    }
+  
+    .user-card p {
+      font-size: 0.9rem;
+    }
+  
+    .approve-button,
+    .reject-button {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-content h2 {
+      font-size: 1.5rem;
+    }
+  
+    .user-card {
+      padding: 15px;
+    }
+  
+    .user-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+  
+  /* Accessibility */
+  :focus-visible {
+    outline: 2px solid #f13c20; /* Orange outline */
+    outline-offset: 2px;
+  }
+  
+  button {
+    cursor: pointer;
+  }

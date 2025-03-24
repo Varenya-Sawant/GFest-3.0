@@ -4,9 +4,6 @@ const path = require('path');
 const fs = require('fs').promises;
 
 const addProduct = async (req, res) => {
-  console.log('Request body:', req.body);
-  console.log('Request file:', req.file);
-
   const {
     product_name,
     product_description,
@@ -29,39 +26,39 @@ const addProduct = async (req, res) => {
     if (isNaN(parsedStock) || parsedStock < 0) throw new Error('Invalid product stock');
 
     // Validate seller
-    console.log('Checking seller:', seller_email);
+    // console.log('Checking seller:', seller_email);
     const [seller] = await connection.query(
       'SELECT seller_email FROM sellers WHERE seller_email = ? AND seller_status = ?',
       [seller_email, 'APPROVED']
     );
-    console.log('Seller query result:', seller);
+    // console.log('Seller query result:', seller);
     if (seller.length === 0) {
-      console.log('Seller validation failed: Unauthorized or seller not approved');
+      // console.log('Seller validation failed: Unauthorized or seller not approved');
       return res.status(403).json({ message: 'Unauthorized or seller not approved' });
     }
 
     // Check or create category
-    console.log('Checking category:', product_category_name);
+    // console.log('Checking category:', product_category_name);
     let [category] = await connection.query(
       'SELECT product_category_id FROM product_categories WHERE product_category_name = ?',
       [product_category_name]
     );
     let product_category_id;
     if (category.length === 0) {
-      console.log('Category does not exist, creating new category...');
+      // console.log('Category does not exist, creating new category...');
       const [result] = await connection.query(
         'INSERT INTO product_categories (product_category_name) VALUES (?)',
         [product_category_name]
       );
       product_category_id = result.insertId;
-      console.log('New category created with ID:', product_category_id);
+      // console.log('New category created with ID:', product_category_id);
     } else {
       product_category_id = category[0].product_category_id;
-      console.log('Existing category ID:', product_category_id);
+      // console.log('Existing category ID:', product_category_id);
     }
 
     // Insert product
-    console.log('Inserting product with values:', {
+    /* console.log('Inserting product with values:', {
       product_name,
       product_description,
       product_price: parsedPrice,
@@ -69,7 +66,7 @@ const addProduct = async (req, res) => {
       product_isAvailable: parsedIsAvailable,
       product_category_id,
       seller_email,
-    });
+    }); */
     const [result] = await connection.query(
       'INSERT INTO products (product_name, product_description, product_price, product_stock, product_isAvailable, product_category_id, seller_email) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [
@@ -83,22 +80,22 @@ const addProduct = async (req, res) => {
       ]
     );
     if (!result.insertId) {
-      console.log('Product insertion failed: No insertId returned');
+      // console.log('Product insertion failed: No insertId returned');
       throw new Error('Failed to insert product into database');
     }
     const product_id = result.insertId;
-    console.log('Product inserted with ID:', product_id);
+    // console.log('Product inserted with ID:', product_id);
 
     const [imageResult] = await connection.query(
       'INSERT INTO product_image_name (product_id, product_media_link) VALUES (?, ?)',
       [product_id, product_image_link_details.name]
     );
+
     if (imageResult.affectedRows !== 1) {
-      console.log('Image insertion failed');
+      // console.log('Image insertion failed');
       throw new Error('Failed to insert image into database');
     }
-    console.log('Image link inserted into product_image_name');
-    // }
+    // console.log('Image link inserted into product_image_name');
 
     res.status(201).json({ message: 'Product added successfully', product_id });
   } catch (error) {
@@ -208,13 +205,10 @@ const getProductById = async (req, res) => {
 };
 
 const getCategories = async (req, res) => {
-  console.log('Fetching categories...');
-  
   try {
     const [categories] = await connection.query(
       'SELECT product_category_id, product_category_name FROM product_categories'
     );
-    console.log({ categories });
 
     res.status(200).json(categories);
   } catch (error) {

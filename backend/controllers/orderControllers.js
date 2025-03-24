@@ -51,41 +51,31 @@ const addToCart = async (req, res) => {
 
 // Get user's cart
 const getCart = async (req, res) => {
-  const user_email = req.body.email;
-
-  /* const query = `
-  SELECT ci.cart_item_id, ci.cart_quantity, ci.product_id,
-              p.product_name, p.product_price, p.product_stock, p.product_isAvailable,
-              GROUP_CONCAT(pin.product_media_link) AS image_links
-       FROM cart_items ci
-       JOIN products p ON ci.product_id = p.product_id
-       LEFT JOIN product_image_name pin ON p.product_id = pin.product_id
-       WHERE ci.user_email = ?
-       GROUP BY ci.cart_item_id
-  ` */
+  const { email: user_email } = req.query;
 
   const query = `
-  SELECT 
-    ci.cart_item_id,
-    ci.cart_quantity,
-    ci.user_email,
-    p.product_id,
-    p.product_name,
-    p.product_description,
-    p.product_price,
-    p.product_stock,
-    p.product_isAvailable,
-    p.product_category_id,
-    p.seller_email,
-    p.createdAt,
-    pin.product_media_link AS image_link
-FROM 
-    cart_items ci
-JOIN 
-    products p ON ci.product_id = p.product_id
-JOIN 
-    product_image_name pin ON p.product_id = pin.product_id;
-
+    SELECT
+      ci.cart_item_id,
+      ci.cart_quantity,
+      ci.user_email,
+      p.product_id,
+      p.product_name,
+      p.product_description,
+      p.product_price,
+      p.product_stock,
+      p.product_isAvailable,
+      p.product_category_id,
+      p.seller_email,
+      p.createdAt,
+      pin.product_media_link AS image_link
+    FROM
+        cart_items ci
+    JOIN
+        products p ON ci.product_id = p.product_id
+    JOIN
+        product_image_name pin ON p.product_id = pin.product_id
+    WHERE
+        ci.user_email = ?;
     `;
 
   try {
@@ -127,7 +117,6 @@ const updateCartItem = async (req, res) => {
         products p ON ci.product_id = ?;`,
       [product_id]
     );
-    console.log({ cartItems });
 
     // Check if the cart item exists (cartItems should return an array of rows)
     if (cartItems.length === 0) {

@@ -40,6 +40,18 @@ const Profile = () => {
                 <div className="profile-item">
                     <strong>Phone Number:</strong> {userData?.phone_number || 'Loading...'}
                 </div>
+
+                {
+                    userData?.hostStatus != null && <div className="profile-item">
+                        <strong>Host Status:</strong> {userData?.hostStatus || 'Loading...'}
+                    </div>
+                }
+
+                {
+                    userData?.sellerStatus != null && <div className="profile-item">
+                        <strong>Seller Status:</strong> {userData?.sellerStatus || 'Loading...'}
+                    </div>
+                }
                 <button type="button" className="logout-btn" onClick={handleLogout}>
                     Logout
                 </button>

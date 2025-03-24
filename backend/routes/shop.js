@@ -15,7 +15,6 @@ const {
   checkout,
   removeCartItem, // Added for remove cart item endpoint
 } = require('../controllers/orderControllers');
-const authMiddleware = require('../middleware/auth');
 const productUpload = require('../middlewares/productMulter.js'); // Middleware for image upload
 
 // Product Routes (public)

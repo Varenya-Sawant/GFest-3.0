@@ -1,4 +1,3 @@
-console.log('Hello, world!');
 const connection = require('../mysql');
 const { param, validationResult } = require('express-validator');
 

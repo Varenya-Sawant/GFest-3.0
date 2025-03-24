@@ -54,21 +54,86 @@ const getEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { eventName, eventDescription, eventLocationAddress, eventStartTimestamp, eventEndTimestamp, latitude, longitude, hostEmail } = req.body;
+  const {
+    eventName,
+    eventDescription,
+    eventLocationAddress,
+    eventStartTimestamp,
+    eventEndTimestamp,
+    latitude,
+    longitude,
+    hostEmail,
+  } = req.body;
 
-  const mediaObj = JSON.parse(req.body.mediaDetails);
+  let mediaObj;
+  try {
+    mediaObj = JSON.parse(req.body.mediaDetails);
+  } catch (error) {
+    console.error('Invalid mediaDetails format:', error.message);
+    return res.status(400).json({ message: 'Invalid mediaDetails format' });
+  }
 
-  const [result] = await connection.query(
-    "INSERT INTO events (event_name, event_description, event_location_address, event_location_latitude, event_location_longitude, event_start_timestamp, event_end_timestamp, host_email) VALUES (?, ?, ?, ?,?, ?, ?, ?)",
-    [eventName, eventDescription, eventLocationAddress, latitude, longitude, eventStartTimestamp, eventEndTimestamp, hostEmail]
-  );
+  try {
+    // Validate host
+    // console.log('Checking host:', hostEmail);
+    const [host] = await connection.query(
+      'SELECT host_email FROM hosts WHERE host_email = ? AND host_status = ?',
+      [hostEmail, 'approved']
+    );
+    // console.log('Host query result:', host);
+    if (host.length === 0) {
+      // console.log('Host validation failed: Unauthorized or host not approved');
+      return res.status(403).json({ message: 'Unauthorized or host not approved' });
+    }
 
-  await connection.query(
-    "INSERT INTO event_image_name (event_id, event_image_name) VALUES (?, ?)",
-    [result.insertId, mediaObj.name]
-  );
+/*     // Insert event
+    console.log('Inserting event with values:', {
+      eventName,
+      eventDescription,
+      eventLocationAddress,
+      latitude,
+      longitude,
+      eventStartTimestamp,
+      eventEndTimestamp,
+      hostEmail,
+    }); */
+    const [result] = await connection.query(
+      'INSERT INTO events (event_name, event_description, event_location_address, event_location_latitude, event_location_longitude, event_start_timestamp, event_end_timestamp, host_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [
+        eventName,
+        eventDescription,
+        eventLocationAddress,
+        latitude,
+        longitude,
+        eventStartTimestamp,
+        eventEndTimestamp,
+        hostEmail,
+      ]
+    );
+    if (!result.insertId) {
+      // console.log('Event insertion failed: No insertId returned');
+      return res.status(500).json({ message: 'Failed to insert event into database' });
+    }
+    const eventId = result.insertId;
+    // console.log('Event inserted with ID:', eventId);
 
-  res.json({ message: 'CreateEvent' });
+    // Insert event image
+    // console.log('Inserting event image:', mediaObj.name);
+    const [imageResult] = await connection.query(
+      'INSERT INTO event_image_name (event_id, event_image_name) VALUES (?, ?)',
+      [eventId, mediaObj.name]
+    );
+    if (imageResult.affectedRows !== 1) {
+      // console.log('Image insertion failed: No rows affected');
+      return res.status(500).json({ message: 'Failed to insert image into database' });
+    }
+    // console.log('Image link inserted into event_image_name');
+
+    res.status(201).json({ message: 'Event created successfully', event_id: eventId });
+  } catch (error) {
+    console.error('Error creating event:', error.message, error.stack);
+    res.status(500).json({ message: 'Server error creating event', error: error.message });
+  }
 };
 
 const registerForEvent = async (req, res) => {
