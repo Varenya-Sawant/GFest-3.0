@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import './SignUp.css'
+import './SignUp.css';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -13,8 +13,12 @@ const SignUp = () => {
     userTypes: {
       HOST: false,
       ARTISIAN: false,
-      SELLER: false
-    }
+      SELLER: false,
+    },
+    companyName: '',
+    companyAddress: '',
+    artisanServiceDescription: '',
+    artisanProfession: '',
   });
   const [errors, setErrors] = useState({});
 
@@ -36,15 +40,15 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === 'checkbox') {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         userTypes: {
           ...prev.userTypes,
-          [name]: checked
-        }
+          [name]: checked,
+        },
       }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -56,7 +60,8 @@ const SignUp = () => {
     }
 
     if (!validatePassword(formData.password)) {
-      newErrors.password = 'Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character';
+      newErrors.password =
+        'Password must be at least 8 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character';
     }
 
     if (!validatePhoneNumber(formData.phoneNumber)) {
@@ -69,111 +74,192 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ formData });
 
     const isValid = await validateForm();
 
     if (isValid) {
       try {
-        const response = await axios.post('http://localhost:3000/api/register', formData);
+        const response = await axios.post('http://192.168.152.58:3000/api/register', formData);
         const data = await response.data;
-        // console.log({ data });
 
-        if (response.status == 201) {
+        if (response.status === 201) {
           alert('Registration successful! Redirecting to login page.');
-
           navigate('/login');
-          // redirect
-        } else if (response.status == 200) {
-          alert("Email already registered")
+        } else if (response.status === 200) {
+          alert('Email already registered');
         } else {
-          setErrors({ server: data.c });
+          setErrors({ server: data.message });
         }
       } catch (error) {
-       // console.error({ error });
-
         setErrors({ server: 'Registration failed. Please try again.' });
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="registration-form">
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
-      </div>
+    <div className="signup-container">
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2 className="signup-title">Sign Up</h2>
 
-      <div>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label>Password:</label>
-        {/* <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-       */}
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          autoComplete="new-password"
-          spellCheck="false"
-        />
-
-
-        {errors.password && <span className="error">{errors.password}</span>}
-      </div>
-
-      <div>
-        <label>Phone Number:</label>
-        <input
-          type="tel"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-        />
-        {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
-      </div>
-
-      <div>
-        <label>User Types:</label>
-        <div className="checkbox-group">
-          {Object.keys(formData.userTypes).map(type => (
-            <label key={type}>
-              <input
-                type="checkbox"
-                name={type}
-                checked={formData.userTypes[type]}
-                onChange={handleChange}
-              />
-              {type.replace(/([A-Z])/g, ' $1').trim()}
-            </label>
-          ))}
+        <div className="form-group">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="form-input"
+          />
+          {errors.email && <span className="form-error">{errors.email}</span>}
         </div>
-        {errors.userTypes && <span className="error">{errors.userTypes}</span>}
-      </div>
 
-      {errors.server && <span className="error">{errors.server}</span>}
-      <button type="submit">Register</button>
-    </form>
+        <div className="form-group">
+          <label className="form-label">Username:</label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            className="form-input"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            autoComplete="new-password"
+            spellCheck="false"
+            className="form-input"
+          />
+          {errors.password && <span className="form-error">{errors.password}</span>}
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Phone Number:</label>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            className="form-input"
+          />
+          {errors.phoneNumber && <span className="form-error">{errors.phoneNumber}</span>}
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">User Types:</label>
+          <div className="checkbox-group">
+            {Object.keys(formData.userTypes).map((type) => (
+              <label key={type} className="checkbox-label">
+                <input
+                  type="checkbox"
+                  name={type}
+                  checked={formData.userTypes[type]}
+                  onChange={handleChange}
+                  className="checkbox-input"
+                />
+                {type.replace(/([A-Z])/g, '$1').trim()}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {formData.userTypes.ARTISIAN && (
+          <>
+            <div className="form-group">
+              <label className="form-label">Artisan Service Description:</label>
+              <textarea
+                name="artisanServiceDescription"
+                value={formData.artisanServiceDescription}
+                onChange={handleChange}
+                className="form-textarea"
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Artisan Profession:</label>
+              <input
+                type="text"
+                name="artisanProfession"
+                value={formData.artisanProfession}
+                onChange={handleChange}
+                className="form-input"
+              />
+            </div>
+          </>
+        )}
+
+        {formData.userTypes.HOST && formData.userTypes.SELLER ? (
+          <>
+            <div className="form-group">
+              <label className="form-label">Company Name:</label>
+              <input
+                type="text"
+                name="companyName"
+                value={formData.companyName}
+                onChange={handleChange}
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Seller Company Address:</label>
+              <input
+                type="text"
+                name="companyAddress"
+                value={formData.companyAddress}
+                onChange={handleChange}
+                className="form-input"
+              />
+            </div>
+          </>
+        ) : formData.userTypes.HOST ? (
+          <div className="form-group">
+            <label className="form-label">Host Company Name:</label>
+            <input
+              type="text"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
+        ) : (
+          formData.userTypes.SELLER && (
+            <>
+              <div className="form-group">
+                <label className="form-label">Seller Company Name:</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleChange}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Company Address:</label>
+                <input
+                  type="text"
+                  name="companyAddress"
+                  value={formData.companyAddress}
+                  onChange={handleChange}
+                  className="form-input"
+                />
+              </div>
+            </>
+          )
+        )}
+
+        {errors.server && <span className="form-error server-error">{errors.server}</span>}
+        <button type="submit" className="submit-button">Register</button>
+      </form>
+    </div>
   );
 };
 

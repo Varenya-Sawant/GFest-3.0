@@ -1,0 +1,88 @@
+.shop {
+
+  width: 80%; /* Same width as .services-container */
+  margin: 0 auto; /* Centers the shop content with equal margin on both sides */
+  padding: 20px; /* Same padding as .services-container */
+}
+
+.shopTitle {
+  
+  text-align: left;
+  font-size: 40px;
+  color: #28a745; /* Green color */
+}
+
+.categoryTitle {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 40px;
+  color: #28a745; /* Green color for category titles */
+}
+
+.products {
+
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns for large screens */
+  gap: 8px; /* Reduced gap between grids */
+  place-items: center;
+  display: flex;
+  
+  justify-content: center;
+  flex-wrap: wrap;
+  gap:40px;
+}
+
+.product {
+  background-color: #f9f9f9; /* Light background */
+  border-radius: 12px; /* Rounded corners */
+  border: 3px solid rgb(224, 117, 10); /* Black border added */
+  padding: 15px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  width: 20%;
+  aspect-ratio: 0.6;
+  max-width: 300px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product img {
+  width: 100%; /* Smaller image */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 8px; /* Rounded corners for the image */
+  margin-bottom: 10px; /* Reduced spacing below the image */
+}
+
+.product .description {
+  text-align: center;
+  margin-bottom: 10px; /* Reduced spacing below description */
+  font-size: 14px; /* Smaller font size */
+}
+
+.product:hover {
+  transition: 0.3s ease-in;
+  cursor: pointer;
+  transform: translateY(-5px); /* Subtle hover effect */
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15); /* Lighter hover shadow */
+}
+
+.addToCartBttn {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text for contrast */
+  border: 2px solid #28a745; /* Match the button background */
+  min-width: 100px;
+  padding: 10px 15px; /* Adjust padding for a better look */
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.addToCartBttn:hover {
+  background-color: #218838; /* Darker green on hover */
+  color: white;
+  cursor: pointer;
+}
+

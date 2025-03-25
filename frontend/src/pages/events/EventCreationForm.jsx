@@ -3,9 +3,9 @@ import axios from 'axios';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import './EventCreationForm__.css';
+import './EventCreationForm.css';
 
-// Fix Leaflet marker icon issue
+// Leaflet marker icon fix
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -25,7 +25,7 @@ const EventCreationForm = () => {
   });
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [position, setPosition] = useState([51.505, -0.09]); // Default map position (London)
+  const [position, setPosition] = useState([15.5010, 73.8294]); // Default map position (Goa)
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -39,15 +39,13 @@ const EventCreationForm = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     setImages(files);
-    console.log({ files });
-
     const previews = files.map((file) => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
 
   // Map click handler
   const LocationMarker = () => {
-    useMapEvents({
+    const map = useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
         setPosition([lat, lng]);
@@ -61,16 +59,55 @@ const EventCreationForm = () => {
     return position ? <Marker position={position}></Marker> : null;
   };
 
+  // Validate address using Nominatim API
+  const validateAddress = async () => {
+    const address = formData.eventLocationAddress;
+    if (!address) {
+      setErrors((prev) => ({ ...prev, eventLocationAddress: 'Please enter an address' }));
+      return false;
+    }
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
+        setPosition([lat, lon]);
+        setFormData((prev) => ({
+          ...prev,
+          latitude: lat,
+          longitude: lon,
+          eventLocationAddress: data[0].display_name, // Optional: Update address with full name
+        }));
+        setErrors((prev) => ({ ...prev, eventLocationAddress: null }));
+        return true;
+      } else {
+        setErrors((prev) => ({ ...prev, eventLocationAddress: 'Address not found' }));
+        return false;
+      }
+    } catch (error) {
+      console.error('Error validating address:', error);
+      setErrors((prev) => ({ ...prev, eventLocationAddress: 'Error validating address' }));
+      return false;
+    }
+  };
+
   // Form validation
-  const validateForm = () => {
+  const validateForm = async () => {
     const newErrors = {};
     if (!formData.eventName) newErrors.eventName = 'Event name is required';
+    if (!formData.eventDescription) newErrors.eventDescription = 'Event Description is required';
     if (!formData.eventStartTimestamp) newErrors.eventStartTimestamp = 'Start date is required';
     if (!formData.eventEndTimestamp) newErrors.eventEndTimestamp = 'End date is required';
-    if (!formData.latitude || !formData.longitude) newErrors.location = 'Please select a location on the map';
-    if (formData.eventStartTimestamp >= formData.eventEndTimestamp) {
-      newErrors.eventEndTimestamp = 'End date must be after start date';
+    if (formData.eventStartTimestamp >= formData.eventEndTimestamp) newErrors.eventEndTimestamp = 'End date must be after start date';
+
+    const isAddressValid = await validateAddress();
+    if (!isAddressValid || !formData.latitude || !formData.longitude) {
+      newErrors.location = 'Please provide a valid location';
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -78,63 +115,41 @@ const EventCreationForm = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!(await validateForm())) return;
 
     try {
-      // Create FormData for both event data and images
       const data = new FormData();
-
-      // Loop through each key-value pair in formData and append to the FormData
       for (const key in formData) {
         if (formData.hasOwnProperty(key)) {
-          data.append(key, formData[key]); // Append each key-value pair to FormData
-        };
-      };
-
-      // Append images to the same FormData
-      images.forEach((image) => {
-        console.log({ image });
-        console.log({ imagePreviews: imagePreviews[0] });
-
+          data.append(key, formData[key]);
+        }
+      }
+      images.forEach((image, index) => {
         data.append('media', image);
-
         data.append('mediaDetails', JSON.stringify({
-          uri: imagePreviews[0],
+          uri: imagePreviews[index],
           type: image.type,
-          name: image.name
-        })); // 'media' is the field name that multer expects
+          name: image.name,
+        }));
       });
-
-      // Append the host email to the form data
       data.append('hostEmail', localStorage.getItem('user_email'));
 
-      // Send the data to the server
-      await axios.post('http://localhost:3000/api/events/create', data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      const response = await axios.post('http://192.168.152.58:3000/api/events/create', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       setSuccessMessage('Event created successfully!');
       setErrors({});
-      /* setFormData({
-        eventName: '',
-        eventDescription: '',
-        eventLocationAddress: '',
-        eventStartTimestamp: '',
-        eventEndTimestamp: '',
-        latitude: null,
-        longitude: null,
-      }); */
-      // setImages([]);
-      // setImagePreviews([]);
-
     } catch (error) {
-      // Handle error
-      setErrors({ server: error.message || 'Failed to create event' });
+      if (error.response && error.response.status === 403) {
+        setErrors({ server: 'Unauthorized or host not approved' });
+      } else {
+        setErrors({ server: error.response?.data?.message || 'Failed to create event' });
+      }
       setSuccessMessage('');
-      console.error('Error:', error);
+      console.error('Error:', error.response?.data || error.message);
     }
   };
-
 
   return (
     <div className="event-creation-form">
@@ -158,6 +173,7 @@ const EventCreationForm = () => {
             value={formData.eventDescription}
             onChange={handleChange}
           />
+          {errors.eventDescription && <span className="error">{errors.eventDescription}</span>}
         </div>
 
         <div>
@@ -168,6 +184,10 @@ const EventCreationForm = () => {
             value={formData.eventLocationAddress}
             onChange={handleChange}
           />
+          <button type="button" onClick={validateAddress}>Validate Address</button>
+          {errors.eventLocationAddress && (
+            <span className="error">{errors.eventLocationAddress}</span>
+          )}
         </div>
 
         <div>
@@ -178,7 +198,9 @@ const EventCreationForm = () => {
             value={formData.eventStartTimestamp}
             onChange={handleChange}
           />
-          {errors.eventStartTimestamp && <span className="error">{errors.eventStartTimestamp}</span>}
+          {errors.eventStartTimestamp && (
+            <span className="error">{errors.eventStartTimestamp}</span>
+          )}
         </div>
 
         <div>
@@ -189,15 +211,17 @@ const EventCreationForm = () => {
             value={formData.eventEndTimestamp}
             onChange={handleChange}
           />
-          {errors.eventEndTimestamp && <span className="error">{errors.eventEndTimestamp}</span>}
+          {errors.eventEndTimestamp && (
+            <span className="error">{errors.eventEndTimestamp}</span>
+          )}
         </div>
 
         <div>
           <label>Select Location:</label>
-          <MapContainer center={position} zoom={13} style={{ height: '300px', width: '75%' }}>
+          <MapContainer center={position} zoom={12} style={{ height: '300px', width: '75%' }}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+              attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             />
             <LocationMarker />
           </MapContainer>

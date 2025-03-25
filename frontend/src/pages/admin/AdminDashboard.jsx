@@ -1,111 +1,132 @@
-import React, { useState } from 'react';
-import './../Dashboard.css'; // Import the Admin Dashboard styles
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './AdminDashboard.css';
+import { useNavigate } from 'react-router';
+import { use } from 'react';
 
 const AdminDashboard = () => {
-  // Sample states to hold data
-  const [users, setUsers] = useState([
-    { id: 1, name: 'User 1', email: 'user1@example.com' },
-    { id: 2, name: 'User 2', email: 'user2@example.com' },
-  ]);
-  
-  const [hosts, setHosts] = useState([
-    { id: 1, name: 'Host 1', status: 'Pending' },
-    { id: 2, name: 'Host 2', status: 'Approved' },
-  ]);
+  const [activeSection, setActiveSection] = useState('Sellers');
+  const [sellers, setSellers] = useState([]);
+  const [hosts, setHosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const [services, setServices] = useState([
-    { id: 1, name: 'Service 1', artisan: 'Artisan 1' },
-    { id: 2, name: 'Service 2', artisan: 'Artisan 2' },
-  ]);
-  
-  const [sellers, setSellers] = useState([
-    { id: 1, name: 'Seller 1', status: 'Pending' },
-    { id: 2, name: 'Seller 2', status: 'Approved' },
-  ]);
+  useEffect(() => {
+    const fetchPendingAccounts = async () => {
+      try {
+        // if the user is not admin then redirect to the home page
+        const userTypes = localStorage.getItem('user_type').split(',');
+        
+        if (!userTypes.includes('ADMIN') || !userTypes) {
+          navigate('/');
+        }
 
-  // Function to handle user deletion
-  const handleDeleteUser = (userId) => {
-    setUsers(users.filter(user => user.id !== userId));
+        const sellerResponse = await axios.get('http://192.168.152.58:3000/api/admin/sellers/pending', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        const hostResponse = await axios.get('http://192.168.152.58:3000/api/admin/hosts/pending', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+        setSellers(sellerResponse.data); // Expecting { seller_email, seller_company_name, seller_status }
+        setHosts(hostResponse.data);     // Expecting { host_email, host_company_name, host_status }
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load accounts.');
+        setLoading(false);
+      }
+    };
+    fetchPendingAccounts();
+  }, [navigate]);
+
+  const handleApprove = async (email, type) => {
+    try {
+      const endpoint = type === 'seller' ? 'sellers' : 'hosts';
+      await axios.post(
+        `http://192.168.152.58:3000/api/admin/${endpoint}/approve`,
+        { email },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      );
+      if (type === 'seller') {
+        setSellers(sellers.filter((seller) => seller.seller_email !== email));
+      } else {
+        setHosts(hosts.filter((host) => host.host_email !== email));
+      }
+    } catch (err) {
+      alert(`Failed to approve ${type}.`);
+    }
   };
 
-  // Function to handle host approval/rejection
-  const handleHostStatusChange = (hostId) => {
-    setHosts(hosts.map(host => 
-      host.id === hostId ? { ...host, status: host.status === 'Pending' ? 'Approved' : 'Pending' } : host
-    ));
+  const handleReject = async (email, type) => {
+    try {
+      const endpoint = type === 'seller' ? 'sellers' : 'hosts';
+      await axios.post(
+        `http://192.168.152.58:3000/api/admin/${endpoint}/reject`,
+        { email },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      );
+      if (type === 'seller') {
+        setSellers(sellers.filter((seller) => seller.seller_email !== email));
+      } else {
+        setHosts(hosts.filter((host) => host.host_email !== email));
+      }
+    } catch (err) {
+      alert(`Failed to reject ${type}.`);
+    }
   };
 
-  // Function to handle seller approval/rejection
-  const handleSellerStatusChange = (sellerId) => {
-    setSellers(sellers.map(seller => 
-      seller.id === sellerId ? { ...seller, status: seller.status === 'Pending' ? 'Approved' : 'Pending' } : seller
-    ));
-  };
+  const renderAccounts = () => {
+    const accounts = activeSection === 'Sellers' ? sellers : hosts;
+    const type = activeSection === 'Sellers' ? 'seller' : 'host';
+    const emailKey = type === 'seller' ? 'seller_email' : 'host_email';
+    const nameKey = type === 'seller' ? 'seller_company_name' : 'host_company_name';
 
-  // Example function to remove a service (not currently implemented)
-  const handleRemoveService = (serviceId) => {
-    setServices(services.filter(service => service.id !== serviceId));
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div className="error">{error}</div>;
+    if (accounts.length === 0) return <p>No pending {type}s.</p>;
+
+    return (
+      <div className="user-list">
+        {accounts.map((user) => (
+          <div key={user[emailKey]} className="user-card">
+            <h3>{user[nameKey] || 'Unnamed'}</h3>
+            <p>Email: {user[emailKey]}</p>
+            <p>Role: {type}</p>
+            <div className="user-actions">
+              <button className="approve-button" onClick={() => handleApprove(user[emailKey], type)}>
+                Approve
+              </button>
+              <button className="reject-button" onClick={() => handleReject(user[emailKey], type)}>
+                Reject
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-      
-      {/* Users Section */}
-      <section>
-        <h2>Users Management</h2>
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              {user.name} ({user.email})
-              <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Hosts Section */}
-      <section>
-        <h2>Hosts Management</h2>
-        <ul>
-          {hosts.map(host => (
-            <li key={host.id}>
-              {host.name} - {host.status}
-              <button onClick={() => handleHostStatusChange(host.id)}>
-                {host.status === 'Pending' ? 'Approve' : 'Reject'}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Services Section */}
-      <section>
-        <h2>Services Management</h2>
-        <ul>
-          {services.map(service => (
-            <li key={service.id}>
-              {service.name} (by {service.artisan})
-              <button onClick={() => handleRemoveService(service.id)}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Sellers Section */}
-      <section>
-        <h2>Sellers Management</h2>
-        <ul>
-          {sellers.map(seller => (
-            <li key={seller.id}>
-              {seller.name} - {seller.status}
-              <button onClick={() => handleSellerStatusChange(seller.id)}>
-                {seller.status === 'Pending' ? 'Approve' : 'Reject'}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className="sidebar">
+        <h3>Admin Panel</h3>
+        <button
+          className={`sidebar-item ${activeSection === 'Sellers' ? 'active' : ''}`}
+          onClick={() => setActiveSection('Sellers')}
+        >
+          Sellers
+        </button>
+        <button
+          className={`sidebar-item ${activeSection === 'Hosts' ? 'active' : ''}`}
+          onClick={() => setActiveSection('Hosts')}
+        >
+          Hosts
+        </button>
+      </div>
+      <div className="dashboard-content">
+        <h2>Pending {activeSection}</h2>
+        {renderAccounts()}
+      </div>
     </div>
   );
 };

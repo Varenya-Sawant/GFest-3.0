@@ -1,0 +1,99 @@
+/* Profile.css */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9f1ff 100%);
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Arial', sans-serif;
+  }
+  
+  .profile-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .profile-item {
+    margin: 15px 0;
+    font-size: 1.1rem;
+    color: #333;
+    word-wrap: break-word;
+  }
+  
+  .profile-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  .logout-btn {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+  
+  .logout-btn:active {
+    transform: scale(0.98);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .profile-card {
+      padding: 20px;
+      max-width: 400px;
+    }
+  
+    .profile-item {
+      font-size: 1rem;
+    }
+  
+    .logout-btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profile-container {
+      padding: 10px;
+    }
+  
+    .profile-card {
+      padding: 15px;
+      max-width: 100%;
+      margin: 0 10px;
+    }
+  
+    .profile-item {
+      font-size: 0.9rem;
+      margin: 12px 0;
+    }
+  
+    .logout-btn {
+      padding: 8px 15px;
+      font-size: 0.85rem;
+    }
+  }

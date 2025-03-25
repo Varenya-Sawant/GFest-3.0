@@ -24,6 +24,29 @@ const profileMiddleware = async (req, res) => {
         );
         const userTypeList = userTypes.map((type) => type.user_type);
 
+        let hostStatus = null;
+        let sellerStatus = null;
+
+        if (userTypeList.includes('HOST')) {
+            // get host status from host table
+            const [hosts] = await connection.query(
+                'SELECT host_status FROM hosts WHERE host_email = ?',
+                [email]
+            );
+
+            hostStatus = hosts[0].host_status;
+        };
+
+        if (userTypeList.includes('SELLER')) {
+            // get seller status from seller table
+            const [sellers] = await connection.query(
+                'SELECT seller_status FROM sellers WHERE seller_email = ?',
+                [email]
+            );
+
+            sellerStatus = sellers[0].seller_status;
+        };
+
         const user = users[0];
 
         return res.status(200).json({
@@ -32,7 +55,9 @@ const profileMiddleware = async (req, res) => {
                 email: user.user_email,
                 name: user.user_name,
                 phone_number: user.user_phone_number,
-                userTypes: userTypeList
+                userTypes: userTypeList,
+                hostStatus,
+                sellerStatus
             }
         });
     } catch (error) {

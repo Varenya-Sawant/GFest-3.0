@@ -1,0 +1,525 @@
+/* General Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif; /* Matches previous theme */
+  background: #F2F2F2; /* Light Gray background */
+  color: #2E2E2E; /* Charcoal for primary text */
+  min-height: 100vh;
+}
+
+/* Container Styling */
+.post-details-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(242, 242, 242, 0.9); /* Light Gray glassmorphism */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(140, 140, 140, 0.3); /* Medium Gray border */
+  animation: fadeInUp 1s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heading */
+.post-details-container h2 {
+  font-size: 2.5rem;
+  color: #f13c20; /* Vibrant Red-Orange for heading */
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: slideInFromLeft 0.8s ease-out;
+  position: relative;
+}
+
+.post-details-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #f13c20, #c21e0f); /* Red-Orange gradient */
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* Post Metadata and Content */
+.post-details-container > p {
+  font-size: 1.1rem;
+  color: #8C8C8C; /* Medium Gray for metadata */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-content {
+  font-size: 1.2rem;
+  color: #2E2E2E; /* Charcoal for content */
+  line-height: 1.6;
+  padding: 20px;
+  background: rgba(242, 242, 242, 0.7); /* Lighter glass effect */
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+/* Post Images */
+.post-images {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.post-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+  border: 2px solid #FFD700; /* Gold border for premium feel */
+}
+
+.post-image:hover {
+  transform: scale(1.05);
+}
+
+/* Post Actions */
+.post-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.post-actions button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-actions button:first-child {
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Edit (CTA) */
+}
+
+.post-actions button:last-child {
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Medium Gray for Delete */
+}
+
+.post-actions button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.post-actions button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.post-actions button:first-child:hover {
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
+}
+
+.post-actions button:last-child:hover {
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
+}
+
+.post-actions button:active {
+  transform: scale(0.95);
+}
+
+/* Comments Section */
+.post-details-container h3 {
+  font-size: 1.8rem;
+  color: #f13c20; /* Red-Orange for heading */
+  margin: 30px 0 20px;
+  text-align: center;
+}
+
+.comments-list {
+  display: grid;
+  gap: 20px;
+}
+
+.comment {
+  background: rgba(242, 242, 242, 0.8); /* Light Gray glassmorphism */
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(140, 140, 140, 0.3); /* Medium Gray border */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.comment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(241, 60, 32, 0.2); /* Red-Orange shadow */
+}
+
+.comment p {
+  white-space: pre-wrap;
+  font-size: 1rem;
+  color: #2E2E2E; /* Charcoal for comment text */
+  margin-bottom: 10px;
+}
+
+.comment p strong {
+  color: #FFD700; /* Gold for emphasis (e.g., author name) */
+}
+
+/* Comment Textarea */
+.comment textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #8C8C8C; /* Medium Gray border */
+  border-radius: 10px;
+  background: rgba(242, 242, 242, 0.5);
+  color: #2E2E2E; /* Charcoal for text */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comment textarea:focus {
+  border-color: #f13c20; /* Red-Orange on focus */
+  box-shadow: 0 0 10px rgba(241, 60, 32, 0.3);
+  outline: none;
+}
+
+/* Comment Edit Buttons (Save and Cancel) */
+.comment div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comment div button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+}
+
+.comment div button:first-child {
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Save */
+}
+
+.comment div button:last-child {
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Gray for Cancel */
+}
+
+.comment div button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.comment div button:hover::before {
+  width: 50px;
+  height: 50px;
+}
+
+.comment div button:first-child:hover {
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
+}
+
+.comment div button:last-child:hover {
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
+}
+
+.comment div button:active {
+  transform: scale(0.95);
+}
+
+/* Comment Actions (Edit and Delete) */
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comment-actions button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.comment-actions button:first-child {
+  background: linear-gradient(135deg, #FFD700, #E6C200); /* Gold for Edit */
+}
+
+.comment-actions button:last-child {
+  background: linear-gradient(135deg, #8C8C8C, #6B6B6B); /* Gray for Delete */
+}
+
+.comment-actions button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.comment-actions button:hover::before {
+  width: 200px;
+  height: 200px;
+}
+
+.comment-actions button:first-child:hover {
+  background: linear-gradient(135deg, #E6C200, #CCAB00);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+.comment-actions button:last-child:hover {
+  background: linear-gradient(135deg, #6B6B6B, #4A4A4A);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(140, 140, 140, 0.5);
+}
+
+.comment-actions button:active {
+  transform: scale(0.95);
+}
+
+/* Add Comment Section */
+.add-comment {
+  margin-top: 30px;
+}
+
+.add-comment h4 {
+  font-size: 1.5rem;
+  color: #f13c20; /* Red-Orange for heading */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.add-comment form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-comment textarea {
+  padding: 15px;
+  font-size: 1rem;
+  border: 2px solid #8C8C8C; /* Medium Gray border */
+  border-radius: 10px;
+  background: rgba(242, 242, 242, 0.5);
+  color: #2E2E2E; /* Charcoal for text */
+  min-height: 100px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-comment textarea:focus {
+  border-color: #f13c20; /* Red-Orange on focus */
+  box-shadow: 0 0 10px rgba(241, 60, 32, 0.3);
+  outline: none;
+}
+
+.add-comment button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  color: #fff;
+  background: linear-gradient(135deg, #f13c20, #c21e0f); /* Red-Orange for Submit */
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-comment button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.add-comment button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.add-comment button:hover {
+  background: linear-gradient(135deg, #e02e14, #a81a0d);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(241, 60, 32, 0.5);
+}
+
+.add-comment button:active {
+  transform: scale(0.95);
+}
+
+/* Loading and Error States */
+.post-details-container > div {
+  font-size: 1.2rem;
+  color: #f13c20; /* Red-Orange for loading */
+  text-align: center;
+  padding: 40px;
+}
+
+.post-details-container > div.error {
+  color: #f13c20; /* Red-Orange for error (consistent with theme) */
+  background: rgba(242, 242, 242, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .post-details-container {
+    padding: 20px;
+    margin: 20px 10px;
+  }
+
+  .post-details-container h2 {
+    font-size: 2rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .comment {
+    padding: 15px;
+  }
+
+  .add-comment textarea {
+    padding: 10px;
+    min-height: 80px;
+  }
+
+  .add-comment button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-details-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .post-details-container > p {
+    font-size: 0.9rem;
+  }
+
+  .post-content {
+    font-size: 0.9rem;
+  }
+
+  .post-image {
+    max-width: 100%;
+  }
+
+  .comment p,
+  .comment textarea {
+    font-size: 0.9rem;
+  }
+
+  .comment-actions button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .add-comment h4 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid #f13c20; /* Red-Orange outline */
+  outline-offset: 2px;
+}
+
+button, textarea {
+  cursor: pointer;
+}

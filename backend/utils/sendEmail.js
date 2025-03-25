@@ -1,23 +1,38 @@
-const sendEmail = async (email, otp) => {
-    if (!email) throw new Error('Email param is required');
-    if (!otp) throw new Error('OTP params is required');
+const { createTransport } = require("nodemailer");
 
+const sendEmail = async (event, userEmail) => {
     try {
         const transposter = createTransport({
             host: 'smtp.gmail.com',
             port: 587,
             secure: false,
             auth: {
-                user: 'varenyasawant23@gmail.com',
-                pass: ''
+                // Your email password or app-specific password
+                user: 'helekarsohmm@gmail.com',
+                pass: 'gyde tieu tknp cqzd'
             }
         });
 
         await transposter.sendMail({
-            from: 'varenyasawant23@gmail.com',
-            to: email,
-            subject: 'OTP',
-            text: `Your otp is ${otp}`
+            from: 'helekarsohmm@gmail.com',
+            to: userEmail,
+            subject: `Registration Confirmation for ${event.event_name}`,
+            text: `Dear User,
+      
+You have successfully registered for the event "${event.event_name}"!
+      
+Event Details:
+- Name: ${event.event_name}
+- Description: ${event.event_description}
+- Location: ${event.event_location_address}
+- Start: ${new Date(event.event_start_timestamp).toLocaleString()}
+- End: ${new Date(event.event_end_timestamp).toLocaleString()}
+- Hosted by: ${event.host_email}
+      
+We look forward to seeing you there!
+      
+Best regards,
+GFest Team`,
         });
 
         return true;
@@ -26,3 +41,5 @@ const sendEmail = async (email, otp) => {
         return false;
     };
 };
+
+module.exports = { sendEmail }

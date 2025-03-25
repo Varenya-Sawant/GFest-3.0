@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import './Login.css'
+import './Login.css';
+
 const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validateForm = () => {
@@ -37,9 +38,8 @@ const Login = () => {
 
     if (isValid) {
       try {
-        const response = await axios.post('http://localhost:3000/api/login', formData);
+        const response = await axios.post('http://192.168.152.58:3000/api/login', formData);
         const data = await response.data;
-        console.log({ data });
 
         if (response.status === 200) {
           localStorage.setItem('user_email', data.user.email);
@@ -51,39 +51,45 @@ const Login = () => {
           setErrors({ server: data.message || 'Login failed' });
         }
       } catch (error) {
-        console.log({ error });
+        console.error({ error });
         setErrors({ server: error.response?.data?.message || 'Login failed. Please try again.' });
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
-      </div>
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2 className="login-title">Login</h2>
 
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errors.password && <span className="error">{errors.password}</span>}
-      </div>
+        <div className="form-group">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="form-input"
+          />
+          {errors.email && <span className="form-error">{errors.email}</span>}
+        </div>
 
-      {errors.server && <span className="error">{errors.server}</span>}
-      <button type="submit">Login</button>
-    </form>
+        <div className="form-group">
+          <label className="form-label">Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className="form-input"
+          />
+          {errors.password && <span className="form-error">{errors.password}</span>}
+        </div>
+
+        {errors.server && <span className="form-error server-error">{errors.server}</span>}
+        <button type="submit" className="submit-button">Login</button>
+      </form>
+    </div>
   );
 };
 

@@ -1,67 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { useParams, useNavigate } from 'react-router';
+import './EventDetails.css';
 
 const EventDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [isLoggedIn] = useState(true); // Replace with actual auth check (e.g., JWT)
+  const [registrationMessage, setRegistrationMessage] = useState('');
+
+  const userEmail = localStorage.getItem('user_email');
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/events/${id}`);
+        const response = await axios.get(`http://192.168.152.58:3000/api/events/${id}`);
         setEvent(response.data);
+        setLoading(false);
       } catch (err) {
-        setError('Failed to fetch event details');
+        setError('Failed to load event details.');
+        setLoading(false);
       }
     };
-    fetchEvent();
+    fetchEventDetails();
   }, [id]);
 
   const handleRegister = async () => {
-    if (!window.confirm('Are you sure you want to register for this event?')) return;
+    if (!userEmail) {
+      navigate('/login');
+      return;
+    }
 
     try {
-      const response = await axios.post('http://localhost:3000/api/register', {
+      const response = await axios.post('http://192.168.152.58:3000/api/events/register', {
         eventId: id,
-        userEmail: 'user@example.com', // Replace with authenticated user's email
+        userEmail,
       });
-      setSuccessMessage(response.data.message);
-      setError('');
+      setRegistrationMessage(response.data.message);
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
-      setSuccessMessage('');
+      setRegistrationMessage(err.response?.data?.message || 'Failed to register for the event');
     }
   };
 
-  if (!event) return <p>Loading...</p>;
-
-  const mapStyles = { height: '400px', width: '100%' };
-  const position = {
-    lat: parseFloat(event.event_location_latitude),
-    lng: parseFloat(event.event_location_longitude),
-  };
+  if (loading) return <div className="event-loading">Loading event...</div>;
+  if (error) return <div className="event-error">{error}</div>;
+  if (!event) return <div className="event-error">Event not found.</div>;
 
   return (
-    <div className="event-details">
-      <h2>{event.event_name}</h2>
-      <p><strong>Date & Time:</strong> {new Date(event.event_start_timestamp).toLocaleString()} - {new Date(event.event_end_timestamp).toLocaleString()}</p>
-      <p><strong>Location:</strong> {event.event_location_address}</p>
-      <p><strong>Description:</strong> {event.event_description}</p>
-      <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
-        <GoogleMap mapContainerStyle={mapStyles} center={position} zoom={13}>
-          <Marker position={position} />
-        </GoogleMap>
-      </LoadScript>
-      {isLoggedIn && (
-        <button onClick={handleRegister}>Register for Event</button>
+    <div className="event-details-container">
+      <h2 className="event-title">{event.event_name}</h2>
+
+      {event.event_image_name && (
+        <div className="event-image-wrapper">
+          <img
+            src={event.event_image_name}
+            alt={event.event_name}
+            className="event-main-image"
+          />
+        </div>
       )}
-      {successMessage && <p className="success">{successMessage}</p>}
-      {error && <p className="error">{error}</p>}
+
+      <div className="event-details-card">
+        <p className="event-detail">
+          <span>Start:</span> {new Date(event.event_start_timestamp).toLocaleString()}
+        </p>
+        <p className="event-detail">
+          <span>End:</span> {new Date(event.event_end_timestamp).toLocaleString()}
+        </p>
+        <p className="event-detail">
+          <span>Location:</span> {event.event_location_address}
+        </p>
+        <p className="event-detail">
+          <span>Latitude:</span> {event.event_location_latitude}
+        </p>
+        <p className="event-detail">
+          <span>Longitude:</span> {event.event_location_longitude}
+        </p>
+        <p className="event-detail event-description">
+          <span>Description:</span> {event.event_description}
+        </p>
+        <p className="event-detail">
+          <span>Hosted by:</span> {event.host_email}
+        </p>
+      </div>
+
+      {userEmail && (
+        <div className="register-section">
+          {registrationMessage ? (
+            <p className={`registration-message ${registrationMessage.includes('Failed') ? 'error' : 'success'}`}>
+              {registrationMessage}
+            </p>
+          ) : (
+            <button onClick={handleRegister} className="register-button">
+              Register for Event
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

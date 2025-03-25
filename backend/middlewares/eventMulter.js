@@ -6,16 +6,16 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../uploads/event"));
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${file.originalname}`;
+    const uniqueSuffix = file.originalname;
     cb(null, uniqueSuffix);
   },
 });
 
 const eventUpload = multer({
-  storage,
+  storage, 
   // limits: { fileSize: 25 * 1024 * 1024 }, // 25mb
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "video/mp4", "video/mov"];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
 
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
