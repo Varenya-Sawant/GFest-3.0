@@ -21,7 +21,7 @@ const Cart = () => {
       };
 
       try {
-        const response = await axios.get('http://localhost:3000/api/shop/cart', {
+        const response = await axios.get('http://192.168.152.58:3000/api/shop/cart', {
           params: { email },
         }, {
           headers: {
@@ -43,7 +43,7 @@ const Cart = () => {
   const handleQuantityChange = async (cartItemId, newQuantity, productId) => {
     try {
       await axios.post(
-        'http://localhost:3000/api/shop/cart/update',
+        'http://192.168.152.58:3000/api/shop/cart/update',
         { cart_item_id: cartItemId, quantity: newQuantity, product_id: productId },
         {
           headers: {
@@ -67,7 +67,7 @@ const Cart = () => {
   const handleRemoveItem = async (cartItemId) => {
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/shop/cart/remove',
+        'http://192.168.152.58:3000/api/shop/cart/remove',
         { cart_item_id: cartItemId, email: email },
         {
           headers: {
@@ -93,7 +93,7 @@ const Cart = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/api/shop/cart/checkout',
+        'http://192.168.152.58:3000/api/shop/cart/checkout',
         { delivery_address: deliveryAddress, email: email },
         {
           headers: {

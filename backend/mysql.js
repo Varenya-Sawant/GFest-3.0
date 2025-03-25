@@ -5,7 +5,7 @@ const connection =  mysql.createPool({
   host: '127.0.0.1', // Adjust as needed
   user: 'root',
   password: 'Varenya23^',
-  database: 'hi'
+  database: 'g_fest'
 });
 
 module.exports = connection;

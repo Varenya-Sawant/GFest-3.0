@@ -93,7 +93,7 @@ const SellerDashboard = () => {
     try {
 
       const response = await axios.post(
-        `http://localhost:3000/api/seller/products`,
+        `http://192.168.152.58:3000/api/seller/products`,
         data,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );

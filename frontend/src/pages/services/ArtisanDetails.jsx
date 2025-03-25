@@ -11,7 +11,7 @@ const ArtisanDetails = () => {
   useEffect(() => {
     const fetchArtisan = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/artisans/${email}`);
+        const response = await axios.get(`http://192.168.152.58:3000/api/artisans/${email}`);
         setArtisan(response.data);
       } catch (err) {
         setError('Failed to fetch artisan details');

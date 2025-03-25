@@ -86,7 +86,7 @@ const getCart = async (req, res) => {
 
     const formattedCart = cartItems.map((cartItem) => ({
       ...cartItem,
-      image_link: `http://localhost:3000/uploads/product/${cartItem.image_link}`,
+      image_link: `http://192.168.152.58:3000/uploads/product/${cartItem.image_link}`,
     }));
 
     res.status(200).json(formattedCart);

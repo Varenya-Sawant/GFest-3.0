@@ -134,7 +134,7 @@ const EventCreationForm = () => {
       });
       data.append('hostEmail', localStorage.getItem('user_email'));
 
-      const response = await axios.post('http://localhost:3000/api/events/create', data, {
+      const response = await axios.post('http://192.168.152.58:3000/api/events/create', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

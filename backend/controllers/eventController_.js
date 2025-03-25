@@ -14,7 +14,7 @@ const getAllEvents = async (req, res) => {
     `);
 
     rows.forEach((row) => {
-      row.event_image_name = 'http://localhost:3000/uploads/event/' + row.event_image_name;
+      row.event_image_name = 'http://192.168.152.58:3000/uploads/event/' + row.event_image_name;
     });
 
     res.status(200).json(rows);
@@ -43,7 +43,7 @@ const getEvent = async (req, res) => {
 
     const event = {
       ...eventRows[0],
-      event_image_name: 'http://localhost:3000/uploads/event/' + imageRows[0].event_image_name,
+      event_image_name: 'http://192.168.152.58:3000/uploads/event/' + imageRows[0].event_image_name,
     };
 
     res.status(200).json(event);

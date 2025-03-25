@@ -25,7 +25,7 @@ const getAllPosts = async (req, res) => {
     );
 
     posts.forEach((post) => {
-      post.post_image_name = 'http://localhost:3000/uploads/post/' + post.post_image_name;
+      post.post_image_name = 'http://192.168.152.58:3000/uploads/post/' + post.post_image_name;
     });
 
     res.status(200).json(posts);
@@ -121,7 +121,7 @@ const getPostById = async (req, res) => {
     }
 
     const post = posts[0];
-    post.post_image_name = 'http://localhost:3000/uploads/post/' + post.post_image_name;
+    post.post_image_name = 'http://192.168.152.58:3000/uploads/post/' + post.post_image_name;
 
     // Fetch comments
     const [comments] = await connection.query(
