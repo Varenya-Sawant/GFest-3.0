@@ -76,7 +76,6 @@ body {
 .event-creation-form div {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .event-creation-form label {
