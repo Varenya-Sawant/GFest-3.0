@@ -4,14 +4,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px 20px;
+    background-color: #83ba6b;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #F13C20; /* Coral */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 80px; /* Limits the width */
 }
+
+.logo img {
+    max-width: 100%;  /* Ensures it doesn't overflow */
+    height: auto;      /* Keeps aspect ratio */
+    width: 120px;      /* Adjust width as needed */
+}
+
 
 .nav-links {
     display: flex;
@@ -19,9 +28,10 @@
 }
 
 .nav-links a {
-    color: #070707; /* Text color for links */
+    color: #f5f5f0;
     text-decoration: none;
     font-size: 1.2rem;
+    font-weight: 600;
     position: relative;
     padding-bottom: 5px; /* Space for the underline */
 }

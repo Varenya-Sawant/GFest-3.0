@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'; // Corrected to 'react-router-dom'
 import './Navbar.css';
+import logoImage from '../images/logo.png';
 
 const isUserLoggedIn = () => Boolean(localStorage.getItem('user_email'));
 const getUserTypes = () => localStorage.getItem('user_type')?.split(',') || [];
@@ -12,7 +13,11 @@ const isHostAndSeller = () => isHost() && isSeller();
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="logo">Gfest</div>
+      <div className="logo">
+      <Link to="/" className="logo">
+        <img src={logoImage} alt="Events" />
+        </Link>
+      </div>
 
       <div className="nav-links">
         <Link to="/">HOME</Link>
