@@ -10,7 +10,7 @@ const ArtisanListing = () => {
   useEffect(() => {
     const fetchArtisans = async () => {
       try {
-        const response = await axios.get('http://192.168.152.58:3000/api/artisans');
+        const response = await axios.get('http://192.168.6.58:3000/api/artisans');
         setArtisans(response.data);
       } catch (err) {
         setError('Failed to fetch artisans');

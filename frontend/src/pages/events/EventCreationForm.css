@@ -147,6 +147,8 @@ body {
 
 /* Buttons */
 .event-creation-form button {
+  margin: auto;
+  margin-top: 20px;
   padding: 14px 30px;
   font-size: 1.2rem;
   color: #FFFFFF; /* White text */

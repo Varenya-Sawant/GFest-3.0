@@ -5,17 +5,17 @@ import Forum from './pages/forum/Forum';
 import Home from './pages/Home/Home';
 import Shop from './pages/shop/Shop'; // Corrected import statement
 import Cart from './pages/shop/Cart'; // Corrected import statement
-import  OrderConfirmation from './pages/shop/OrderConfirmation'; // Corrected import statement
+import OrderConfirmation from './pages/shop/OrderConfirmation'; // Corrected import statement
 import { ShopContextProvider } from './context/shop-context';
 import ArtisanListing from './pages/services/ArtisanListing';
 import ArtisanDetails from './pages/services/ArtisanDetails';
 import Contact from './pages/contact/Contact';
 import Footer from './components/Footer';
- import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 // import HostDashboard from './pages/events/HostDashboard';
 // import ArtisanDashboard from './pages/services/ArtisanDashboard';
- import SellerDashboard from './pages/shop/SellerDashboard';
-// import CulturalFestivals from './pages/home/CulturalFestivals';
+import SellerDashboard from './pages/shop/SellerDashboard';
+import CulturalFestivals from './pages/home/CulturalFestivals';
 import Login from './pages/login/Login';
 import SignUp from './pages/login/SignUp';
 import Profile from './pages/profile/Profile';
@@ -38,13 +38,13 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               {/* <Route path="/forum" element={<Forum />} /> */}
-              <Route path ="/forum" element={<Forum />} />
-              <Route path ="/forum/create" element={<CreatePost/>} />
-              <Route path ="/forum/edit/:id" element={<CreatePost/>} />
-              <Route path ="/forum/posts/:id" element={<PostDetails/>} />
-              
-              <Route path="/shop" element={<Shop />} /> 
-              <Route path="/products/:id" element={<ProductDetails />} /> 
+              <Route path="/forum" element={<Forum />} />
+              <Route path="/forum/create" element={<CreatePost />} />
+              <Route path="/forum/edit/:id" element={<CreatePost />} />
+              <Route path="/forum/posts/:id" element={<PostDetails />} />
+              <Route path="/cultural-festivals " element={<CulturalFestivals />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/order-confirmation" element={<OrderConfirmation />} />
               <Route path="/services" element={<ArtisanListing />} />

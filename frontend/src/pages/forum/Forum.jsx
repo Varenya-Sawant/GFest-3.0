@@ -16,7 +16,7 @@ const Forum = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.152.58:3000/api/forum/posts?page=${page}&limit=${postsPerPage}`,
+          `http://192.168.6.58:3000/api/forum/posts?page=${page}&limit=${postsPerPage}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,

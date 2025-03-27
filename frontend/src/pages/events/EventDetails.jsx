@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router'; // Fixed import
 import './EventDetails.css';
 
 const EventDetails = () => {
@@ -17,7 +17,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://192.168.152.58:3000/api/events/${id}`);
+        const response = await axios.get(`http://192.168.6.58:3000/api/events/${id}`);
         setEvent(response.data);
         setLoading(false);
       } catch (err) {
@@ -35,7 +35,7 @@ const EventDetails = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.152.58:3000/api/events/register', {
+      const response = await axios.post('http://192.168.6.58:3000/api/events/register', {
         eventId: id,
         userEmail,
       });
@@ -43,6 +43,11 @@ const EventDetails = () => {
     } catch (err) {
       setRegistrationMessage(err.response?.data?.message || 'Failed to register for the event');
     }
+  };
+
+  const isEventOver = () => {
+    if (!event) return true; // Default to true if event isn’t loaded
+    return new Date(event.event_end_timestamp) < new Date();
   };
 
   if (loading) return <div className="event-loading">Loading event...</div>;
@@ -93,10 +98,12 @@ const EventDetails = () => {
             <p className={`registration-message ${registrationMessage.includes('Failed') ? 'error' : 'success'}`}>
               {registrationMessage}
             </p>
-          ) : (
+          ) : !isEventOver() ? (
             <button onClick={handleRegister} className="register-button">
               Register for Event
             </button>
+          ) : (
+            <p className="event-ended-message">This event has ended.</p>
           )}
         </div>
       )}

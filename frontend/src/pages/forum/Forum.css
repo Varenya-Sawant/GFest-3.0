@@ -134,6 +134,7 @@ body {
 .post-title {
   text-decoration: none;
   color: inherit;
+display: flex;
 }
 
 .post-card h3 {

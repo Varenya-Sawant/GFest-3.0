@@ -14,7 +14,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://192.168.152.58:3000/api/shop/products/${id}`);
+        const response = await axios.get(`http://192.168.6.58:3000/api/shop/products/${id}`);
         setProduct(response.data[0]);
         setLoading(false);
       } catch (err) {
@@ -36,7 +36,7 @@ const ProductDetails = () => {
 
     try {
       await axios.post(
-        'http://192.168.152.58:3000/api/shop/cart',
+        'http://192.168.6.58:3000/api/shop/cart',
         { product_id: id, quantity, email: localStorage.getItem('user_email') },
         {
           headers: {

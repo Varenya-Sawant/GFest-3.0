@@ -1,144 +1,42 @@
+/* src/components/Footer.css */
+
+/* src/components/Footer.css */
+
 .footer {
-  background-color: #ff5733;
-  color:  white;
-  padding: 40px 0;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
- 
-  gap: 20px;
-  justify-content: space-between;
-  align-items: center; /* Aligns content vertically */
-  flex-wrap: wrap;
- 
-}
-
-.footer-content {
-  display: flex;
-  width: 100%;
-  justify-content: space-between; /* Separates contact details and social media */
-  align-items: center;
+  background-color: #F13C20; /* Your brand color */
+  color: white; 
+  text-align: center; 
+  padding: 20px 0; 
+  position: relative; 
+  bottom: 0; 
+  width: 100%; 
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
 
 
 .footer-title {
-  color: white;
-  font-weight: bold;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #ff0066;
-  padding-bottom: 5px;
-  font-size: 30px;
-  text-align: left;
-
- 
- 
+  margin: 0;
+  font-size: 1.5rem; /* Title font size */
+  margin-bottom: 10px; /* Space below title */
 }
 
-.footer-media{
-  flex: 1;
-  text-align: right; /* Moves social media to the right */
-
-}
-
-.footer-social {
+.social-media-icons {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  justify-content: center; /* Center the icons */
+  gap: 20px; /* Space between icons */
+  margin-bottom: 10px; /* Space below icons */
 }
 
-.social-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: transform 0.3s ease;
+.social-media-icons a {
+  color: white; /* Icon color */
+  font-size: 1.5rem; /* Icon size */
+  transition: color 0.3s; /* Transition for hover effect */
 }
 
-.social-icon img {
-  width: 100%;
-  height: auto;
-  display: block;
+.social-media-icons a:hover {
+  color: #5DAF51; /* Coral on hover */
 }
 
-.social-icon:hover {
-  transform: scale(1.1);
-}
-
-.footer-links {
-  background: none;  /* Removes the white box */
-  color: white;  /* Adjust to match your theme */
-  padding: 0;  /* Removes extra padding */
-  display: inline-block; /* Keeps spacing consistent */
-  border: none; /* In case there are unnecessary borders */
-  font-size: 18px;
-}
-
-.footer-text {
-  text-align: center; /* Centers the entire line */
-  font-size: 15px;  /* Adjusts the text size */
-  color: white;       /* Matches the footer theme */
-  font-weight: bold;  /* Makes text stand out */
-  text-align: left;
-}
-
-.footer-contact {
-  flex: 1;
-  text-align: left; /* Keeps contact details aligned to the left */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-  
-
-
-.footer-location,
-.footer-phone {
-  display: flex;
-  align-items: center; /* Ensures icons and text are vertically aligned */
-  gap: 10px; /* Adds spacing between the icon and the text */
-}
-.footer-email-icon{
-  margin-left: 0%;
-  width: 40px; /* Adjust icon size */
-  height: 40px;
-}
-.location-icon,
-.phone-icon {
-  width: 40px; /* Adjust icon size */
-  height: 40px;
-}
-
-.footer-location-text{
-  display: flex;
-  align-items: center; /* Aligns text properly */
-  font-size: 18px; /* Adjust text size */
-  color: white; /* Ensure text is readable */
-  line-height: 1.4; /* Improves readability */
-  margin-left: -50%;
-}
-
-.footer-phone-text {
-  display: flex;
-  align-items: center; /* Aligns text properly */
-  font-size: 18px; /* Adjust text size */
-  color: white; /* Ensure text is readable */
-  line-height: 1.4; /* Improves readability */
-  margin-left: -40%;
-}
-.footer-email-text{
-  display: flex;
-  align-items: center; /* Aligns text properly */
-  font-size: 18px; /* Adjust text size */
-  color: white; /* Ensure text is readable */
-  line-height: 1.4; /* Improves readability */
-  margin-left: 30%;
-  margin-top: -20%;
-  
-
+.footer-bottom {
+  margin-top: 10px; /* Space above copyright */
 }

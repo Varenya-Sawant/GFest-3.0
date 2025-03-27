@@ -79,7 +79,7 @@ const SignUp = () => {
 
     if (isValid) {
       try {
-        const response = await axios.post('http://192.168.152.58:3000/api/register', formData);
+        const response = await axios.post('http://192.168.6.58:3000/api/register', formData);
         const data = await response.data;
 
         if (response.status === 201) {

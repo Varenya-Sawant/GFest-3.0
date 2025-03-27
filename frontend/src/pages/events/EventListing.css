@@ -63,6 +63,7 @@ body {
 /* Event Card Link */
 .event-card-link {
   text-decoration: none;
+  display: flex;
   color: inherit;
 }
 
@@ -177,6 +178,35 @@ body {
 
 .event-error {
   color: #f13c20;
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.arrow-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #f13c20;
+  cursor: pointer;
+  padding: 0 20px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.arrow-button:hover {
+  transform: scale(1.2);
+  color: #e02e14;
+}
+
+/* Adjust title in header */
+.calendar-header .event-listing-title {
+  margin: 0 20px;
+  font-size: 2.5rem;
 }
 
 /* Animations */

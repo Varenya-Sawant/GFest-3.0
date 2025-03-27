@@ -26,7 +26,7 @@ const Shop = () => {
 
 
         const response = await axios.get(
-          `http://192.168.152.58:3000/api/shop/products?${queryParams.toString()}`
+          `http://192.168.6.58:3000/api/shop/products?${queryParams.toString()}`
         );
         setProducts(response.data);
         setLoading(false);
@@ -39,7 +39,7 @@ const Shop = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://192.168.152.58:3000/api/shop/products/categories');
+        const response = await axios.get('http://192.168.6.58:3000/api/shop/products/categories');
 
         setCategories(response.data);
       } catch (err) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router'; // Assuming react-router-dom for modern usage
+import { Link } from 'react-router'; // Corrected import
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -19,13 +19,14 @@ const EventListing = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [currentDate, setCurrentDate] = useState(new Date()); // Tracks the selected month/year
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://192.168.152.58:3000/api/events');
+        const response = await axios.get('http://192.168.6.58:3000/api/events');
         setEvents(response.data);
-        filterEvents(response.data);
+        filterEventsByMonth(response.data, currentDate);
       } catch (err) {
         setError('No events');
       } finally {
@@ -35,14 +36,31 @@ const EventListing = () => {
     fetchEvents();
   }, []);
 
-  const filterEvents = (eventsData) => {
-    const currentTime = new Date();
-    const upcomingEvents = eventsData.filter((event) => {
-      const eventEndTime = new Date(event.event_end_timestamp);
-      return eventEndTime.getTime() > currentTime.getTime();
+  const filterEventsByMonth = (eventsData, date) => {
+    const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+    const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+
+    const eventsInMonth = eventsData.filter((event) => {
+      const eventStart = new Date(event.event_start_timestamp);
+      const eventEnd = new Date(event.event_end_timestamp);
+      // Include events that start or end in the selected month, or span across it
+      return (
+        (eventStart >= monthStart && eventStart <= monthEnd) ||
+        (eventEnd >= monthStart && eventEnd <= monthEnd) ||
+        (eventStart <= monthStart && eventEnd >= monthEnd)
+      );
     });
-    setFilteredEvents(upcomingEvents);
+    setFilteredEvents(eventsInMonth);
   };
+
+  const handleMonthChange = (direction) => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + direction);
+    setCurrentDate(newDate);
+    filterEventsByMonth(events, newDate);
+  };
+
+  const monthName = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   if (loading) {
     return <div className="event-loading">Loading events...</div>;
@@ -50,13 +68,21 @@ const EventListing = () => {
 
   return (
     <div className="event-listing-container">
-      <h2 className="event-listing-title">Upcoming Events</h2>
+      <div className="calendar-header">
+        <button className="arrow-button" onClick={() => handleMonthChange(-1)}>
+          &#9664; {/* Left arrow */}
+        </button>
+        <h2 className="event-listing-title">{monthName}</h2>
+        <button className="arrow-button" onClick={() => handleMonthChange(1)}>
+          &#9654; {/* Right arrow */}
+        </button>
+      </div>
 
       {error && <p className="event-error">{error}</p>}
 
       <div className="event-grid">
-        {filteredEvents.length <= 0 ? (
-          <p className="no-events">No upcoming events available.</p>
+        {filteredEvents.length === 0 ? (
+          <p className="no-events">No events in {monthName}.</p>
         ) : (
           filteredEvents.map((event) => (
             <Link

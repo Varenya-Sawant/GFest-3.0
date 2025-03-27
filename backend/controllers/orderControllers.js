@@ -86,7 +86,7 @@ const getCart = async (req, res) => {
 
     const formattedCart = cartItems.map((cartItem) => ({
       ...cartItem,
-      image_link: `http://192.168.152.58:3000/uploads/product/${cartItem.image_link}`,
+      image_link: `http://192.168.6.58:3000/uploads/product/${cartItem.image_link}`,
     }));
 
     res.status(200).json(formattedCart);
@@ -162,7 +162,7 @@ const checkout = async (req, res) => {
     // Validate stock
     for (const item of cartItems) {
       if (item.cart_quantity > item.product_stock) {
-        return res.status(400).json({ message: `Insufficient stock for product ID ${item.product_id}` });
+        return res.status(406).json({ message: `Insufficient stock for product ID ${item.product_id}` });
       }
     }
 

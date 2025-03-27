@@ -2,7 +2,7 @@
 -- version 6.0.0-dev+20250128.1cd46b0589
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
+-- Host: 192.168.6.58
 -- Generation Time: Mar 03, 2025 at 08:13 AM
 -- Server version: 8.0.41
 -- PHP Version: 8.4.4

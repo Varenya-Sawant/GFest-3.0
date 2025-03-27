@@ -11,7 +11,7 @@ const Services = ({ setBookings }) => {
     // Fetch services from backend
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/services');
+        const response = await axios.get('http://192.168.6.58:5000/services');
         setServices(response.data);
         setFilteredServices(response.data);
       } catch (error) {
