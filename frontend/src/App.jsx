@@ -42,7 +42,7 @@ const App = () => {
               <Route path="/forum/create" element={<CreatePost />} />
               <Route path="/forum/edit/:id" element={<CreatePost />} />
               <Route path="/forum/posts/:id" element={<PostDetails />} />
-              <Route path="/cultural-festivals " element={<CulturalFestivals />} />
+              <Route path="/cultural-festivals" element={<CulturalFestivals />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />

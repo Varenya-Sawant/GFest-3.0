@@ -1,4 +1,5 @@
 const connection = require('../mysql');
+const { sendEmailToSellers } = require('../utils/sendEmail');
 
 // Add product to cart
 const addToCart = async (req, res) => {
@@ -86,7 +87,7 @@ const getCart = async (req, res) => {
 
     const formattedCart = cartItems.map((cartItem) => ({
       ...cartItem,
-      image_link: `http://192.168.6.58:3000/uploads/product/${cartItem.image_link}`,
+      image_link: `http://localhost:3000/uploads/product/${cartItem.image_link}`,
     }));
 
     res.status(200).json(formattedCart);
@@ -152,7 +153,7 @@ const checkout = async (req, res) => {
   try {
     // Get cart items
     const [cartItems] = await connection.query(
-      'SELECT ci.cart_item_id, ci.product_id, p.product_name, ci.cart_quantity, p.product_price, p.product_stock FROM cart_items ci JOIN products p ON ci.product_id = p.product_id WHERE ci.user_email = ?',
+      'SELECT ci.cart_item_id, ci.product_id, p.product_name, ci.cart_quantity, p.product_price, p.product_stock, p.seller_email FROM cart_items ci JOIN products p ON ci.product_id = p.product_id WHERE ci.user_email = ?',
       [user_email]
     );
     if (cartItems.length === 0) {
@@ -189,7 +190,7 @@ const checkout = async (req, res) => {
     // Clear cart
     await connection.query('DELETE FROM cart_items WHERE user_email = ?', [user_email]);
 
-    // Generate bill (simplified response for now)
+    // Generate bill 
     const bill = {
       order_id,
       user_email,
@@ -199,10 +200,17 @@ const checkout = async (req, res) => {
         quantity: item.cart_quantity,
         price: item.product_price,
         total: item.cart_quantity * item.product_price,
+        seller_email: item.seller_email,
       })),
       total_amount: cartItems.reduce((sum, item) => sum + item.cart_quantity * item.product_price, 0),
       delivery_address,
     };
+
+    // Call the email function
+    const emailSuccess = await sendEmailToSellers(bill.items);
+    if (!emailSuccess) {
+      console.warn('Some seller emails may not have been sent.');
+    }
 
     res.status(200).json({ message: 'Checkout successful', bill });
   } catch (error) {
@@ -210,7 +218,7 @@ const checkout = async (req, res) => {
     res.status(500).json({ message: 'Server error during checkout', error: error.message });
   }
 };
-// ... (previous imports and functions remain unchanged)
+
 
 const removeCartItem = async (req, res) => {
   const { cart_item_id, email: user_email } = req.body; // Get cart_item_id and user_email from the request body
@@ -221,24 +229,24 @@ const removeCartItem = async (req, res) => {
   };
 
   try {
-    // Step 1: Check if the cart item exists for the given user
+    // Checking if the cart item exists for the given user
     const [cartItem] = await connection.query(
       'SELECT cart_item_id FROM cart_items WHERE cart_item_id = ? AND user_email = ?',
       [cart_item_id, user_email]
     );
 
-    // If cart item doesn't exist, return an error response
+    // cart item doesn't exist, return an error response
     if (cartItem.length === 0) {
       return res.status(404).json({ message: 'Cart item not found' });
     }
 
-    // Step 2: Remove the cart item from the database
+    // Remove the cart item from the database
     await connection.query(
       'DELETE FROM cart_items WHERE cart_item_id = ? AND user_email = ?',
       [cart_item_id, user_email]
     );
 
-    // Step 3: Respond with success
+    // Respond with success
     res.status(200).json({ message: 'Cart item removed successfully' });
 
   } catch (error) {

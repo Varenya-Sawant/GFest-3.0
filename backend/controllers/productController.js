@@ -162,7 +162,7 @@ const getAllProducts = async (req, res) => {
     // Format the product images link
     const formattedProducts = products.map((product) => ({
       ...product,
-      image_link: `http://192.168.6.58:3000/uploads/product/${product.product_media_link}`,
+      image_link: `http://localhost:3000/uploads/product/${product.product_media_link}`,
     }));
 
     res.status(200).json(formattedProducts);
@@ -194,7 +194,7 @@ const getProductById = async (req, res) => {
 
     const formattedProducts = products.map((product) => ({
       ...product,
-      image_link: `http://192.168.6.58:3000/uploads/product/${product.image_link}`,
+      image_link: `http://localhost:3000/uploads/product/${product.image_link}`,
     }));
 
     res.status(200).json(formattedProducts);

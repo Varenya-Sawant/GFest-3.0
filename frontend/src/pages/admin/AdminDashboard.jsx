@@ -22,10 +22,10 @@ const AdminDashboard = () => {
           navigate('/');
         }
 
-        const sellerResponse = await axios.get('http://192.168.6.58:3000/api/admin/sellers/pending', {
+        const sellerResponse = await axios.get('http://localhost:3000/api/admin/sellers/pending', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
-        const hostResponse = await axios.get('http://192.168.6.58:3000/api/admin/hosts/pending', {
+        const hostResponse = await axios.get('http://localhost:3000/api/admin/hosts/pending', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setSellers(sellerResponse.data); // Expecting { seller_email, seller_company_name, seller_status }
@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     try {
       const endpoint = type === 'seller' ? 'sellers' : 'hosts';
       await axios.post(
-        `http://192.168.6.58:3000/api/admin/${endpoint}/approve`,
+        `http://localhost:3000/api/admin/${endpoint}/approve`,
         { email },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
     try {
       const endpoint = type === 'seller' ? 'sellers' : 'hosts';
       await axios.post(
-        `http://192.168.6.58:3000/api/admin/${endpoint}/reject`,
+        `http://localhost:3000/api/admin/${endpoint}/reject`,
         { email },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );

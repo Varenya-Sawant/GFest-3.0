@@ -12,6 +12,13 @@ const Cart = () => {
   const email = localStorage.getItem('user_email');
 
   useEffect(() => {
+    console.log({ cartItems });
+
+
+  }, [cartItems])
+
+
+  useEffect(() => {
     const fetchCart = async () => {
       if (!email) {
         setError('Please log in to view your cart.');
@@ -21,7 +28,7 @@ const Cart = () => {
       };
 
       try {
-        const response = await axios.get('http://192.168.6.58:3000/api/shop/cart', {
+        const response = await axios.get('http://localhost:3000/api/shop/cart', {
           params: { email },
         }, {
           headers: {
@@ -43,7 +50,7 @@ const Cart = () => {
   const handleQuantityChange = async (cartItemId, newQuantity, productId) => {
     try {
       await axios.post(
-        'http://192.168.6.58:3000/api/shop/cart/update',
+        'http://localhost:3000/api/shop/cart/update',
         { cart_item_id: cartItemId, quantity: newQuantity, product_id: productId },
         {
           headers: {
@@ -67,7 +74,7 @@ const Cart = () => {
   const handleRemoveItem = async (cartItemId) => {
     try {
       const response = await axios.post(
-        'http://192.168.6.58:3000/api/shop/cart/remove',
+        'http://localhost:3000/api/shop/cart/remove',
         { cart_item_id: cartItemId, email: email },
         {
           headers: {
@@ -93,7 +100,7 @@ const Cart = () => {
 
     try {
       const response = await axios.post(
-        'http://192.168.6.58:3000/api/shop/cart/checkout',
+        'http://localhost:3000/api/shop/cart/checkout',
         { delivery_address: deliveryAddress, email: email },
         {
           headers: {

@@ -119,6 +119,7 @@ body {
 
 /* Map Container */
 .event-creation-form .leaflet-container {
+  margin: auto;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(31, 37, 37, 0.2); /* Dark Slate shadow */
 }

@@ -11,7 +11,7 @@ const Cart = () => {
     const fetchCart = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://192.168.6.58:3000/api/cart', {
+        const response = await axios.get('http://localhost:3000/api/cart', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token') || ''}` },
         });
         setCart(response.data);
@@ -27,7 +27,7 @@ const Cart = () => {
   const updateQuantity = async (cartItemId, newQuantity) => {
     try {
       await axios.put(
-        'http://192.168.6.58:3000/api/cart',
+        'http://localhost:3000/api/cart',
         { cart_item_id: cartItemId, cart_quantity: newQuantity },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token') || ''}` } }
       );
@@ -53,7 +53,7 @@ const Cart = () => {
       if (!deliveryAddress) return;
 
       const response = await axios.post(
-        'http://192.168.6.58:3000/api/checkout',
+        'http://localhost:3000/api/checkout',
         { order_delivery_address: deliveryAddress },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token') || ''}` } }
       );

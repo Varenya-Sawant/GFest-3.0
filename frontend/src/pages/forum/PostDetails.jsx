@@ -18,7 +18,7 @@ const PostDetails = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://192.168.6.58:3000/api/forum/posts/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/forum/posts/${id}`);
         setPost(response.data.post);
         setComments(response.data.comments);
         setLoading(false);
@@ -40,7 +40,7 @@ const PostDetails = () => {
 
     try {
       await axios.post(
-        'http://192.168.6.58:3000/api/forum/comments',
+        'http://localhost:3000/api/forum/comments',
         { post_id: id, comment_content: newComment, email: currentUserEmail },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -66,7 +66,7 @@ const PostDetails = () => {
   const handleEditComment = async () => {
     try {
       await axios.put(
-        'http://192.168.6.58:3000/api/forum/comments',
+        'http://localhost:3000/api/forum/comments',
         { post_id: id, comment_content: editComment, email: currentUserEmail },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -90,7 +90,7 @@ const PostDetails = () => {
 
   const handleDeleteComment = async (commenterEmail) => {
     try {
-      await axios.delete('http://192.168.6.58:3000/api/forum/comments', {
+      await axios.delete('http://localhost:3000/api/forum/comments', {
         data: { post_id: id, commenter_email: commenterEmail },
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
@@ -104,7 +104,7 @@ const PostDetails = () => {
   const handleDeletePost = async () => {
     if (confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`http://192.168.6.58:3000/api/forum/posts/${id}`, {
+        await axios.delete(`http://localhost:3000/api/forum/posts/${id}`, {
           data: { email: currentUserEmail }
         }, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

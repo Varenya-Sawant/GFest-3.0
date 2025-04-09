@@ -23,7 +23,7 @@ const Profile = () => {
                 return;
             }
 
-            const response = await axios.post('http://192.168.6.58:3000/api/profile', { email });
+            const response = await axios.post('http://localhost:3000/api/profile', { email });
             setUserData(response.data.user);
         })();
     }, []);

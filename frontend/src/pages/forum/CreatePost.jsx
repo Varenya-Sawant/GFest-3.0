@@ -18,7 +18,7 @@ const CreatePost = () => {
       // Fetch post for editing
       const fetchPost = async () => {
         try {
-          const response = await axios.get(`http://192.168.6.58:3000/api/forum/posts/${id}`);
+          const response = await axios.get(`http://localhost:3000/api/forum/posts/${id}`);
           const { post } = response.data;
           setTitle(post.post_title);
           setContent(post.post_content);
@@ -68,7 +68,7 @@ const CreatePost = () => {
         formData.append('update', true);
 
         // Update post
-        await axios.post(`http://192.168.6.58:3000/api/forum/posts/${id}`, formData, {
+        await axios.post(`http://localhost:3000/api/forum/posts/${id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -79,7 +79,7 @@ const CreatePost = () => {
         formData.append('update', false);
 
         // Create post
-        await axios.post('http://192.168.6.58:3000/api/forum/posts', formData, {
+        await axios.post('http://localhost:3000/api/forum/posts', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${localStorage.getItem('token')}`,

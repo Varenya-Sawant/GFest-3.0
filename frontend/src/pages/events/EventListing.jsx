@@ -24,7 +24,7 @@ const EventListing = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://192.168.6.58:3000/api/events');
+        const response = await axios.get('http://localhost:3000/api/events');
         setEvents(response.data);
         filterEventsByMonth(response.data, currentDate);
       } catch (err) {

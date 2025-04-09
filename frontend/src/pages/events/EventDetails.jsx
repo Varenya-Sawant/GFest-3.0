@@ -17,7 +17,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://192.168.6.58:3000/api/events/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/events/${id}`);
         setEvent(response.data);
         setLoading(false);
       } catch (err) {
@@ -35,7 +35,7 @@ const EventDetails = () => {
     }
 
     try {
-      const response = await axios.post('http://192.168.6.58:3000/api/events/register', {
+      const response = await axios.post('http://localhost:3000/api/events/register', {
         eventId: id,
         userEmail,
       });

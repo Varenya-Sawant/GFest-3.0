@@ -13,7 +13,7 @@ const ArtisanDashboard = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://192.168.6.58:5000/services');
+        const response = await axios.get('http://localhost:5000/services');
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -25,7 +25,7 @@ const ArtisanDashboard = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://192.168.6.58:5000/services', newService);
+      const response = await axios.post('http://localhost:5000/services', newService);
       setServices((prev) => [...prev, response.data]);
       setNewService({ name: '', description: '', price: '' });
     } catch (error) {

@@ -110,6 +110,7 @@ h1 span {
   border-radius: 6px; /* Rounded corners */
   cursor: pointer; /* Indicate clickability */
   transition: background-color 0.3s ease; /* Add smooth hover effect */
+  margin-left: 30px;
 }
 
 .cta-large:hover {
